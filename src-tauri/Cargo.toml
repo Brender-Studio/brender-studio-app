@@ -2,7 +2,7 @@
 name = "brender-studio"
 version = "0.1.0"
 description = "Blender render farm with AWS resources."
-authors = ["Brender Studio", "jer-nc", "david-blg"]
+authors = ["Brender Studio"]
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
