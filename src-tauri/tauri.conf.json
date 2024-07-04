@@ -1,0 +1,159 @@
+{
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build",
+    "devPath": "http://localhost:1420",
+    "distDir": "../dist"
+  },
+  "package": {
+    "productName": "Brender Studio",
+    "version": "0.1.0"
+  },
+  "tauri": {
+    "allowlist": {
+      "all": false,
+      "path": {
+        "all": true
+      },
+      "app": {
+        "all": true,
+        "hide": true,
+        "show": true
+      },
+      "fs": {
+        "all": true,
+        "readFile": true,
+        "writeFile": true,
+        "readDir": true,
+        "copyFile": true,
+        "createDir": true,
+        "removeDir": true,
+        "removeFile": true,
+        "renameFile": true,
+        "exists": true,
+        "scope": [
+          "**",
+          "$RESOURCE/*",
+          "$APP", 
+          "$APP/*"
+        ]
+      },
+      "dialog": {
+        "all": true,
+        "ask": true,
+        "confirm": true,
+        "message": true,
+        "open": true,
+        "save": true
+      },
+      "clipboard": {
+        "all": true,
+        "writeText": true,
+        "readText": true
+      },
+      "shell": {
+        "all": true,
+        "open": true,
+        "execute": true,
+        "scope": [
+          {
+            "name": "aws-cli",
+            "cmd": "aws",
+            "args": true
+          }
+        ]
+      },
+      "http": {
+        "all": true,
+        "request": true,
+        "scope": [
+          "https://*"
+        ]
+      },
+
+      "protocol": {
+        "asset": true,
+        "assetScope": ["**"]
+      }
+    },
+    "macOSPrivateApi": true,
+    "systemTray": {
+      "iconPath": "icons/logos/logo-brender-studiox32.png",
+      "menuOnLeftClick": true,
+      "title": "Brender Studio",
+      "iconAsTemplate": false
+    },
+    "windows": [
+      {
+        "fullscreen": false,
+        "resizable": true,
+        "title": "Brender Studio",
+        "width": 1280,
+        "height": 780,
+        "minWidth": 1200,
+        "minHeight": 700,
+        "visible": false,
+        "center": true
+      },
+      {
+        "width": 1280,
+        "height": 720,
+        "minWidth": 1200,
+        "minHeight": 600,
+        "decorations": false,
+        "fileDropEnabled": true,
+        "url": "splashscreen.html",
+        "label": "splashscreen",
+        "theme":"Dark",
+        "center": true,
+        "transparent": true
+      }
+    ],
+    "security": {
+      "csp": null
+    },
+    "bundle": {
+      "active": true,
+      "copyright": "Brender Studio",
+      "category": "Utility",
+      "shortDescription": "Brender Studio is a desktop application for managing your Blender render farm with AWS Resources.",
+      "longDescription": "Brender Studio is a desktop application for managing your Blender render farm with AWS Resources. It is designed to be a simple and easy-to-use tool for artists and studios to manage their render farm resources.",
+      "targets": "all",
+      "identifier": "com.brender-studio.dev",
+      "publisher": "Brender Studio",
+      "macOS": {
+        "providerShortName": "Brender Studio"
+      },
+      "resources": [
+        "resources/*"
+      ],
+      "windows": {
+        "allowDowngrades": true,
+        "certificateThumbprint": null,
+        "digestAlgorithm": null,
+        "nsis": {
+          "headerImage": "icons/headers/brender-studio-header-nsis.bmp",
+          "sidebarImage": "icons/side/brender-side-nsis.bmp"
+        },
+        "timestampUrl": null,
+        "tsp": false,
+        "webviewFixedRuntimePath": null,
+        "webviewInstallMode": {
+          "silent": true,
+          "type": "downloadBootstrapper"
+        },
+        "wix": {
+          "bannerPath": "icons/headers/brender-studio-header-wix.bmp",
+          "dialogImagePath": "icons/side/brender-side-wix.bmp"
+        }
+      },
+      "icon": [
+        "icons/logos/logo-brender-studiox32.png",
+        "icons/logos/logo-brender-studiox128.png",
+        "icons/logos/logo-brender-studiox256.png",
+        "icons/logos/logo-brender-studio.icns",
+        "icons/logos/logo-brender-icox32.ico"
+      ]
+    }
+  }
+}

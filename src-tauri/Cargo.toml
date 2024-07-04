@@ -1,0 +1,27 @@
+[package]
+name = "brender-studio"
+version = "0.1.0"
+description = "Blender render farm with AWS resources."
+authors = ["Brender Studio", "jer-nc", "david-blg"]
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[build-dependencies]
+tauri-build = { version = "1.5", features = [] }
+
+[dependencies]
+tauri = { version = "1.5", features = [ "app-all", "protocol-asset", "http-all", "system-tray", "macos-private-api", "path-all", "dialog-all", "clipboard-all", "fs-all", "shell-all", "devtools"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tar = "0.4"
+flate2 = "1.0"
+# reqwest = "0.11" # for http requests, review if it's the best option for checking connection
+fix-path-env = { git = "https://github.com/tauri-apps/fix-path-env-rs" }
+# tauri-plugin-context-menu = "0.7.1"
+tokio = { version = "1", features = ["full"] }
+
+[features]
+# this feature is used for production builds or when `devPath` points to the filesystem
+# DO NOT REMOVE!!
+custom-protocol = ["tauri/custom-protocol"]
