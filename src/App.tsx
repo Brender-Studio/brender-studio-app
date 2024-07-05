@@ -1,11 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import AppLayout from "./components/layouts/AppLayout";
 import AppRoutes from "./routes/AppRoutes";
 import { invoke } from '@tauri-apps/api/tauri'
-import { setupUpdater } from "./update/updater";
+import { checkUpdate } from "@tauri-apps/api/updater";
+// import { setupUpdater } from "./update/updater";
 
 function App() {
-
+  const updateChecked = useRef(false);
   useEffect(() => {
     // document.addEventListener('contextmenu', event => event.preventDefault());
 
@@ -23,20 +24,21 @@ function App() {
 
 
   useEffect(() => {
-
-    let unlistenUpdater: () => void;
-    setupUpdater().then(unlisten => {
-      unlistenUpdater = unlisten;
-    });
-
-    return () => {
-      if (unlistenUpdater) {
-        unlistenUpdater();
+    async function checkForUpdates() {
+      if (!updateChecked.current) {
+        try {
+          await checkUpdate();
+        } catch (error) {
+          console.error('Error checking for updates:', error);
+        }
+        updateChecked.current = true;
       }
     }
 
+    checkForUpdates();
   }, []);
 
+  
   return (
     <AppLayout>
       <AppRoutes />
