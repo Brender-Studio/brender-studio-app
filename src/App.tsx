@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import AppLayout from "./components/layouts/AppLayout";
 import AppRoutes from "./routes/AppRoutes";
 import { invoke } from '@tauri-apps/api/tauri'
+import { setupUpdater } from "./update/updater";
 
 function App() {
 
@@ -13,6 +14,19 @@ function App() {
 
       window.clearTimeout(closeSplashscreenTimeout);
     }, 1000); 
+
+    let unlistenUpdater: () => void;
+    setupUpdater().then(unlisten => {
+      unlistenUpdater = unlisten;
+    });
+
+    // Limpieza
+    return () => {
+      window.clearTimeout(closeSplashscreenTimeout);
+      if (unlistenUpdater) {
+        unlistenUpdater();
+      }
+    };
   }, []);
 
 
