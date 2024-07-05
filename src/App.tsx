@@ -15,20 +15,27 @@ function App() {
       window.clearTimeout(closeSplashscreenTimeout);
     }, 1000);
 
+    // Limpieza
+    return () => {
+      window.clearTimeout(closeSplashscreenTimeout);
+    };
+  }, []);
+
+
+  useEffect(() => {
+
     let unlistenUpdater: () => void;
     setupUpdater().then(unlisten => {
       unlistenUpdater = unlisten;
     });
 
-    // Limpieza
     return () => {
-      window.clearTimeout(closeSplashscreenTimeout);
       if (unlistenUpdater) {
         unlistenUpdater();
       }
-    };
-  }, []);
+    }
 
+  }, []);
 
   return (
     <AppLayout>
