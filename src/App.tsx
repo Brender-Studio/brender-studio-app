@@ -13,7 +13,7 @@ function App() {
       await invoke("close_splashscreen");
 
       window.clearTimeout(closeSplashscreenTimeout);
-    }, 1000); 
+    }, 1000);
 
     let unlistenUpdater: () => void;
     setupUpdater().then(unlisten => {
