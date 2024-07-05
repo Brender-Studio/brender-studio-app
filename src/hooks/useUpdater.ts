@@ -1,42 +1,41 @@
-// useUpdater.ts
-import { useState, useEffect } from 'react'
-import { checkUpdate, installUpdate, onUpdaterEvent } from '@tauri-apps/api/updater'
-import { relaunch } from '@tauri-apps/api/process'
+import { useState, useEffect } from 'react';
+import { checkUpdate, installUpdate, onUpdaterEvent } from '@tauri-apps/api/updater';
+import { relaunch } from '@tauri-apps/api/process';
 
 export function useUpdater() {
-  const [updateAvailable, setUpdateAvailable] = useState(false)
+  const [updateAvailable, setUpdateAvailable] = useState(false);
 
   useEffect(() => {
     const checkForUpdates = async () => {
       const unlisten = await onUpdaterEvent(({ error, status }) => {
-        console.log('Updater event', error, status)
-      })
+        console.log('Updater event', error, status);
+      });
 
       try {
-        const { shouldUpdate, manifest } = await checkUpdate()
+        const { shouldUpdate, manifest } = await checkUpdate();
 
         if (shouldUpdate) {
-          setUpdateAvailable(true)
-          console.log(`Update available: ${manifest?.version}`)
+          setUpdateAvailable(true);
+          console.log(`Update available: ${manifest?.version}`);
         }
       } catch (error) {
-        console.error(error)
+        console.error(error);
       }
 
-      return unlisten
-    }
+      return unlisten;
+    };
 
-    const unlistenPromise = checkForUpdates()
+    const unlistenPromise = checkForUpdates();
 
     return () => {
-      unlistenPromise.then(unlisten => unlisten())
-    }
-  }, [])
+      unlistenPromise.then(unlisten => unlisten());
+    };
+  }, []);
 
   const installAndRelaunch = async () => {
-    await installUpdate()
-    await relaunch()
-  }
+    await installUpdate();
+    await relaunch();
+  };
 
-  return { updateAvailable, installAndRelaunch }
+  return { updateAvailable, installAndRelaunch };
 }
