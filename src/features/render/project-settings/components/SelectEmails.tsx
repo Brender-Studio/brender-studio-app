@@ -6,12 +6,15 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Skeleton } from "@/components/ui/skeleton";
 import { Switch } from "@/components/ui/switch";
 import useGetSesIdentitiesQuery from "@/react-query-utils/queries/ses-queries/useGetSesIdentitiesQuery";
+import { formRenderSchema } from "@/schemas/formRenderSchema";
 import { MailPlus } from "lucide-react";
 import { useEffect } from "react";
+import { UseFormReturn } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { z } from "zod";
 
 interface SelectEmailsProps {
-    form: any
+    form: UseFormReturn<z.infer<typeof formRenderSchema>>;
 }
 
 const SelectEmails = ({ form }: SelectEmailsProps) => {
@@ -24,7 +27,7 @@ const SelectEmails = ({ form }: SelectEmailsProps) => {
         ? data.map((item: any) => ({
             name: item.identity,
             value: item.identity,
-            status: item.attributes[item.identity].VerificationStatus // Acceder dinámicamente a VerificationStatus
+            status: item.attributes[item.identity].VerificationStatus
         }))
         : [];
 
@@ -59,7 +62,6 @@ const SelectEmails = ({ form }: SelectEmailsProps) => {
                     </div>
                 ) : (
                     <div className="relative w-full">
-                        {/* sHOW BUTTON SET IDENTITY IF NO VALID EMAILS O DATA.LENGHT IS 0 */}
                         {options.every((item: any) => item.status !== 'Success') ? (
                             <div className="mt-2 w-full">
                                 <FormLabel className="inline-flex gap-2">Email Notification
@@ -133,7 +135,7 @@ const SelectEmails = ({ form }: SelectEmailsProps) => {
                                                     <FormLabel className="text-xs font-normal text-muted-foreground mr-2">Notifications</FormLabel>
                                                     <Switch
                                                         disabled={options.length === 0 || options.every((item: any) => item.status !== 'Success')}
-                                                        {...field}
+                                                        // {...field}
                                                         checked={field.value}
                                                         onCheckedChange={
                                                             (checked: boolean) => {
@@ -157,14 +159,7 @@ const SelectEmails = ({ form }: SelectEmailsProps) => {
                                     )}
                                 />
                             </>
-                        )
-                        }
-
-                        {/* Create select formfield for choosing the email address */}
-
-                        {/* Create checkbox formfield for enabling or disabling notifications */}
-
-
+                        )}
 
                     </div>
                 )

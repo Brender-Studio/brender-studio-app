@@ -3,7 +3,11 @@ import SpinnerButton from "@/components/custom/spinners/SpinnerButton";
 import { Card } from "@/components/ui/card";
 import { Check } from "lucide-react";
 
-const ProgressList = ({ progress }: { progress: any }) => {
+interface Progress {
+  [key: string]: boolean;
+}
+
+const ProgressList = ({ progress }: { progress: Progress }) => {
   return (
     <Card className="p-4">
       {Object.entries(progress).map(([step, completed]) => (

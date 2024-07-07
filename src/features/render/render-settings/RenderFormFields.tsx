@@ -5,10 +5,13 @@ import RenderInput from "../render-inputs/input/RenderInput"
 import RenderCheckbox from "../render-inputs/checkbox/RenderCheckbox"
 import { sectionType } from "./RenderSettings.types"
 import LabelSeparator from "@/components/custom/structure/LabelSeparator"
+import { formRenderSchema } from "@/schemas/formRenderSchema"
+import { z } from "zod"
+import { UseFormReturn } from "react-hook-form"
 
 
 interface RenderFormFieldsProps {
-    form: any
+    form: UseFormReturn<z.infer<typeof formRenderSchema>>
     sectionType: sectionType
 }
 
@@ -32,7 +35,7 @@ const RenderFormFields = ({ form, sectionType }: RenderFormFieldsProps) => {
     const renderInputField = (fieldName: string, label: string, type: string, placeholder: string, defaultValue: string, minValue: number, maxValue?: number) => (
         <RenderInput
             form={form}
-            fieldName={fieldName}
+            fieldName={fieldName as any} // Review: fieldName as any (Fieldname is a string, but it should be a keyof FormRenderSchema? we pass values like frame_range.start, frame_range.end, etc.)
             label={label}
             type={type}
             placeholder={placeholder}
@@ -46,7 +49,7 @@ const RenderFormFields = ({ form, sectionType }: RenderFormFieldsProps) => {
     const renderCheckboxField = (fieldName: string, label: string, defaultValue: boolean) => (
         <RenderCheckbox
             form={form}
-            fieldName={fieldName}
+            fieldName={fieldName as any}
             label={label}
             defaultValue={defaultValue}
             isCustom={isCustom}
@@ -81,7 +84,7 @@ const RenderFormFields = ({ form, sectionType }: RenderFormFieldsProps) => {
                                     </div>
                                 </>
                             )}
-                             {sectionType === "custom_render_python" && (
+                            {sectionType === "custom_render_python" && (
                                 <>
                                     <LabelSeparator label="Frame Range" colSpan={6} my={8} />
                                     <div className="grid grid-cols-4 col-span-6 gap-2">

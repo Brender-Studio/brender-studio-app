@@ -9,10 +9,13 @@ import DataTableHeader from "@/components/custom/structure/DataTableHeader"
 import { toast } from "@/components/ui/use-toast"
 import PythonTabs from "../render-python/tabs/PythonTabs"
 import TooltipInfo from "@/components/custom/tooltip/TooltipInfo"
+import { UseFormReturn } from "react-hook-form"
+import { z } from "zod"
+import { formRenderSchema } from "@/schemas/formRenderSchema"
 
 
 interface ProjectSettingsProps {
-    form: any
+    form: UseFormReturn<z.infer<typeof formRenderSchema>>;
 }
 
 const ProjectSettings = ({ form }: ProjectSettingsProps) => {

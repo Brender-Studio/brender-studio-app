@@ -1,10 +1,16 @@
-import { FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import { FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { formRenderSchema } from "@/schemas/formRenderSchema";
+import { UseFormReturn } from "react-hook-form";
+import { z } from "zod";
+
+type FormRenderSchema = z.infer<typeof formRenderSchema>;
+type FieldName = keyof FormRenderSchema;
 
 interface RenderInputProps {
-    form: any
-    fieldName: string
+    form: UseFormReturn<z.infer<typeof formRenderSchema>>
+    fieldName: FieldName
     label: string
     type: string
     placeholder: string
@@ -15,40 +21,42 @@ interface RenderInputProps {
 }
 
 const RenderInput = ({ form, fieldName, label, type, placeholder, isCustom }: RenderInputProps) => {
-
-    // const handleChange = (e: any) => {
-    //     console.log('form errors', form.formState.errors);
-    //     // print form values
-    //     console.log('form values', form.getValues());
-    //     // if value is '' setError
-    //     form.setValue(fieldName, e.target.value, { shouldValidate: true, })
-    // }
-
-
     return (
         <div>
             <FormField
                 control={form.control}
                 name={fieldName}
-                render={({field}) => (
-                    <FormItem>
-                        <Label>{label}</Label>
-                        <FormControl>
-                            <Input
-                                disabled={!isCustom}
-                                type={type}
-                                placeholder={placeholder}
-                                // value={form.watch(fieldName)}
-                                // onChange={handleChange}
-                                {...field}
-                            />
-                        </FormControl>
-                        <FormMessage />
-                    </FormItem>
-                )}
+                render={({ field }) => {
+                    
+                    let value: string | number | readonly string[] | undefined;
+                    if (typeof field.value === 'string' || typeof field.value === 'number') {
+                        value = field.value;
+                    } else if (Array.isArray(field.value)) {
+                        value = field.value.map(item => item.value || '').join(', ');
+                    } else {
+                        value = '';
+                    }
+
+                    return (
+                        <FormItem>
+                            <Label>{label}</Label>
+                            <FormControl>
+                                <Input
+                                    disabled={!isCustom}
+                                    type={type}
+                                    placeholder={placeholder}
+                                    value={value}
+                                    onChange={field.onChange}
+                                    onBlur={field.onBlur}
+                                />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )
+                }}
             />
         </div>
     )
 }
 
-export default RenderInput
+export default RenderInput;
