@@ -8,11 +8,14 @@ import { toast } from '@/components/ui/use-toast';
 import { Button } from '@/components/ui/button';
 import { Copy } from 'lucide-react';
 import { readText, writeText } from '@tauri-apps/api/clipboard';
+import { UseFormReturn } from 'react-hook-form';
+import { z } from 'zod';
+import { formRenderSchema } from '@/schemas/formRenderSchema';
 
 SyntaxHighlighter.registerLanguage('python', python);
 
 interface CodePreviewProps {
-    form: any
+    form: UseFormReturn<z.infer<typeof formRenderSchema>>;
 }
 
 const CodePreview = ({ form }: CodePreviewProps) => {
@@ -31,7 +34,7 @@ const CodePreview = ({ form }: CodePreviewProps) => {
     useEffect(() => {
         const fetchScriptContent = async () => {
             try {
-                const content = await readPythonScript(form.watch('python_script_path'));
+                const content = await readPythonScript(form.watch('python_script_path') ?? '');
                 setScriptContent(content);
 
                 if (!content) {
