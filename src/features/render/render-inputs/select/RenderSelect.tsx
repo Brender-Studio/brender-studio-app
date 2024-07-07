@@ -1,15 +1,22 @@
 import { FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { formRenderSchema } from "@/schemas/formRenderSchema"
 import { useFormStore } from "@/store/useFormStore"
+import { UseFormReturn } from "react-hook-form"
 import { useLocation } from "react-router-dom"
+import { z } from "zod"
+
+type FormRenderSchema = z.infer<typeof formRenderSchema>;
+type FieldName = keyof FormRenderSchema;
+
 
 
 interface RenderSelectProps {
-    form: any
-    fieldName: string
-    options: any
-    defaultValue: string
+    form: UseFormReturn<z.infer<typeof formRenderSchema>>
+    fieldName: FieldName
+    options: string[]
+    defaultValue: string | number
     label: string
     isCustom: boolean
     setCurrentScene: (currentScene: any) => void
@@ -91,8 +98,8 @@ const RenderSelect = ({ defaultValue, fieldName, form, label, options, isCustom,
                     <Select
                         // onValueChange={field.onChange} 
                         onValueChange={onValueChange}
-                        defaultValue={defaultValue}
-                        value={field.value}
+                        defaultValue={defaultValue as any}
+                        value={field.value as any}
                         disabled={!isCustom}
                     >
                         <FormControl>

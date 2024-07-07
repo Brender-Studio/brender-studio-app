@@ -14,7 +14,7 @@ interface RenderInputProps {
     label: string
     type: string
     placeholder: string
-    defaultValue: string
+    defaultValue: string | number
     isCustom: boolean
     minValue?: number
     maxValue?: number
