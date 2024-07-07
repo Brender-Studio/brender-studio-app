@@ -1,10 +1,14 @@
-export function handleCommandClose(data: any) {
+export interface CommandClose {
+    code: number;
+}
+
+export function handleCommandClose(data: CommandClose) {
     if (data.code !== 0) {
         throw new Error(`Command failed with code ${data.code}`);
     }
 }
 
-export function handleCommandError(error: any) {
+export function handleCommandError(error: Error | string) {
     console.error(`Command error: "${error}"`);
     throw error;
 }
@@ -15,7 +19,7 @@ export function cleanOutput(output: string): string {
 
 export function cleanOutputProfiles(output: string): string | undefined {
     if (!output.trim()) {
-        return undefined; // Retornar undefined si la salida está vacía
+        return undefined;
     }
     return output.replace(/[\r\n]+/g, '\n');
 }

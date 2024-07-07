@@ -1,8 +1,14 @@
 import { Command } from "@tauri-apps/api/shell";
 
 
-export async function getMonthlyTotalCost(currentProfile: string, currentAwsRegion: string, currentStack: string, startDate: string, endDate: string) {
-    console.log(currentStack)
+export async function getMonthlyTotalCost(
+    currentProfile: string,
+    currentAwsRegion: string,
+    currentStack: string,
+    startDate: string,
+    endDate: string
+): Promise<CostAndUsageResponse> {
+    
     try {
         const command = new Command("aws-cli", [
             "ce",
@@ -23,7 +29,7 @@ export async function getMonthlyTotalCost(currentProfile: string, currentAwsRegi
             currentProfile,
         ]);
 
-        console.log("Running command Table Explorer: ", command)
+        console.log("Running command Table Explorer: ", command);
 
         const result = await command.execute();
 
@@ -31,9 +37,9 @@ export async function getMonthlyTotalCost(currentProfile: string, currentAwsRegi
             throw new Error('Empty output received while fetching monthly cost data');
         }
 
-        const dataTotalCost = JSON.parse(result.stdout);
+        const dataTotalCost: CostAndUsageResponse = JSON.parse(result.stdout);
         console.log('Data Total Cost: ', dataTotalCost);
-        return dataTotalCost
+        return dataTotalCost;
 
     } catch (error) {
         console.error(error instanceof Error ? error.message : error);

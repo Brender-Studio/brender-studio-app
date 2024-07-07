@@ -1,16 +1,16 @@
 import { Command } from "@tauri-apps/api/shell";
-import { cleanOutputProfiles, handleCommandClose, handleCommandError } from "../cli-utils/commandOutput";
+import { CommandClose, cleanOutputProfiles, handleCommandClose, handleCommandError } from "../cli-utils/commandOutput";
 
 export async function getAllAWSProfiles(): Promise<string[] | string | undefined> {
     try {
         const awsCliCommand = new Command('aws-cli', ["configure", "list-profiles", "--output", "json"]);
 
         // console.log('Executing command: ');
-        awsCliCommand.on('close', (data) => {
+        awsCliCommand.on('close', (data: CommandClose) => {
             handleCommandClose(data);
         });
 
-        awsCliCommand.on('error', (error) => {
+        awsCliCommand.on('error', (error: Error) => {
             handleCommandError(error);
         });
 
