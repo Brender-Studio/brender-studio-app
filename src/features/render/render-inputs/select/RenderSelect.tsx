@@ -10,8 +10,6 @@ import { z } from "zod"
 type FormRenderSchema = z.infer<typeof formRenderSchema>;
 type FieldName = keyof FormRenderSchema;
 
-
-
 interface RenderSelectProps {
     form: UseFormReturn<z.infer<typeof formRenderSchema>>
     fieldName: FieldName
