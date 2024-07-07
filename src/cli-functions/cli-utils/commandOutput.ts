@@ -23,3 +23,9 @@ export function cleanOutputProfiles(output: string): string | undefined {
     }
     return output.replace(/[\r\n]+/g, '\n');
 }
+
+
+export interface CommandOutput {
+    stdout: string | null;
+    stderr: string | null;
+}
