@@ -11,7 +11,7 @@ interface RenderJobSelectProps {
         name: string
         value: string
     }[]
-    defaultValue: any
+    defaultValue: string
 }
 
 const RenderJobSelect = ({ form, fieldName, label, options, defaultValue }: RenderJobSelectProps) => {

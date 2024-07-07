@@ -6,10 +6,17 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Separator } from "@/components/ui/separator";
 import { Plus } from "lucide-react";
+import { z } from "zod";
+import { formRenderSchema } from "@/schemas/formRenderSchema";
 
 interface EnvironmentVarsProps {
-    form: UseFormReturn<any>;
+    form: UseFormReturn<z.infer<typeof formRenderSchema>>
 }
+
+interface OptionsVars {
+    name: string;
+    value: string;
+}[]
 
 const EnvironmentVars = ({ form }: EnvironmentVarsProps) => {
     const { environmentVars } = useEnvironmentVars(form);
@@ -18,7 +25,9 @@ const EnvironmentVars = ({ form }: EnvironmentVarsProps) => {
         control: form.control,
     });
 
-    const renderJobSelectField = (fieldName: string, options: any, defaultValue: any) => (
+
+
+    const renderJobSelectField = (fieldName: string, options: OptionsVars[], defaultValue: string) => (
         <RenderJobSelect
             form={form}
             fieldName={fieldName}
