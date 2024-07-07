@@ -15,8 +15,8 @@ export interface DataTableCostExplorerProps<TData, TValue> {
 }
 
 export type ColumnsTableExplorerProps = {
-    Service: string;
-    Amount: string;
+    Service: any;
+    Amount: any;
     deepLink: string;
     Monthly: string
 };
@@ -35,11 +35,11 @@ export interface SelectChartProps {
 
 
 export interface SectionChartsProps {
-    processedDataCharts: string[];
-    services: string[];
+    processedDataCharts: any;
+    services: any;
     isLoading: boolean;
-    areaChartData: string[];
-    barChartData: string[];
+    areaChartData: any;
+    barChartData: any;
 }
 
 

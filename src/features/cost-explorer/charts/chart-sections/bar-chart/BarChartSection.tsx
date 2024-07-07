@@ -2,8 +2,8 @@ import BarChartComp from "./BarChart";
 import { NoResults } from "@/features/cost-explorer/charts/helpers/LoadingAndError";
 
 interface BarChartsSectionProps {
-    barData: string[];
-    services: string[];
+    barData: any;
+    services: any
 }
 
 

@@ -7,30 +7,30 @@ export type JobDefinition = {
     status: string;
     containerOrchestrationType: string;
     containerProperties: {
-        command: string[];
-        environment: { [key: string]: string };
-        executionRoleArn: string;
         image: string;
         mountPoints: { containerPath: string, sourceVolume: string }[];
-        readonlyRootFilesystem: boolean;
         resourceRequirements: { type: string, value: number }[];
-        secrets: string[];
-        ulimits: any[];
-        volumes: { [key: string]: any }[];
+        // command: string[];
+        // environment: { [key: string]: string };
+        // executionRoleArn: string;
+        // readonlyRootFilesystem: boolean;
+        // secrets: string[];
+        // ulimits: { hardLimit: number, name: string, softLimit: number }[];
+        // volumes: { [key: string]: any }[];
     };
-    parameters: { [key: string]: any };
-    platformCapabilities: string[];
-    propagateTags: boolean;
     retryStrategy: {
         attempts: number;
         evaluateOnExit: any[];
     };
-    revision: number;
-    tags: { [key: string]: string };
     timeout: {
         attemptDurationSeconds: number;
     };
-    type: string;
+    // revision: number;
+    // tags: { [key: string]: string };
+    // parameters: { [key: string]: any };
+    // platformCapabilities: string[];
+    // propagateTags: boolean;
+    // type: string;
 };
 
 
