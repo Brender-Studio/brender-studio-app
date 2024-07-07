@@ -5,7 +5,7 @@ import { Command } from '@tauri-apps/api/shell';
 
 export async function getRequestHistory(profile: string, region: string) {
     try {
-        
+
         const command = new Command('aws-cli', [
             "service-quotas",
             "list-requested-service-quota-change-history",
@@ -24,29 +24,33 @@ export async function getRequestHistory(profile: string, region: string) {
         let errorOutput = '';
         let output = '';
 
-      
+
         command.stderr.on('data', data => {
             errorOutput += data.toString();
         });
 
-        
+
         command.stdout.on('data', data => {
             output += data.toString();
         });
 
-        
+
         const child = await command.execute();
 
-        
+
         if (child.code !== 0) {
             throw new Error(`Command failed with code ${child.code}. Error: ${errorOutput}`);
         }
-        
+
         const response = JSON.parse(output);
 
         return response;
-    } catch (error: any) {
+    } catch (error) {
         console.error('Error executing command:', error);
-        throw new Error(`Failed to get EC2 service quotas: ${error.message}`);
+
+        if (error instanceof Error) {
+            throw new Error(`Failed to get EC2 service quotas: ${error.message}`);
+        }
+
     }
 }
