@@ -2,16 +2,20 @@ import TooltipInfo from "@/components/custom/tooltip/TooltipInfo"
 import { FormControl, FormField, FormItem } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { UseFormReturn } from "react-hook-form";
+import { FormRenderSchemaKeys } from "./RenderJobSelect";
+import { z } from "zod";
+import { formRenderSchema } from "@/schemas/formRenderSchema";
 
 interface RenderJobInputProps {
-    form: any
-    fieldName: string
-    label: string
-    type: string
-    placeholder: string
-    defaultValue: string
-    maxValue?: number
-    minValue?: number
+    form: UseFormReturn<z.infer<typeof formRenderSchema>>;
+    fieldName: FormRenderSchemaKeys;
+    label: string;
+    type: string;
+    placeholder: string;
+    defaultValue: string;
+    maxValue?: number;
+    minValue?: number;
 }
 
 const RenderJobInput = ({ form, fieldName, label, type, placeholder, defaultValue }: RenderJobInputProps) => {
@@ -73,7 +77,7 @@ const RenderJobInput = ({ form, fieldName, label, type, placeholder, defaultValu
                             // step="0.001"
                             type={type}
                             placeholder={placeholder}
-                            value={form.watch(fieldName) || defaultValue}
+                            value={String(form.watch(fieldName) || defaultValue)}
                             // value={field.value}
                             onChange={(e: any) => form.setValue(fieldName, e.target.value)}
                         // min={minValue}
