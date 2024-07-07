@@ -55,7 +55,7 @@ const DropdownCardObject = ({ isFolderItem, objectKey, bucketName, currentPathna
     }, [currentPathname, splitPathname, bucketName, objectPath, isFolderItem, currentAwsRegion]);
 
 
-    const openAWSConsole = useCallback((e: any) => {
+    const openAWSConsole = useCallback((e: { stopPropagation: () => void; }) => {
         e.stopPropagation();
         const link = buildAWSConsoleLink();
         console.log('awsLinkConsole:', link);

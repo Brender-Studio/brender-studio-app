@@ -5,7 +5,7 @@ import { nameMapping, serviceColorMap } from "@/lib/cost-explorer-utils/charts-u
 import { getCostByService } from "@/features/cost-explorer/charts/helpers/areaChartHelper";
 
 interface AreaChartProps {
-    averageData: any[];
+    averageData: string[];
     services: string[];
     processedData: any;
 }
