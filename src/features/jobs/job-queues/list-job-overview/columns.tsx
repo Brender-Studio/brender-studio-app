@@ -17,7 +17,7 @@ export type JobQueueStatus = {
     };
 };
 
-export const columns: ColumnDef<JobQueueStatus>[] = [
+export const columns: ColumnDef<JobQueueStatus, unknown>[] = [
     {
         id: "jobQueueName",
         header: "Job Queue Name",
