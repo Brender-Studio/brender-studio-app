@@ -6,6 +6,7 @@ import { useFormStore } from "@/store/useFormStore"
 import { UseFormReturn } from "react-hook-form"
 import { useLocation } from "react-router-dom"
 import { z } from "zod"
+import { Scene } from "../../project-settings/ProjectSettings.types"
 
 type FormRenderSchema = z.infer<typeof formRenderSchema>;
 type FieldName = keyof FormRenderSchema;
@@ -17,8 +18,8 @@ interface RenderSelectProps {
     defaultValue: string | number
     label: string
     isCustom: boolean
-    setCurrentScene: (currentScene: any) => void
-    allScenes: any
+    setCurrentScene: (scene: Scene[]) => void
+    allScenes: Scene[]
 }
 
 const RenderSelect = ({ defaultValue, fieldName, form, label, options, isCustom, setCurrentScene, allScenes }: RenderSelectProps) => {
@@ -27,10 +28,10 @@ const RenderSelect = ({ defaultValue, fieldName, form, label, options, isCustom,
     const currentPathname = useLocation().pathname
 
     // onchange input value
-    const onValueChange = (value: any) => {
+    const onValueChange = (value: string | number) => {
         // if fieldname is scene_name then setCurrentScene where scene_name is equal to value from allScenes
         if (fieldName === "scene_name") {
-            const scene = allScenes.filter((scene: any) => scene.scene_name === value)
+            const scene = allScenes.filter((scene: Scene) => scene.scene_name === value)
             console.log('scene select field', scene)
             setCurrentScene(scene)
         }
@@ -96,20 +97,20 @@ const RenderSelect = ({ defaultValue, fieldName, form, label, options, isCustom,
                     <Select
                         // onValueChange={field.onChange} 
                         onValueChange={onValueChange}
-                        defaultValue={defaultValue as any}
+                        defaultValue={defaultValue.toString()}
                         value={field.value as any}
                         disabled={!isCustom}
                     >
                         <FormControl>
                             <SelectTrigger className="text-xs">
-                                <SelectValue  placeholder={defaultValue} />
+                                <SelectValue placeholder={defaultValue} />
                             </SelectTrigger>
                         </FormControl>
                         <SelectContent>
                             {options.map((option: any, index: number) => (
                                 <SelectItem key={index} value={option}
-                                disabled={currentPathname === '/render-cpu' && option === 'OPTIX' ? true : false}
-                                 >
+                                    disabled={currentPathname === '/render-cpu' && option === 'OPTIX' ? true : false}
+                                >
                                     {option}
                                 </SelectItem>
                             ))}

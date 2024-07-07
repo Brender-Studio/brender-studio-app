@@ -201,7 +201,7 @@ const RenderJobFields = ({ form, currentPathname }: RenderJobFieldsProps) => {
                                         )}
                                         {form.watch('type') === 'custom_render_python' && (
                                             <div className="col-span-6">
-                                                <LabelSeparator label="Container Environment Variables" colSpan={5} my={8} />
+                                                <LabelSeparator label="Container Environment Variables" colSpan={5} py={8} />
                                                 <EnvironmentVars form={form} />
                                             </div>
                                         )}
@@ -220,7 +220,7 @@ const RenderJobFields = ({ form, currentPathname }: RenderJobFieldsProps) => {
                                                 />
                                             )
                                         }
-                                        <LabelSeparator label="Container EC2 configuration" colSpan={5} my={8} />
+                                        <LabelSeparator label="Container EC2 configuration" colSpan={5} py={8} />
                                         <div className="col-span-6 pb-4">
                                             <DataTableHeader
                                                 title="Server Configuration"

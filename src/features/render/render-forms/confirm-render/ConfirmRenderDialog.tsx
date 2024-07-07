@@ -58,10 +58,6 @@ const ConfirmRenderDialog = ({ openDialog, setOpenDialog, form, title, descripti
     const jobQueue = jobSettings?.job_queue;
     const jobDefinition = jobSettings?.job_definition;
 
-    console.log('jobSettings', jobSettings);
-    console.log('jobQueue', jobQueue);
-    console.log('jobDefinition', jobDefinition);
-
 
     if (!jobQueue || !jobDefinition) {
         console.error('Job queue or job definition is missing');

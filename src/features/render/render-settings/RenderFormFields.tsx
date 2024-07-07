@@ -74,7 +74,7 @@ const RenderFormFields = ({ form, sectionType }: RenderFormFieldsProps) => {
                             </div>
                             {sectionType === "animation" && (
                                 <>
-                                    <LabelSeparator label="Frame Range" colSpan={6} my={8} />
+                                    <LabelSeparator label="Frame Range" colSpan={6} py={8} />
                                     <div className="grid grid-cols-4 col-span-6 gap-2">
                                         {renderInputField("frame_range.start", "Start Frame", "number", "Start Frame", scene.frame_range.start, 0)}
                                         {renderInputField("frame_range.end", "End Frame", "number", "End Frame", scene.frame_range.end, 0)}
@@ -85,7 +85,7 @@ const RenderFormFields = ({ form, sectionType }: RenderFormFieldsProps) => {
                             )}
                             {sectionType === "custom_render_python" && (
                                 <>
-                                    <LabelSeparator label="Frame Range" colSpan={6} my={8} />
+                                    <LabelSeparator label="Frame Range" colSpan={6} py={8} />
                                     <div className="grid grid-cols-4 col-span-6 gap-2">
                                         {renderInputField("frame_range.start", "Start Frame", "number", "Start Frame", scene.frame_range.start, 0)}
                                         {renderInputField("frame_range.end", "End Frame", "number", "End Frame", scene.frame_range.end, 0)}
@@ -94,7 +94,7 @@ const RenderFormFields = ({ form, sectionType }: RenderFormFieldsProps) => {
                                     </div>
                                 </>
                             )}
-                            <LabelSeparator label="Resolution" colSpan={6} my={8} />
+                            <LabelSeparator label="Resolution" colSpan={6} py={8} />
                             <div className="grid grid-cols-5 col-span-6 gap-2">
                                 {renderInputField("resolution.width", "Width (px)", "number", "Width", scene.resolution.width, 0, 10000)}
                                 {renderInputField("resolution.height", "Height (px)", "number", "Height", scene.resolution.height, 0, 10000)}
@@ -102,7 +102,7 @@ const RenderFormFields = ({ form, sectionType }: RenderFormFieldsProps) => {
                                 {renderInputField("aspect_ratio.width", "Aspect Width", "number", "Width", scene.aspect_ratio.width, 0, 10000)}
                                 {renderInputField("aspect_ratio.height", "Aspect Height", "number", "Height", scene.aspect_ratio.height, 0, 10000)}
                             </div>
-                            <LabelSeparator label="Output" colSpan={6} my={8} />
+                            <LabelSeparator label="Output" colSpan={6} py={8} />
                             <div className="grid grid-cols-4 col-span-6 gap-2">
                                 {renderSelectField("output.output_format", "Output Format", ['BMP', 'IRIS', 'PNG', 'JPEG', 'JPEG2000', 'TARGA', 'TARGA_RAW', 'CINEON', 'DPX', 'OPEN_EXR_MULTILAYER', 'OPEN_EXR', 'HDR', 'TIFF', 'WEBP'], scene.output.output_format)}
                                 {renderInputField("output.compression", "Compression (%)", "number", "Compression", scene.output.compression, 0, 100)}
@@ -119,7 +119,7 @@ const RenderFormFields = ({ form, sectionType }: RenderFormFieldsProps) => {
                                     {
                                         form.watch("engine") !== 'BLENDER_EEVEE' && (
                                             <>
-                                                <LabelSeparator label="Cycles Configuration" colSpan={6} my={8} />
+                                                <LabelSeparator label="Cycles Configuration" colSpan={6} py={8} />
                                                 {renderCheckboxField("use_denoise", "Denoise", scene.use_denoise || false)}
                                                 <div className="col-span-5"></div>
                                                 {scene.cycles_config && renderInputField("cycles_config.denoise_config.noise_threshold", "Noise Treshold", "number", "Noise Treshold", scene.cycles_config.denoise_config.noise_threshold, 0.030, 1)}
@@ -136,7 +136,7 @@ const RenderFormFields = ({ form, sectionType }: RenderFormFieldsProps) => {
                                         )}
                                     {form.watch("engine") === 'CYCLES' && (
                                         <>
-                                            <LabelSeparator label="Light Paths" colSpan={6} my={8} />
+                                            <LabelSeparator label="Light Paths" colSpan={6} py={8} />
                                             <div className="grid grid-cols-5 col-span-6 gap-2">
                                                 {scene.cycles_config && renderInputField("cycles_config.light_paths.max_bounces.diffuse_bounces", "Diffuse Bounces", "number", "Diffuse Bounces", scene.cycles_config.light_paths.max_bounces.diffuse_bounces, 0)}
                                                 {scene.cycles_config && renderInputField("cycles_config.light_paths.max_bounces.glossy_bounces", "Glossy Bounces", "number", "Glossy Bounces", scene.cycles_config.light_paths.max_bounces.glossy_bounces, 0)}
