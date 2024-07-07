@@ -15,23 +15,34 @@ import GpuQuota from "./components/GpuQuota";
 import EnvironmentVars from "./components/environment-vars/EnvironmentVars";
 import CpuQuota from "./components/CpuQuota";
 import DataTableHeader from "@/components/custom/structure/DataTableHeader";
+import { UseFormReturn } from "react-hook-form";
+import { z } from "zod";
+import { formRenderSchema } from "@/schemas/formRenderSchema";
 
 interface RenderJobFieldsProps {
-    form: any
+    form: UseFormReturn<z.infer<typeof formRenderSchema>>;
     currentPathname: string
+}
+interface Quota {
+    spot?: number;
+    onDemand?: number;
 }
 
 const RenderJobFields = ({ form, currentPathname }: RenderJobFieldsProps) => {
     const { getSessionData } = useUserSessionStore();
     const { currentAwsRegion, currentProfile, currentStack } = getSessionData();
-    const [gpuQuotas, setGpuQuotas] = useState({
-        spot: null,
-        onDemand: null
-    })
-    const [cpuQuotas, setCpuQuotas] = useState({
-        spot: null,
-        onDemand: null
-    })
+    const [gpuQuotas, setGpuQuotas] = useState<Quota>({});
+    const [cpuQuotas, setCpuQuotas] = useState<Quota>({});
+
+    
+    // const [gpuQuotas, setGpuQuotas] = useState({
+    //     spot: null,
+    //     onDemand: null
+    // })
+    // const [cpuQuotas, setCpuQuotas] = useState({
+    //     spot: null,
+    //     onDemand: null
+    // })
 
     const { data: JobDefinitions, error, isLoading, isError } = useGetJobDefinitionsQuery({ enabled: true });
     const { data: JobQueues } = useGetJobQueuesQuery({ enabled: true });

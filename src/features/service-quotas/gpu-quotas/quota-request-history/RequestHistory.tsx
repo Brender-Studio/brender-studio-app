@@ -4,9 +4,9 @@ import { DataTableRequestHistory } from "./DataTableRequestHistory"
 import useGetRequestHistoryQuery from "@/react-query-utils/queries/service-quota-queries/useGetRequestHistoryQuery";
 
 const RequestHistory = () => {
-  const { getSessionData } = useUserSessionStore();
-  const sessionData = getSessionData();
-  const { currentAwsRegion, currentProfile } = sessionData;
+  const { currentAwsRegion, currentProfile } = useUserSessionStore().getSessionData();
+  // const sessionData = getSessionData();
+  // const { currentAwsRegion, currentProfile } = sessionData;
 
   const { data, isLoading } = useGetRequestHistoryQuery()
 
