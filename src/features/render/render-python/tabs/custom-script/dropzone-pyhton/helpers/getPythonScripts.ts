@@ -11,8 +11,14 @@
 //     return pythonFiles;
 // };
 
-export const getPythonScripts = (files: any[]): any[] => {
-    let pythonFiles = [];
+export interface File {
+    name: string;
+    path: string;
+    children?: File[];
+}
+
+export const getPythonScripts = (files: File[]): File[] => {
+    let pythonFiles: File[] = [];
     for (const file of files) {
         if (file.name.endsWith('.py')) {
             pythonFiles.push(file);

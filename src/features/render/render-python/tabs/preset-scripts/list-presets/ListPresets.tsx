@@ -3,9 +3,12 @@ import { predefinedScripts } from "../data/predefinedScripts"
 import { resolveResource } from "@tauri-apps/api/path"
 import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
+import { UseFormReturn } from "react-hook-form"
+import { z } from "zod"
+import { formRenderSchema } from "@/schemas/formRenderSchema"
 
 interface ListPresetsProps {
-    form: any
+    form: UseFormReturn<z.infer<typeof formRenderSchema>>
 }
 
 const ListPresets = ({ form }: ListPresetsProps) => {
@@ -50,7 +53,7 @@ const ListPresets = ({ form }: ListPresetsProps) => {
         }
     }, [])
 
-    const badgeColor = (type: string) => {
+    const badgeColor = (type: string): 'success' | 'warning' | 'progress' | 'secondary' => {
         switch (type) {
             case 'Single job':
                 return 'progress'
@@ -61,7 +64,7 @@ const ListPresets = ({ form }: ListPresetsProps) => {
             case 'Example':
                 return 'secondary'
             default:
-                return 'bg-gray-500'
+                return 'secondary'
         }
     }
 
@@ -81,8 +84,8 @@ const ListPresets = ({ form }: ListPresetsProps) => {
                         <h3 className="text-md font-semibold">{script.name}</h3>
                         <p className="text-xs text-muted-foreground">{script.description}</p>
                         <div className="pt-4 inline-flex gap-2">
-                            <Badge variant={badgeColor(script.job_type) as any}>{script.job_type}</Badge>
-                            <Badge variant={badgeColor(script.script_type) as any}>{script.script_type}</Badge>
+                            <Badge variant={badgeColor(script.job_type)}>{script.job_type}</Badge>
+                            <Badge variant={badgeColor(script.script_type)}>{script.script_type}</Badge>
                         </div>
                     </div>
                 ))}

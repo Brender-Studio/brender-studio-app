@@ -3,17 +3,23 @@ import { FormControl, FormField, FormItem, FormMessage } from "@/components/ui/f
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import TooltipInfo from '@/components/custom/tooltip/TooltipInfo'
+import { UseFormReturn } from 'react-hook-form'
+import { z } from 'zod'
+import { formRenderSchema } from '@/schemas/formRenderSchema'
+
+type FormRenderSchema = z.infer<typeof formRenderSchema>;
+type FieldName = keyof FormRenderSchema;
 
 interface FileScriptSelectProps {
-    form: any
-    fieldName: string
+    form: UseFormReturn<z.infer<typeof formRenderSchema>>
+    fieldName: FieldName
     options: {
         name: string
         path: string
     }[]
     label: string
-    setSelectedPaths: SetStateAction<any>
-    selectedPaths: any
+    setSelectedPaths: React.Dispatch<SetStateAction<{ filePath: string }>>
+    selectedPaths: { filePath: string }
 }
 
 const FileScriptSelect = ({ form, fieldName, label, options, setSelectedPaths, selectedPaths }: FileScriptSelectProps) => {
@@ -44,11 +50,11 @@ const FileScriptSelect = ({ form, fieldName, label, options, setSelectedPaths, s
                     </div>
                     <Select
                         onValueChange={onValueChange}
-                        value={field.value}
+                        value={field.value?.toString()}
                     >
                         <FormControl>
                             <SelectTrigger className="text-xs">
-                                <SelectValue placeholder={field.value} />
+                                <SelectValue placeholder={field.value?.toString()} />
                             </SelectTrigger>
                         </FormControl>
                         <SelectContent>
