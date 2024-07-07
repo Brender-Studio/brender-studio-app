@@ -25,22 +25,16 @@ interface RenderJobFieldsProps {
     currentPathname: string
 }
 
+interface OptionsVars {
+    name: string;
+    value: string;
+}[]
 
 const RenderJobFields = ({ form, currentPathname }: RenderJobFieldsProps) => {
-    const { currentAwsRegion, currentProfile, currentStack } = useUserSessionStore().getSessionData();
-    // const { currentAwsRegion, currentProfile, currentStack } = getSessionData();
     const [gpuQuotas, setGpuQuotas] = useState<Quota>();
     const [cpuQuotas, setCpuQuotas] = useState<Quota>();
 
-
-    // const [gpuQuotas, setGpuQuotas] = useState({
-    //     spot: null,
-    //     onDemand: null
-    // })
-    // const [cpuQuotas, setCpuQuotas] = useState({
-    //     spot: null,
-    //     onDemand: null
-    // })
+    const { currentAwsRegion, currentProfile, currentStack } = useUserSessionStore().getSessionData();
 
     const { data: JobDefinitions, error, isLoading, isError } = useGetJobDefinitionsQuery({ enabled: true });
     const { data: JobQueues } = useGetJobQueuesQuery({ enabled: true });
@@ -55,10 +49,10 @@ const RenderJobFields = ({ form, currentPathname }: RenderJobFieldsProps) => {
         })
     }
 
-    const renderJobSelectField = (fieldName: string, label: string, options: any, defaultValue: any) => (
+    const renderJobSelectField = (fieldName: string, label: string, options: OptionsVars[], defaultValue: any) => (
         <RenderJobSelect
             form={form}
-            fieldName={fieldName}
+            fieldName={fieldName as any} // Review this type
             label={label}
             options={options}
             defaultValue={defaultValue}

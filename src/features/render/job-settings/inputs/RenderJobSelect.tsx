@@ -2,10 +2,15 @@ import HoverCardInfo from "@/components/custom/tooltip/HoverCardInfo"
 import { FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { formRenderSchema } from "@/schemas/formRenderSchema";
+import { UseFormReturn } from "react-hook-form";
+import { z } from "zod";
+
+export type FormRenderSchemaKeys = keyof z.infer<typeof formRenderSchema>;
 
 interface RenderJobSelectProps {
-    form: any
-    fieldName: string
+    form: UseFormReturn<z.infer<typeof formRenderSchema>>;
+    fieldName: FormRenderSchemaKeys
     label?: string
     options: {
         name: string
@@ -108,11 +113,11 @@ const RenderJobSelect = ({ form, fieldName, label, options, defaultValue }: Rend
                     <Select
                         onValueChange={onValueChange}
                         defaultValue={defaultValue}
-                        value={field.value}
+                        value={String(field.value)}
                     >
                         <FormControl>
                             <SelectTrigger className="text-xs">
-                                <SelectValue placeholder={field.value} />
+                                <SelectValue placeholder={String(field.value)}/>
                             </SelectTrigger>
                         </FormControl>
                         <SelectContent>
