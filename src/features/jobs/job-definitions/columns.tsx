@@ -16,18 +16,18 @@ export type JobDefinition = {
         // readonlyRootFilesystem: boolean;
         // secrets: string[];
         // ulimits: { hardLimit: number, name: string, softLimit: number }[];
-        // volumes: { [key: string]: any }[];
+        // volumes: { [key: string]: TODO: Typer }[];
     };
     retryStrategy: {
         attempts: number;
-        evaluateOnExit: any[];
+        evaluateOnExit: string[];
     };
     timeout: {
         attemptDurationSeconds: number;
     };
     // revision: number;
     // tags: { [key: string]: string };
-    // parameters: { [key: string]: any };
+    // parameters: { [key: string]: Todo: Typer };
     // platformCapabilities: string[];
     // propagateTags: boolean;
     // type: string;
@@ -41,7 +41,7 @@ export const columns: ColumnDef<JobDefinition>[] = [
         header: "Job Definition Name",
         cell: ({ row }) => {
             const openUrl = (id: string) => {
-                // extrer region from arn
+                // Extract region from arn
                 const region = id.split(':')[3];
                 console.log('region', region)
                 const url = `https://${region}.console.aws.amazon.com/batch/home?region=${region}#job-definition/ec2/detail/${id}`;
