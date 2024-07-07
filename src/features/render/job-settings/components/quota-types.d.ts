@@ -3,3 +3,8 @@ export interface QuotaData {
     QuotaName: string;
     Value: number;
 }
+
+export interface Quota {
+    spot: number;
+    onDemand: number;
+}

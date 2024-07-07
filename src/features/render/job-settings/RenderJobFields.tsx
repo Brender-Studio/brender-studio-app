@@ -18,23 +18,21 @@ import DataTableHeader from "@/components/custom/structure/DataTableHeader";
 import { UseFormReturn } from "react-hook-form";
 import { z } from "zod";
 import { formRenderSchema } from "@/schemas/formRenderSchema";
+import { Quota } from "./components/quota-types";
 
 interface RenderJobFieldsProps {
     form: UseFormReturn<z.infer<typeof formRenderSchema>>;
     currentPathname: string
 }
-interface Quota {
-    spot?: number;
-    onDemand?: number;
-}
+
 
 const RenderJobFields = ({ form, currentPathname }: RenderJobFieldsProps) => {
-    const { getSessionData } = useUserSessionStore();
-    const { currentAwsRegion, currentProfile, currentStack } = getSessionData();
-    const [gpuQuotas, setGpuQuotas] = useState<Quota>({});
-    const [cpuQuotas, setCpuQuotas] = useState<Quota>({});
+    const { currentAwsRegion, currentProfile, currentStack } = useUserSessionStore().getSessionData();
+    // const { currentAwsRegion, currentProfile, currentStack } = getSessionData();
+    const [gpuQuotas, setGpuQuotas] = useState<Quota>();
+    const [cpuQuotas, setCpuQuotas] = useState<Quota>();
 
-    
+
     // const [gpuQuotas, setGpuQuotas] = useState({
     //     spot: null,
     //     onDemand: null
