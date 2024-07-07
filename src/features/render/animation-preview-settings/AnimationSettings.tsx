@@ -1,8 +1,11 @@
 import DataTableHeader from '@/components/custom/structure/DataTableHeader'
 import RenderAnimationFields from './RenderAnimationFields'
+import { UseFormReturn } from 'react-hook-form';
+import { z } from 'zod';
+import { formRenderSchema } from '@/schemas/formRenderSchema';
 
 interface AnimationSettingsProps {
-    form: any
+    form:  UseFormReturn<z.infer<typeof formRenderSchema>>;
 }
 
 const AnimationSettings = ({ form }:AnimationSettingsProps) => {
