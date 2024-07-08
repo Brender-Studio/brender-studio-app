@@ -1,16 +1,16 @@
-import { ProccesedDataChartProps } from "@/features/cost-explorer/costExplorerTypes";
+import { ProcessedDataChartProps, ResultByTime, ServiceCostData } from "@/features/cost-explorer/costExplorerTypes";
 import { nameMapping, serviceColorMap } from "./serviceColors";
 
-export const processDataChart = (results: any) => {
+export const processDataChart = (results: ResultByTime[]): ProcessedDataChartProps | null => {
     if (!results || results.length === 0) {
         console.error('No results found or results is empty');
         return null;
     }
-    console.log('Results: ', results);
+    // console.log('Results: ', results);
 
-    const processedData: ProccesedDataChartProps = {};
+    const processedData: ProcessedDataChartProps = {};
 
-    results.forEach((result: any) => {
+    results.forEach((result: ResultByTime) => {
         const startDate = result.TimePeriod.Start;
 
         if (!Array.isArray(result.Groups)) {
@@ -18,9 +18,8 @@ export const processDataChart = (results: any) => {
             return;
         }
 
-        result.Groups.forEach((group: any) => {
+        result.Groups.forEach((group) => {
             const originalServiceName = group.Keys[0];
-            // console.log('OriginalServiceName', originalServiceName);
 
             if (nameMapping.hasOwnProperty(originalServiceName)) {
                 const serviceName = nameMapping[originalServiceName];
@@ -31,16 +30,16 @@ export const processDataChart = (results: any) => {
                     processedData[startDate] = [];
                 }
 
-                processedData[startDate].push({
+                const serviceCostData: ServiceCostData = {
                     service: serviceName,
                     cost: cost,
                     color: color
-                });
+                };
 
+                processedData[startDate].push(serviceCostData);
             }
         });
     });
 
-    // console.log('ProcessedData: ', processedData);
     return processedData;
 };

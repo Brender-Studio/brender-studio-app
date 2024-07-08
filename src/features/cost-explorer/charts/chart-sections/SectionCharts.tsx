@@ -1,9 +1,9 @@
 import AreaChartSection from "./area-charts/AreaChartSection";
 import BarChartsSection from "./bar-chart/BarChartSection";
-import { SectionChartsProps } from "../../costExplorerTypes";
 import { useSelectedTypeChartStore } from "@/store/useSelectedTypeChartStore";
 import { NoResults } from "../helpers/LoadingAndError";
 import { SectionChartsSkeleton } from "@/components/custom/skeletons/SkeletonCostExplorer";
+import { SectionChartsProps } from "../../costExplorerTypes";
 
 const SectionCharts = ({
     areaChartData,
@@ -17,11 +17,10 @@ const SectionCharts = ({
 
     if (isLoading) {
         return <SectionChartsSkeleton />;
-
     }
 
     if (!processedDataCharts || !services || !barChartData || !areaChartData) {
-        return <NoResults />
+        return <NoResults />;
     }
 
     return (

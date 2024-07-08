@@ -3,14 +3,10 @@ import { CustomTooltip } from "../../tooltip/CustomTooltip";
 import CustomLegend from "../../legend/CustomLegend";
 import { nameMapping, serviceColorMap } from "@/lib/cost-explorer-utils/charts-utils/serviceColors";
 import { getCostByService } from "@/features/cost-explorer/charts/helpers/areaChartHelper";
+import { AreaChartCompProps } from "@/features/cost-explorer/costExplorerTypes";
 
-interface AreaChartProps {
-    averageData: any[];
-    services: string[];
-    processedData: any;
-}
 
-export const AreaChartComp = ({ averageData, services, processedData }: AreaChartProps) => (
+export const AreaChartComp = ({ averageData, services, processedData }: AreaChartCompProps) => (
 
     <ResponsiveContainer width="100%" height={450}>
         <AreaChart data={averageData} margin={{ top: 1, right: 0, left: 0, bottom: 5 }}>

@@ -2,13 +2,11 @@ import { ResponsiveContainer, BarChart, Bar, CartesianGrid, XAxis, YAxis, Toolti
 import CustomLegend from "../../legend/CustomLegend";
 import { serviceColorMap, nameMapping } from "@/lib/cost-explorer-utils/charts-utils/serviceColors";
 import { CustomTooltip } from '../../tooltip/CustomTooltip';
+import { BarChartsSectionProps } from '@/features/cost-explorer/costExplorerTypes';
 
-interface BarChartCompProps {
-    barData: any[];
-    services: string[];
-}
 
-const BarChartComp = ({ barData, services }: BarChartCompProps) => (
+
+const BarChartComp = ({ barData, services }: BarChartsSectionProps) => (
     <ResponsiveContainer width="100%" height={450}>
         <BarChart data={barData} barSize={30} margin={{ top: 1, right: 0, left: 0, bottom: 5 }}>
             <CartesianGrid opacity={0.2} vertical={false} />

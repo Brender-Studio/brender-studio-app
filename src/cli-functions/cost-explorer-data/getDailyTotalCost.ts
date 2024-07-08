@@ -1,7 +1,14 @@
+import { CostAndUsageResponse } from "@/features/cost-explorer/costExplorerTypes";
 import { Command } from "@tauri-apps/api/shell"
 
 
-export async function getDailyTotalCost(currentProfile: string, currentAwsRegion: string, currentStack: string, startDate: string, endDate: string) {
+export async function getDailyTotalCost(
+    currentProfile: string,
+    currentAwsRegion: string,
+    currentStack: string,
+    startDate: string,
+    endDate: string
+  ): Promise<CostAndUsageResponse> {
 
     console.log(currentStack)
     try {
