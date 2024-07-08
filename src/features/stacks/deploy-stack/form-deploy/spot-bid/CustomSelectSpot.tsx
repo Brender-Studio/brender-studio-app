@@ -13,7 +13,7 @@ interface CustomSelectSpotProps {
     form: UseFormReturn<FormDeploySchema>
     options: number[];
     label: string;
-    fieldName: FieldName;
+    fieldName: FieldValues[FieldName];
     defaultValue?: number;
     disabled?: boolean
 }
