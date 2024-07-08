@@ -38,7 +38,7 @@ export const AreaChartComp = ({ averageData, services, processedData }: AreaChar
                 <Area
                     key={index}
                     type="monotone"
-                    dataKey={(entry: any) => getCostByService(processedData, entry.date, service)}
+                    dataKey={(entry: { date: string }) => getCostByService(processedData, entry.date, service)}
                     name={service}
                     dot={false}
                     stackId={index}

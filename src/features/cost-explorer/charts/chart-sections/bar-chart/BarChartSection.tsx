@@ -1,4 +1,4 @@
-import { BarChartsSectionProps } from "@/features/cost-explorer/costExplorerTypes";
+import {  BarChartsSectionProps } from "@/features/cost-explorer/costExplorerTypes";
 import BarChartComp from "./BarChart";
 import { NoResults } from "@/features/cost-explorer/charts/helpers/LoadingAndError";
 
