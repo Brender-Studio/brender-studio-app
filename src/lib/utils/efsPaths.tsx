@@ -1,9 +1,11 @@
+import { formRenderSchema } from "@/schemas/formRenderSchema";
+import { z } from "zod";
 
 export const getLastSegment = (path: string): string => {
     return path.split(/[/\\]/).pop() || '';
 };
 
-export const efsMainScriptPath = (values: any) => {
+export const efsMainScriptPath = (values: z.infer<typeof formRenderSchema>) => {
     const projectName = values.project_name;
     const folderPathPython = values.folder_path_python;
     const pythonScriptPath = values.python_script_path;
@@ -17,14 +19,14 @@ export const efsMainScriptPath = (values: any) => {
 
     if (!folderPathPython) {
         // Si folder_path_python está vacío, usar solo el nombre del script
-        const scriptName = getLastSegment(pythonScriptPath);
+        const scriptName = pythonScriptPath ? getLastSegment(pythonScriptPath) : '';
         finalPath = `/mnt/efs/projects/${projectName}/${scriptName}`;
     } else {
         // Si folder_path_python no está vacío, concatenar el folder principal y el script
         const folderName = getLastSegment(folderPathPython);
 
         // Remover la ruta local de pythonScriptPath
-        const scriptRelativePathArray = pythonScriptPath.split(/[/\\]/);
+        const scriptRelativePathArray = pythonScriptPath?.split(/[/\\]/) ?? [];
         const folderNameIndex = scriptRelativePathArray.findIndex((segment: string | undefined) => segment === folderName);
 
         // Si encontramos el folderName en la ruta del script, tomar los segmentos siguientes
@@ -39,21 +41,21 @@ export const efsMainScriptPath = (values: any) => {
 };
 
 
-export const efsBlenderFilePath = (values: any) => {
+export const efsBlenderFilePath = (values: z.infer<typeof formRenderSchema>) => {
     const projectName = values.project_name;
     //   const folderPathBlender = form.watch('folder_path');
     const folderPathBlender = values.folder_path;
     //   const filePath = form.watch('file_path');
     const filePath = values.file_path;
-    const fileName = getLastSegment(filePath);
-    const folderName = getLastSegment(folderPathBlender);
+    const fileName = getLastSegment(filePath ?? '');
+    const folderName = getLastSegment(folderPathBlender ?? '');
 
     let finalPath = '';
 
     if (!folderPathBlender) {
         finalPath = `/mnt/efs/projects/${projectName}/${fileName}`;
     } else {
-        const fileRelativePathArray = filePath.split(/[/\\]/);
+        const fileRelativePathArray = filePath?.split(/[/\\]/) ?? [];
         const folderNameIndex = fileRelativePathArray.findIndex((segment: string) => segment === folderName);
         const fileRelativePath = folderNameIndex !== -1
             ? fileRelativePathArray.slice(folderNameIndex + 1).join('/')
