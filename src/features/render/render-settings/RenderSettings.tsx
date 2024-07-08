@@ -6,11 +6,14 @@ import { sectionType } from "./RenderSettings.types"
 import { useEffect } from "react"
 import DataTableHeader from "@/components/custom/structure/DataTableHeader"
 import FormFieldSkeleton from "@/components/custom/skeletons/FormFieldSkeleton"
+import { UseFormReturn } from "react-hook-form"
+import { z } from "zod"
+import { formRenderSchema } from "@/schemas/formRenderSchema"
 
 
 interface RenderSettingsProps {
     sectionType: sectionType
-    form: any
+    form: UseFormReturn<z.infer<typeof formRenderSchema>>
 }
 
 const RenderSettings = ({ form, sectionType }: RenderSettingsProps) => {
@@ -40,7 +43,7 @@ const RenderSettings = ({ form, sectionType }: RenderSettingsProps) => {
                                 <div className="flex items-center gap-2">
                                     <p className="text-xs text-muted-foreground">Customize</p>
                                     <Switch
-                                        {...field}
+                                        // {...field}
                                         // checked={field.value}
                                         disabled={Object.keys(currentScene).length === 0}
                                         checked={isCustom}
