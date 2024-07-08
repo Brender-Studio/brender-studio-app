@@ -21,7 +21,7 @@ import { formRenderSchema } from "@/schemas/formRenderSchema";
 import { Quota } from "./components/quota-types";
 
 interface RenderJobFieldsProps {
-    form: UseFormReturn<z.infer<typeof formRenderSchema>>;
+    form: UseFormReturn<z.infer<typeof formRenderSchema >>;
     currentPathname: string
 }
 
@@ -49,7 +49,7 @@ const RenderJobFields = ({ form, currentPathname }: RenderJobFieldsProps) => {
         })
     }
 
-    const renderJobSelectField = (fieldName: string, label: string, options: OptionsVars[], defaultValue: any) => (
+    const renderJobSelectField = (fieldName: string, label: string, options: OptionsVars[], defaultValue: string) => (
         <RenderJobSelect
             form={form}
             fieldName={fieldName as any} // Review this type
