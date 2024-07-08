@@ -20,6 +20,13 @@ export interface S3Resource {
     Timestamp: string;
 }
 
+export interface BucketItem {
+    name: string
+    type: string
+    lastModified: string | null
+    size: number
+}
+
 const RenderBucketContents = () => {
     const { getSessionData } = useUserSessionStore();
     const { currentAwsRegion, currentProfile, currentStack } = getSessionData();
@@ -57,8 +64,10 @@ const RenderBucketContents = () => {
         sentinelRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     };
 
-    const folders = bucketQuery.data?.filter((item: any) => item.type === 'folder') || [];
-    const files = bucketQuery.data?.filter((item: any) => item.type !== 'folder') || [];
+
+    const folders = bucketQuery.data?.filter((item): item is BucketItem => item !== null && item.type === 'folder') || [];
+    const files = bucketQuery.data?.filter((item): item is BucketItem => item !== null && item.type !== 'folder') || [];
+
 
     return (
         <div>
@@ -104,7 +113,7 @@ const RenderBucketContents = () => {
                                         Folders
                                     </h3>
                                     <div className="grid grid-cols-3 2xl:grid-cols-4 gap-2">
-                                        {folders.map((folder: any, index: number) => (
+                                        {folders.map((folder: BucketItem, index: number) => (
                                             <ObjectCard
                                                 key={index}
                                                 item={folder}
@@ -122,26 +131,26 @@ const RenderBucketContents = () => {
                                         Files
                                     </h3>
                                     <div className="grid grid-cols-3 2xl:grid-cols-4 gap-2">
-                                        {bucketQuery.data.find((item: any) => item.name.startsWith('bs_full_resolution')) && (
+                                        {bucketQuery.data?.find((item): item is BucketItem => item !== null && item.name.startsWith('bs_full_resolution')) && (
                                             <ObjectCard
-                                                item={bucketQuery.data.find((item: any) => item.name.startsWith('bs_full_resolution')) as any}
+                                                item={bucketQuery.data.find((item): item is BucketItem => item !== null && item.name.startsWith('bs_full_resolution'))!}
                                                 currentPathname={currentPathname}
                                                 bucketName={bucketName}
                                             />
                                         )}
-                                        {bucketQuery.data.find((item: any) => item.name.startsWith('bs_playblast')) && (
+                                        {bucketQuery.data?.find((item): item is BucketItem => item !== null && item.name.startsWith('bs_playblast')) && (
                                             <PlayblastCard />
                                         )}
-                                        {bucketQuery.data.find((item: any) => item.name === 'bs_thumbnail.png') && (
+                                        {bucketQuery.data?.find((item): item is BucketItem => item !== null && item.name === 'bs_thumbnail.png') && (
                                             <ThumbnailCard
-                                                itemName={bucketQuery.data.find((item: any) => item.name === 'bs_thumbnail.png') ? 'bs_thumbnail.png' : ''}
+                                                itemName={bucketQuery.data.find((item): item is BucketItem => item !== null && item.name === 'bs_thumbnail.png') ? 'bs_thumbnail.png' : ''}
                                             />
                                         )}
                                         {files.
-                                            filter((file: any) => file.name !== 'bs_thumbnail.png')
-                                            .filter((file: any) => !file.name.startsWith('bs_playblast'))
-                                            .filter((file: any) => !file.name.startsWith('bs_full_resolution'))
-                                            .map((file: any, index: number) => (
+                                            filter((file: BucketItem) => file.name !== 'bs_thumbnail.png')
+                                            .filter((file: BucketItem) => !file.name.startsWith('bs_playblast'))
+                                            .filter((file: BucketItem) => !file.name.startsWith('bs_full_resolution'))
+                                            .map((file: BucketItem, index: number) => (
                                                 <ObjectCard
                                                     key={index}
                                                     item={file}

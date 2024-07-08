@@ -4,21 +4,19 @@ import DropdownCardObject from "../../../../components/custom/dropdowns/Dropdown
 import { useNavigate } from "react-router-dom"
 import { convertSize, getFileExtension } from "@/features/render-contents/bucket-contents/helpers/helpers"
 import { iconMapping } from "@/features/render-contents/bucket-contents/helpers/iconMapping"
+import { BucketItem } from "../RenderBucketContents"
 
 interface ObjectCardProps {
     currentPathname: string
     bucketName: string
-    item: {
-        name: string
-        type: string
-        lastModified: string
-        size: string
-    }
+    item: BucketItem
 }
 
 const ObjectCard = ({ item, currentPathname, bucketName }: ObjectCardProps) => {
     const navigate = useNavigate()
 
+    // console.log('item:', item)
+    
     const handleRedirect = (item: { name: string, type: string }) => {
         console.log('ObjectCard:', item)
         console.log('currentPathname:', currentPathname)
