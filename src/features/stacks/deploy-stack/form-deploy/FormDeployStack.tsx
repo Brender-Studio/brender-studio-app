@@ -77,7 +77,7 @@ const FormDeployStack = () => {
         form.setValue('region', currentAwsRegion);
     }, [currentProfile, currentAwsRegion]);
 
-    const handleStackNameChange = (e: any) => {
+    const handleStackNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         console.log('form errors', form.formState.errors);
         console.log('form values', form.getValues());
         form.setValue('stackName', e.target.value.toUpperCase(), { shouldValidate: true, })
@@ -106,7 +106,7 @@ const FormDeployStack = () => {
                                                         id="stackName"
                                                         onChange={handleStackNameChange}
                                                         onBlurCapture={(e) => checkStackName(e.target.value)}
-                                                        className="absolute pl-40" placeholder="YOUR-FARM-NAME"  />
+                                                        className="absolute pl-40" placeholder="YOUR-FARM-NAME" />
                                                 </div>
                                             </FormControl>
                                             <FormMessage />

@@ -3,11 +3,13 @@ import { FormControl, FormDescription, FormField, FormItem, FormMessage } from "
 import { useState } from "react";
 import { computeDataSection, computeOptions } from "./computeData";
 import { ComputeOptionCard } from "./ComputeOptionCard";
+import { UseFormReturn } from "react-hook-form";
+import { z } from "zod";
+import { deployStackSchema } from "@/schemas/deployStackSchema";
 
 interface SelectComputeResourcesProps {
-  form: any;
+  form: UseFormReturn<z.infer<typeof deployStackSchema>>
 }
-
 
 const SelectComputeResources = ({ form }: SelectComputeResourcesProps) => {
   const [selectedOption, setSelectedOption] = useState(computeOptions[1].type);

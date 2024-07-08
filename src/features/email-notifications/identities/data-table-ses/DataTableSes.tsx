@@ -22,6 +22,12 @@ interface DataTableSesProps<TData, TValue> {
     isQueryLoading: boolean
 }
 
+interface SesIdentityRow {
+    identity: string;
+    email: string;
+    verified: boolean;
+}
+
 
 export function DataTableSes<TData, TValue>({
     columns,
@@ -50,11 +56,11 @@ export function DataTableSes<TData, TValue>({
 
     // Get data from selected rows in the table
     const selectedRows = table.getFilteredSelectedRowModel().rows.map(
-        (row) => row.original
+        (row) => row.original as SesIdentityRow
     )
 
-    const itemsToDelete = selectedRows.map((row: any) => row.identity)
-    const itemsToShow = selectedRows.map((row: any) => row.identity)
+    const itemsToDelete = selectedRows.map((row: SesIdentityRow) => row.identity)
+    const itemsToShow = selectedRows.map((row: SesIdentityRow) => row.identity)
 
     const handleDelete = async () => {
         console.log("Deleting", itemsToDelete)

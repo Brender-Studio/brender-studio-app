@@ -2,9 +2,12 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { FormControl, FormDescription, FormField, FormItem, FormMessage } from "@/components/ui/form"
 import { Label } from "@/components/ui/label"
 import { blenderVersions } from "./blenderVersions"
+import { UseFormReturn } from "react-hook-form"
+import { z } from "zod"
+import { deployStackSchema } from "@/schemas/deployStackSchema"
 
 interface SelectBlenderImagesProps {
-    form: any
+    form: UseFormReturn<z.infer<typeof deployStackSchema>>
 }
 
 const SelectBlenderImages = ({ form }: SelectBlenderImagesProps) => {
