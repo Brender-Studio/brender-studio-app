@@ -48,6 +48,7 @@ const FormDeployStack = () => {
 
 
     const form = useForm<z.infer<typeof deployStackSchema>>({
+        mode: 'onChange',
         resolver: zodResolver(deployStackSchema),
         defaultValues: initialData
     });

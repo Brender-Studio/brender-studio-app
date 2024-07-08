@@ -88,9 +88,10 @@ const ConfirmDeployDialog = ({ openDialog, setOpenDialog, form, title, descripti
         </p>
     );
 
+    const hasErrors = Object.keys(form.formState.errors).length > 0;
 
 
-    console.log(form.getValues())
+    // console.log(form.getValues())
     return (
         <div className="flex justify-center">
             <Dialog open={openDialog}
@@ -104,7 +105,7 @@ const ConfirmDeployDialog = ({ openDialog, setOpenDialog, form, title, descripti
                 <DialogTrigger asChild>
                     <Button
                         type="button"
-                        disabled={!form.getValues().stackName || !form.getValues().region || !form.formState.isValid}
+                        disabled={!form.getValues().stackName || !form.getValues().region || hasErrors}
                     >
                         Review & Deploy
                     </Button>
@@ -196,7 +197,7 @@ const ConfirmDeployDialog = ({ openDialog, setOpenDialog, form, title, descripti
                             onClick={() => onSubmit(form.getValues())}
                             type="submit"
                             className={isLoading ? 'gap-2 flex' : ''}
-                            disabled={isLoading || !form.getValues().stackName || !form.getValues().region || !form.formState.isValid}
+                            disabled={isLoading || !form.getValues().stackName || !form.getValues().region || hasErrors}
                         >
                             {isLoading && <SpinnerButton />}
                             {isLoading ? 'Deploying' : 'Deploy Farm'}
