@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
 import { open } from "@tauri-apps/api/shell";
 import { ColumnsTableExplorerProps } from "../costExplorerTypes";
+import { nameMapping } from "@/lib/cost-explorer-utils/charts-utils/serviceColors";
 
 
 
@@ -9,7 +10,11 @@ export const columns: ColumnDef<ColumnsTableExplorerProps>[] = [
     {
         id: "Service",
         header: "Service",
-        cell: ({ row }) => row.original.Service,
+        cell: ({ row }) => {
+            const serviceName = row.original.Service;
+            const displayName = nameMapping[serviceName] || serviceName;
+            return displayName;
+        }
     },
     {
         id: "Monthly",

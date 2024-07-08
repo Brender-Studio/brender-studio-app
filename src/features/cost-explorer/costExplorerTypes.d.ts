@@ -15,8 +15,8 @@ export interface DataTableCostExplorerProps<TData, TValue> {
 }
 
 export type ColumnsTableExplorerProps = {
-    Service: any;
-    Amount: any;
+    Service: string;
+    Amount: string;
     deepLink: string;
     Monthly: string
 };
@@ -47,17 +47,7 @@ export interface ResultByTime {
         Start: string;
         End: string;
     };
-    Groups: Group[];
-}
-
-export interface Group {
-    Keys: string[];
-    Metrics: {
-        BlendedCost: {
-            Amount: string;
-            Unit: string;
-        };
-    };
+    Groups: GroupsCostServices[];
 }
 
 
