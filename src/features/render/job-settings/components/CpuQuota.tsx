@@ -14,6 +14,7 @@ interface CpuQuotaProps {
 }
 
 
+
 const CpuQuota = ({ setCpuQuotas }: CpuQuotaProps) => {
     const { currentAwsRegion } = useUserSessionStore().getSessionData();
     // const { currentAwsRegion } = getSessionData();
@@ -25,8 +26,8 @@ const CpuQuota = ({ setCpuQuotas }: CpuQuotaProps) => {
 
     useEffect(() => {
         if (data) {
-            const spot = data?.find((item: any) => item.QuotaName === 'All Standard (A, C, D, H, I, M, R, T, Z) Spot Instance Requests')
-            const onDemand = data?.find((item: any) => item.QuotaName === 'Running On-Demand Standard (A, C, D, H, I, M, R, T, Z) instances')
+            const spot = data?.find((item: QuotaData) => item.QuotaName === 'All Standard (A, C, D, H, I, M, R, T, Z) Spot Instance Requests')
+            const onDemand = data?.find((item: QuotaData) => item.QuotaName === 'Running On-Demand Standard (A, C, D, H, I, M, R, T, Z) instances')
 
             setCpuQuotas({
                 spot: spot?.Value,

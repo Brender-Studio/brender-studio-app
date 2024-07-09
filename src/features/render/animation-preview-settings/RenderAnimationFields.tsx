@@ -14,7 +14,7 @@ interface RenderAnimationFieldsProps {
 
 const RenderAnimationFields = ({ form }: RenderAnimationFieldsProps) => {
 
-    const renderAnimationSelectField = (fieldName: string, label: string, options: { name: string, value: string }[], defaultValue: any) => {
+    const renderAnimationSelectField = (fieldName: string, label: string, options: { name: string, value: string }[], defaultValue: string) => {
         return (
             <AnimationSelect
                 form={form}
