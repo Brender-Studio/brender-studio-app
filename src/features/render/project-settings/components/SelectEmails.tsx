@@ -17,6 +17,15 @@ interface SelectEmailsProps {
     form: UseFormReturn<z.infer<typeof formRenderSchema>>;
 }
 
+interface SesIdentity {
+    identity: string;
+    attributes: {
+        [key: string]: {
+            VerificationStatus: string;
+        };
+    };
+}
+
 const SelectEmails = ({ form }: SelectEmailsProps) => {
     const navigate = useNavigate()
 
@@ -24,7 +33,7 @@ const SelectEmails = ({ form }: SelectEmailsProps) => {
 
     // console.log('data', data)
     const options = data
-        ? data.map((item: any) => ({
+        ? data.map((item: SesIdentity) => ({
             name: item.identity,
             value: item.identity,
             status: item.attributes[item.identity].VerificationStatus
@@ -40,7 +49,7 @@ const SelectEmails = ({ form }: SelectEmailsProps) => {
 
     useEffect(() => {
         if (data) {
-            const validIdentity = data.find((item: any) => item.attributes[item.identity].VerificationStatus === 'Success');
+            const validIdentity = data.find((item: SesIdentity) => item.attributes[item.identity].VerificationStatus === 'Success');
             if (validIdentity) {
                 form.setValue('ses.ses_email', validIdentity.identity);
                 form.setValue('ses.enable_notifications', true);
@@ -62,7 +71,7 @@ const SelectEmails = ({ form }: SelectEmailsProps) => {
                     </div>
                 ) : (
                     <div className="relative w-full">
-                        {options.every((item: any) => item.status !== 'Success') ? (
+                        {options.every((item) => item.status !== 'Success') ? (
                             <div className="mt-2 w-full">
                                 <FormLabel className="inline-flex gap-2">Email Notification
                                     <TooltipInfo
@@ -98,7 +107,7 @@ const SelectEmails = ({ form }: SelectEmailsProps) => {
                                                 onValueChange={onValueChange}
                                                 defaultValue={defaultValue}
                                                 value={field.value}
-                                                disabled={options.length === 0 || options.every((item: any) => item.status !== 'Success') || !form.getValues('ses.enable_notifications')}
+                                                disabled={options.length === 0 || options.every((item) => item.status !== 'Success') || !form.getValues('ses.enable_notifications')}
                                             >
                                                 <FormControl>
                                                     <SelectTrigger className="text-xs w-full">
@@ -134,7 +143,7 @@ const SelectEmails = ({ form }: SelectEmailsProps) => {
                                                 <div className="absolute right-0 top-0 flex justify-between items-center">
                                                     <FormLabel className="text-xs font-normal text-muted-foreground mr-2">Notifications</FormLabel>
                                                     <Switch
-                                                        disabled={options.length === 0 || options.every((item: any) => item.status !== 'Success')}
+                                                        disabled={options.length === 0 || options.every((item) => item.status !== 'Success')}
                                                         // {...field}
                                                         checked={field.value}
                                                         onCheckedChange={
@@ -143,7 +152,7 @@ const SelectEmails = ({ form }: SelectEmailsProps) => {
                                                                 if (!checked) {
                                                                     form.setValue('ses.ses_email', '')
                                                                 } else {
-                                                                    const validIdentity = data?.find((item: any) => item.attributes[item.identity].VerificationStatus === 'Success');
+                                                                    const validIdentity = data?.find((item) => item.attributes[item.identity].VerificationStatus === 'Success');
                                                                     if (validIdentity) {
                                                                         form.setValue('ses.ses_email', validIdentity.identity);
                                                                     }
