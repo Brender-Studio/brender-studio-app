@@ -2,16 +2,23 @@ import TooltipInfo from "@/components/custom/tooltip/TooltipInfo"
 import { FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { formRenderSchema } from "@/schemas/formRenderSchema"
+import { FieldValues, UseFormReturn } from "react-hook-form"
+import { z } from "zod"
+
+
+type FormRenderSchema = z.infer<typeof formRenderSchema>;
+type FieldName = keyof FormRenderSchema;
 
 interface AnimationSelectProps {
-    form: any
-    fieldName: string
+    form: UseFormReturn<z.infer<typeof formRenderSchema>>
+    fieldName: FieldValues[FieldName]
     label: string
     options: {
         name: string
         value: string
     }[]
-    defaultValue: any
+    defaultValue: string
 }
 
 const AnimationSelect = ({ form, fieldName, label, options, defaultValue }: AnimationSelectProps) => {
