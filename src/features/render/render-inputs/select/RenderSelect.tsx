@@ -107,7 +107,7 @@ const RenderSelect = ({ defaultValue, fieldName, form, label, options, isCustom,
                             </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                            {options.map((option: any, index: number) => (
+                            {options.map((option, index: number) => (
                                 <SelectItem key={index} value={option}
                                     disabled={currentPathname === '/render-cpu' && option === 'OPTIX' ? true : false}
                                 >
