@@ -20,6 +20,14 @@ interface DataTableSesProps<TData, TValue> {
     awsProfile: string
 }
 
+interface RowData {
+    identity: string;
+    attributes: {
+        [key: string]: {
+            VerificationStatus: string;
+        };
+    };
+}
 
 export function DataTableSes<TData, TValue>({
     columns,
@@ -47,17 +55,17 @@ export function DataTableSes<TData, TValue>({
 
     // Get data from selected rows in the table
     const selectedRows = table.getFilteredSelectedRowModel().rows.map(
-        (row) => row.original
+        (row) => row.original as RowData
     )
 
-    const itemsToDelete = selectedRows.map((row: any) => row.identity)
-    const itemsToShow = selectedRows.map((row: any) => row.identity)
+    const itemsToDelete = selectedRows.map((row: RowData) => row.identity)
+    const itemsToShow = selectedRows.map((row: RowData) => row.identity)
 
     const handleDelete = async () => {
         console.log("Deleting", itemsToDelete)
         try {
             setIsLoading(true)
-         await deleteIdentities(itemsToDelete,awsRegion, awsProfile )
+            await deleteIdentities(itemsToDelete, awsRegion, awsProfile)
 
             await queryClient.refetchQueries({
                 queryKey: sesQueries.sesIdentitiesQueryKey(awsRegion, awsProfile),

@@ -28,6 +28,11 @@ interface Progress {
     [key: string]: boolean;
 }
 
+interface EnvVar {
+    name?: string;
+    value?: string;
+}
+
 const ConfirmRenderDialog = ({ openDialog, setOpenDialog, form, title, description }: ConfirmRenderDialogProps) => {
     const [isSubmitting, setSubmitting] = useState(false);
     const { getSessionData } = useUserSessionStore();
@@ -76,7 +81,7 @@ const ConfirmRenderDialog = ({ openDialog, setOpenDialog, form, title, descripti
     // const mappedJobDefinition = form?.getValues()?.job_settings?.job_definition ? mapJobDefinitionName(form.getValues().job_settings?.job_definition) : '';
 
 
-    async function callJobSubmitFn(values: any) {
+    async function callJobSubmitFn(values: z.infer<typeof formRenderSchema>) {
         return new Promise<void>((resolve) => {
             setTimeout(async () => {
                 setSubmitting(true);
@@ -232,7 +237,7 @@ const ConfirmRenderDialog = ({ openDialog, setOpenDialog, form, title, descripti
                                                         <p className="text-sm font-semibold">USE_GPU: <span className="font-normal text-muted-foreground">{form.getValues().python_env_vars?.use_gpus ?? 'N/A'}</span></p>
                                                         <p className="text-sm font-semibold">BUCKET_NAME: <span className="font-normal text-muted-foreground">{form.getValues().python_env_vars?.bucket_name ?? 'N/A'}</span></p>
                                                         <p className="text-sm font-semibold">BUCKET_KEY: <span className="font-normal text-muted-foreground">{form.getValues().python_env_vars?.bucket_key ?? 'N/A'}</span></p>
-                                                        {form.getValues().custom_env_vars?.map((envVar: any, index: number) => (
+                                                        {form.getValues().custom_env_vars?.map((envVar: EnvVar, index: number) => (
                                                             <p key={index} className="text-sm font-semibold">
                                                                 {envVar.name && envVar.value && (
                                                                     <>
