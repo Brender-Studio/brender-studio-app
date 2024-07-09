@@ -23,7 +23,12 @@ interface DataTableInstanceProps<TData, TValue> {
     isQueryLoading: boolean
 }
 
-export function DataTableInstance<TData, TValue>({
+interface RowData {
+    id: string
+
+}
+
+export function DataTableInstance<TData extends RowData, TValue>({
     columns,
     data,
     linkAwsConsole,
@@ -57,8 +62,8 @@ export function DataTableInstance<TData, TValue>({
 
     console.log(selectedRows)
 
-    const itemsToDelete = selectedRows.map((row: any) => row.id)
-    const itemsToShow = selectedRows.map((row: any) => row.id)
+    const itemsToDelete = selectedRows.map((row) => row.id)
+    const itemsToShow = selectedRows.map((row) => row.id)
 
     const handleDelete = async () => {
         console.log("Deleting", itemsToDelete)

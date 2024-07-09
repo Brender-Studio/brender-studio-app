@@ -32,8 +32,12 @@ export async function getRequestHistory(profile: string, region: string) {
         const response = JSON.parse(child.stdout);
 
         return response;
-    } catch (error: any) {
+    } catch (error) {
         console.error('Error executing command:', error);
-        throw new Error(`Failed to get EC2 service quotas: ${error.message}`);
+
+        if (error instanceof Error) {
+            throw new Error(`Failed to get EC2 service quotas: ${error.message}`);
+        }
+
     }
 }

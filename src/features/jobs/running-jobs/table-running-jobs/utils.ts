@@ -1,6 +1,23 @@
 import { RunningJob } from "./columns";
 
-// Utilidad para convertir el timestamp a una fecha legible
+
+interface Job {
+    container: {
+        environment: {
+            name: string;
+            value: string;
+        }[];
+    };
+    jobQueue: string;
+    createdAt: number;
+    jobId: string;
+    status: string;
+    dependsOn: {
+        jobId: string;
+    }[];
+}
+
+
 const formatDate = (timestamp: number): string => {
     const date = new Date(timestamp);
     return date.toISOString();
@@ -15,8 +32,8 @@ const getComputeType = (jobQueue: string): string => {
     return jobQueue.toUpperCase().includes('GPU') ? 'gpu' : 'cpu';
 };
 
-export const mapToRunningJob = (job: any): RunningJob => {
-    const projectName = job.container.environment.find((env: any) => env.name === "BUCKET_KEY")?.value || "";
+export const mapToRunningJob = (job: Job): RunningJob => {
+    const projectName = job.container.environment.find((env) => env.name === "BUCKET_KEY")?.value || "";
     const queueType = getQueueType(job.jobQueue);
     const createdAt = formatDate(job.createdAt);
     const computeType = getComputeType(job.jobQueue);

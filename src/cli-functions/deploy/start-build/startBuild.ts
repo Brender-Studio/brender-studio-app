@@ -3,7 +3,34 @@ import { deployConfig } from "../deploy-config/deployConfig";
 import { getCliCreds } from "../../user/getCliCreds";
 import { getUserAwsId } from "../../user/getUserAwsId";
 
-export async function startBuild(region: string, profile: string, stackName: string, isPrivate: boolean, blenderVersions: string, maxvCpus: any,  spotBidPercentage: any) {
+interface MaxvCpus {
+    onDemandGPU: number;
+    onDemandCPU: number;
+    spotCPU: number;
+    spotGPU: number;
+}
+
+interface SpotBidPercentage {
+    spotCPU: number;
+    spotGPU: number;
+}
+
+interface StartBuildResult {
+    success: boolean;
+    build: string;
+    stackName: string;
+}
+
+
+export async function startBuild(
+    region: string,
+    profile: string,
+    stackName: string,
+    isPrivate: boolean,
+    blenderVersions: string,
+    maxvCpus: MaxvCpus,
+    spotBidPercentage: SpotBidPercentage
+): Promise<StartBuildResult> {
 
     console.log('Region:', region);
     console.log('Profile:', profile);
@@ -14,7 +41,7 @@ export async function startBuild(region: string, profile: string, stackName: str
     console.log('Spot bid percentage:', spotBidPercentage);
 
     // Encapsulate blenderVersios into a string with the format "3.6.0,4.0.0,5.0.0"
-   
+
     blenderVersions.toString();
 
     const projectBuildName = deployConfig.codeBuild.projectName;

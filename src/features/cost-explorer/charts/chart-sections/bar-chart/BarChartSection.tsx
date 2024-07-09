@@ -1,10 +1,7 @@
+import {  BarChartsSectionProps } from "@/features/cost-explorer/costExplorerTypes";
 import BarChartComp from "./BarChart";
 import { NoResults } from "@/features/cost-explorer/charts/helpers/LoadingAndError";
 
-interface BarChartsSectionProps {
-    barData: any;
-    services: any
-}
 
 
 const BarChartsSection = ({ barData, services }: BarChartsSectionProps) => {

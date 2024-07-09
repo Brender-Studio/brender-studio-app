@@ -11,7 +11,7 @@ export const serviceColorMap: { [service: string]: string } = {
 };
 
 
-export const nameMapping: any = {
+export const nameMapping: { [service: string]: string } = {
     "Amazon EC2 Container Registry (ECR)": "Repository ECR",
     "EC2 - Other": "Networking EC2",
     "Amazon Elastic Compute Cloud - Compute": "Instances EC2",

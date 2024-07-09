@@ -2,19 +2,11 @@ import { ColumnDef } from "@tanstack/react-table";
 import { open } from "@tauri-apps/api/shell";
 import ActivityDialog from "./activity/ActivityDialog";
 import { useState } from "react";
+import { AutoscalingGroupMapped } from "@/cli-functions/ec2/getAutoscalingGroups";
 
 
-export type AutoscalingGroups = {
-    id: string;
-    name: string;
-    instances: string;
-    availabilityZones: string | string[]
-    createdTime: string;
-    logActivity: string;
-};
 
-
-export const columns: ColumnDef<AutoscalingGroups>[] = [
+export const columns: ColumnDef<AutoscalingGroupMapped>[] = [
     {
         id: "id",
         header: "Name",

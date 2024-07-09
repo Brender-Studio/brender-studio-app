@@ -1,5 +1,5 @@
 import { Command } from "@tauri-apps/api/shell";
-import { handleCommandClose, handleCommandError } from "../cli-utils/commandOutput";
+import {  CommandClose, handleCommandClose, handleCommandError } from "../cli-utils/commandOutput";
 
 export async function getStackDetails(stackName: string, region: string, profile: string) {
     try {
@@ -38,11 +38,11 @@ export async function getStackDetails(stackName: string, region: string, profile
             "json"
         ]);
         // console.log('command', command)
-        
-        command.on('close', data => {
+
+        command.on('close', (data: CommandClose) => {
             handleCommandClose(data);
         });
-        command.on('error', error => {
+        command.on('error', (error: Error) => {
             handleCommandError(error);
         });
 

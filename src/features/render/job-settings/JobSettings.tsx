@@ -1,10 +1,13 @@
 import { useLocation } from "react-router-dom"
 import RenderJobFields from "./RenderJobFields"
 import DataTableHeader from "@/components/custom/structure/DataTableHeader"
+import { UseFormReturn } from "react-hook-form"
+import { z } from "zod";
+import { formRenderSchema } from "@/schemas/formRenderSchema";
 
 
 interface JobSettingsProps {
-    form: any
+    form: UseFormReturn<z.infer<typeof formRenderSchema>>;
 }
 
 

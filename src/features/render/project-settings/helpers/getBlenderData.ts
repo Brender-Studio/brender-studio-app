@@ -2,7 +2,7 @@ import { resolveResource } from "@tauri-apps/api/path";
 import { getDataBlenderScene } from "@/cli-functions/blender/getDataBlenderScene";
 import { modifyAllScenes } from "./modifyAllScenes";
 import { getCurrentSceneFromAllScenes } from "./getCurrentSceneFromAllScenes";
-import { Scene } from "../ProjectSettings.types";
+import {  Scene } from "../ProjectSettings.types";
 
 interface BlenderData {
     setIsDataLoading: (value: boolean) => void;

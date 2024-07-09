@@ -15,23 +15,26 @@ import GpuQuota from "./components/GpuQuota";
 import EnvironmentVars from "./components/environment-vars/EnvironmentVars";
 import CpuQuota from "./components/CpuQuota";
 import DataTableHeader from "@/components/custom/structure/DataTableHeader";
+import { UseFormReturn } from "react-hook-form";
+import { z } from "zod";
+import { formRenderSchema } from "@/schemas/formRenderSchema";
+import { Quota } from "./components/quota-types";
 
 interface RenderJobFieldsProps {
-    form: any
+    form: UseFormReturn<z.infer<typeof formRenderSchema >>;
     currentPathname: string
 }
 
+interface OptionsVars {
+    name: string;
+    value: string;
+}[]
+
 const RenderJobFields = ({ form, currentPathname }: RenderJobFieldsProps) => {
-    const { getSessionData } = useUserSessionStore();
-    const { currentAwsRegion, currentProfile, currentStack } = getSessionData();
-    const [gpuQuotas, setGpuQuotas] = useState({
-        spot: null,
-        onDemand: null
-    })
-    const [cpuQuotas, setCpuQuotas] = useState({
-        spot: null,
-        onDemand: null
-    })
+    const [gpuQuotas, setGpuQuotas] = useState<Quota>();
+    const [cpuQuotas, setCpuQuotas] = useState<Quota>();
+
+    const { currentAwsRegion, currentProfile, currentStack } = useUserSessionStore().getSessionData();
 
     const { data: JobDefinitions, error, isLoading, isError } = useGetJobDefinitionsQuery({ enabled: true });
     const { data: JobQueues } = useGetJobQueuesQuery({ enabled: true });
@@ -46,10 +49,10 @@ const RenderJobFields = ({ form, currentPathname }: RenderJobFieldsProps) => {
         })
     }
 
-    const renderJobSelectField = (fieldName: string, label: string, options: any, defaultValue: any) => (
+    const renderJobSelectField = (fieldName: string, label: string, options: OptionsVars[], defaultValue: string) => (
         <RenderJobSelect
             form={form}
-            fieldName={fieldName}
+            fieldName={fieldName as any} // Review this type
             label={label}
             options={options}
             defaultValue={defaultValue}

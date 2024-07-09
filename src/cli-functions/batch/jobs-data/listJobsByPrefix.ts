@@ -15,105 +15,105 @@ import { getJobQueues } from "../getJobQueues";
 
 
 export async function listJobsByPrefix(jobNamePrefix: string, region: string, profile: string, stackName: string) {
-    try {
-        const jobQueues = await getJobQueues(stackName, region, profile);
+	try {
+		const jobQueues = await getJobQueues(stackName, region, profile);
 
-        // console.log('jobQueues', jobQueues);
+		// console.log('jobQueues', jobQueues);
 
-        const jobPromises = jobQueues.map(async (jobQueue: any) => {
-            const jobQueueName = jobQueue.jobQueueName;
+		const jobPromises = jobQueues.map(async (jobQueue: { jobQueueName: string }) => {
+			const jobQueueName = jobQueue.jobQueueName;
 
-            const command = new Command("aws-cli", [
-                "batch",
-                "list-jobs",
-                "--job-queue",
-                jobQueueName,
-                "--filters",
-                `name=JOB_NAME,values="${jobNamePrefix}"`,
-                "--query",
-                "jobSummaryList[*]",
-                "--region",
-                region,
-                "--profile",
-                profile,
-                "--output",
-                "json"
-            ]);
+			const command = new Command("aws-cli", [
+				"batch",
+				"list-jobs",
+				"--job-queue",
+				jobQueueName,
+				"--filters",
+				`name=JOB_NAME,values="${jobNamePrefix}"`,
+				"--query",
+				"jobSummaryList[*]",
+				"--region",
+				region,
+				"--profile",
+				profile,
+				"--output",
+				"json"
+			]);
 
-            // console.log('command', command);
+			// console.log('command', command);
 
-            const output = await command.execute();
+			const output = await command.execute();
 
-            // console.log('output', output);
+			// console.log('output', output);
 
-            const stderr = output.stderr?.toString() || '';
+			const stderr = output.stderr?.toString() || '';
 
-            if (output.code !== 0) {
-                console.error(`Command failed with code ${output.code}`);
-                console.error(`stderr: ${stderr}`);
-                throw new Error(stderr);
-            }
+			if (output.code !== 0) {
+				console.error(`Command failed with code ${output.code}`);
+				console.error(`stderr: ${stderr}`);
+				throw new Error(stderr);
+			}
 
-            const stdout = output.stdout?.toString() || '';
+			const stdout = output.stdout?.toString() || '';
 
-            const jobs = JSON.parse(stdout) || [];
+			const jobs = JSON.parse(stdout) || [];
 
-            return jobs;
-        });
+			return jobs;
+		});
 
-        // Esperamos a que todas las promesas se resuelvan
-        const allJobs = await Promise.all(jobPromises);
+		// Esperamos a que todas las promesas se resuelvan
+		const allJobs = await Promise.all(jobPromises);
 
-        // console.log('allJobs', allJobs);
+		// console.log('allJobs', allJobs);
 
-        // Flatten el array de arrays y filtrar los trabajos
-        const filteredJobs = allJobs.flat().filter(job => job.status !== 'SUCCEEDED' && job.status !== 'FAILED');
+		// Flatten el array de arrays y filtrar los trabajos
+		const filteredJobs = allJobs.flat().filter(job => job.status !== 'SUCCEEDED' && job.status !== 'FAILED');
 
-        // console.log('filteredJobs', filteredJobs);
+		// console.log('filteredJobs', filteredJobs);
 
-        // Ahora obtenemos los detalles de cada trabajo filtrado
-        const detailPromises = filteredJobs.map(async (job: any) => {
-            const command = new Command("aws-cli", [
-                "batch",
-                "describe-jobs",
-                "--jobs",
-                job.jobId,
-                "--region",
-                region,
-                "--profile",
-                profile,
-                "--output",
-                "json"
-            ]);
+		// Ahora obtenemos los detalles de cada trabajo filtrado
+		const detailPromises = filteredJobs.map(async (job: { jobId: string }) => {
+			const command = new Command("aws-cli", [
+				"batch",
+				"describe-jobs",
+				"--jobs",
+				job.jobId,
+				"--region",
+				region,
+				"--profile",
+				profile,
+				"--output",
+				"json"
+			]);
 
-            const output = await command.execute();
+			const output = await command.execute();
 
-            const stderr = output.stderr?.toString() || '';
+			const stderr = output.stderr?.toString() || '';
 
-            if (output.code !== 0) {
-                console.error(`Command failed with code ${output.code}`);
-                console.error(`stderr: ${stderr}`);
-                throw new Error(stderr);
-            }
+			if (output.code !== 0) {
+				console.error(`Command failed with code ${output.code}`);
+				console.error(`stderr: ${stderr}`);
+				throw new Error(stderr);
+			}
 
-            const stdout = output.stdout?.toString() || '';
+			const stdout = output.stdout?.toString() || '';
 
-            const jobDetails = JSON.parse(stdout)?.jobs?.[0] || {};
+			const jobDetails = JSON.parse(stdout)?.jobs?.[0] || {};
 
-            return jobDetails;
-        });
+			return jobDetails;
+		});
 
-        // Esperamos a que todas las promesas se resuelvan
-        const detailedJobs = await Promise.all(detailPromises);
+		// Esperamos a que todas las promesas se resuelvan
+		const detailedJobs = await Promise.all(detailPromises);
 
-        // console.log('detailedJobs', detailedJobs);
+		// console.log('detailedJobs', detailedJobs);
 
-        return detailedJobs;
+		return detailedJobs;
 
-    } catch (error) {
-        if (error instanceof Error) {
-            console.log('error', error.message);
-            throw error;
-        }
-    }
+	} catch (error) {
+		if (error instanceof Error) {
+			console.log('error', error.message);
+			throw error;
+		}
+	}
 }

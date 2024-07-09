@@ -2,14 +2,26 @@ import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { nameMapping, serviceColorMap } from "@/lib/cost-explorer-utils/charts-utils/serviceColors";
 
-export const CustomTooltip = ({ active, payload, label }: any) => {
+
+interface PayloadItem {
+  name: string;
+  value: number;
+  color?: string;
+}
+
+interface CustomTooltipProps {
+  active?: boolean;
+  payload?: PayloadItem[];
+  label?: string;
+}
+
+
+export const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
   if (active && payload && payload.length) {
-    // console.log("CustomTooltip", payload);
-    const tooltipContent = payload.map((item: any, index: number) => {
+    const tooltipContent = payload.map((item, index) => {
       const name = item.name;
       const formattedCost = item.value.toFixed(4);
-      const serviceName = Object.keys(nameMapping).find(key => nameMapping[key] === name) || 'Servicio Desconocido';
-      // console.log("ServiceName", serviceName);
+      const serviceName = Object.keys(nameMapping).find(key => nameMapping[key] === name) || 'Unknown Service';
       const colorService = serviceColorMap[serviceName!];
 
       return (
@@ -21,21 +33,19 @@ export const CustomTooltip = ({ active, payload, label }: any) => {
               ></div>
               <div className="text-xs  ">
                 <span className="text-white/80 font-semibold">
-                  {name && name}
+                  {name}
                 </span>
               </div>
             </div>
           </div>
           <div className="flex justify-end">
-            <span className="text-muted-foreground text-xs"> {name && formattedCost ? `${formattedCost}$` : null}</span>
+            <span className="text-muted-foreground text-xs"> {formattedCost ? `${formattedCost}$` : null}</span>
           </div>
         </div>
       );
     });
 
-    const totalCost = payload.reduce((acc: number, item: any) => {
-      return acc + (item.value);
-    }, 0);
+    const totalCost = payload.reduce((acc, item) => acc + item.value, 0);
 
     return (
       <div className="custom-tooltip px-6">

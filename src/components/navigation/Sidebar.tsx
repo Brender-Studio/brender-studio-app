@@ -62,7 +62,7 @@ const Sidebar = ({ isCollapsed }: SidebarProps) => {
                 <TooltipTrigger asChild className="mt-1">
                   <SidebarButton
                     className={`relative w-full rounded-none ${currentPath === route.path || currentPath.startsWith(`${route.path}/`) ? "bg-accent text-white border border-l-2 border-l-brand" : "font-normal text-muted-foreground"}`}
-                    variant={currentPath === route.path || currentPath.startsWith(`${route.path}/`) ? "secondary" : "ghost" as any}
+                    variant={currentPath === route.path || currentPath.startsWith(`${route.path}/`) ? "secondary" : "ghost"}
                     key={index}
                     onClick={() => handleNavigate(route.path)}
                   >
