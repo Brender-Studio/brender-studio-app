@@ -1,6 +1,6 @@
-import { Sceneform } from "../ProjectSettings.types";
+import { Scene } from "../ProjectSettings.types";
 
-export const addPlaceholderIfNotExists = (scene: Sceneform): Sceneform => {
+export const addPlaceholderIfNotExists = (scene: Scene): Scene => {
     // // Check if the scene has eevee_config object, if not, add a placeholder
     // if (!scene.eevee_config) {
     //     scene.eevee_config = {

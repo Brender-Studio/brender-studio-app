@@ -2,17 +2,19 @@ import { Label } from "@/components/ui/label";
 import { FormControl, FormDescription, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { useState } from "react";
 import { computeDataSection, computeOptions } from "./computeData";
-import { ComputeOptionCard } from "./ComputeOptionCard";
+import { ComputeOptionCard, Option } from "./ComputeOptionCard";
+import { UseFormReturn } from "react-hook-form";
+import { z } from "zod";
+import { deployStackSchema } from "@/schemas/deployStackSchema";
 
 interface SelectComputeResourcesProps {
-  form: any;
+  form: UseFormReturn<z.infer<typeof deployStackSchema>>
 }
-
 
 const SelectComputeResources = ({ form }: SelectComputeResourcesProps) => {
   const [selectedOption, setSelectedOption] = useState(computeOptions[1].type);
 
-  const onClickSetValues = (option: any) => {
+  const onClickSetValues = (option: Option) => {
     console.log("Setting values for option:", option.type);
     if (option.type !== 'custom') {
       form.setValue('maxvCpus', {
@@ -40,7 +42,7 @@ const SelectComputeResources = ({ form }: SelectComputeResourcesProps) => {
             </FormDescription>
             <FormControl>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 pt-2">
-                {computeOptions.map((option) => (
+                {computeOptions.map((option: Option) => (
                   <ComputeOptionCard
                     key={option.type}
                     form={form}

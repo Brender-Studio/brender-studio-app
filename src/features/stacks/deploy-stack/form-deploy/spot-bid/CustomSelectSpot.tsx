@@ -1,20 +1,31 @@
 import { FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
+import { z } from "zod";
+import { deployStackSchema } from "@/schemas/deployStackSchema";
+import { FieldValues, UseFormReturn } from "react-hook-form";
+
+
+type FormDeploySchema = z.infer<typeof deployStackSchema>;
+type FieldName = keyof FormDeploySchema;
 
 interface CustomSelectSpotProps {
-    form: any;
+    form: UseFormReturn<FormDeploySchema>
     options: number[];
     label: string;
-    fieldName: string;
-    defaultValue?: any;
+    fieldName: FieldValues[FieldName];
+    defaultValue?: number;
     disabled?: boolean
 }
 
+
 const CustomSelectSpot = ({ form, fieldName, label, defaultValue, options, disabled }: CustomSelectSpotProps) => {
 
-    const onValueChange = (fieldName: string, value: any) => {
-        form.setValue(fieldName, value);
+    const onValueChange = (fieldName: FieldName, value: string) => {
+        const intValue = parseInt(value, 10);
+        if (!isNaN(intValue)) {
+            form.setValue(fieldName, intValue as FieldValues[FieldName]);
+        }
     }
 
     return (
@@ -26,10 +37,10 @@ const CustomSelectSpot = ({ form, fieldName, label, defaultValue, options, disab
                     <Label>{label}</Label>
                     <Select
                         onValueChange={value => {
-                            onValueChange(fieldName, parseInt(value));
+                            onValueChange(fieldName, value);
                         }}
-                        defaultValue={defaultValue || field.value}
-                        value={field.value}
+                        defaultValue={defaultValue?.toString() || field.value.toString()}
+                        value={field.value.toString()}
                         disabled={disabled}
                     >
                         <FormControl>
@@ -38,8 +49,8 @@ const CustomSelectSpot = ({ form, fieldName, label, defaultValue, options, disab
                             </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                            {options.map((option: any, index: number) => (
-                                <SelectItem key={index} value={option}>
+                            {options.map((option: number, index: number) => (
+                                <SelectItem key={index} value={option.toString()}>
                                     {option}
                                 </SelectItem>
                             ))}

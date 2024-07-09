@@ -1,9 +1,14 @@
 import { Label } from '@/components/ui/label'
 import { FormControl, FormDescription, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import CustomSelectSpot from './CustomSelectSpot';
+import { z } from 'zod';
+import { deployStackSchema } from '@/schemas/deployStackSchema';
+import { UseFormReturn } from 'react-hook-form';
+
+type FormDeploySchema = z.infer<typeof deployStackSchema>;
 
 interface SpotBidProps {
-    form: any
+    form: UseFormReturn<FormDeploySchema>
 }
 
 const SpotBid = ({ form }: SpotBidProps) => {

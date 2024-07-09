@@ -6,6 +6,8 @@ import { useState } from "react";
 import { deploySequenceFn } from "@/features/stacks/deploy-stack/deploy-sequence-fn/deploySequenceFn";
 import { useNavigate } from "react-router-dom";
 import { toast } from "@/components/ui/use-toast";
+import { z } from "zod";
+import { deployStackSchema } from "@/schemas/deployStackSchema";
 
 export interface UseCodeBuildQueriesProps {
     progressCallback: (step: string) => void;
@@ -21,7 +23,7 @@ export const useExecuteCodeBuildSequenceQuery = ({ progressCallback }: UseCodeBu
     const [isLoading, setIsLoading] = useState(false);
     const queryClient = useQueryClient();
 
-    const deployStack = async (values: any) => {
+    const deployStack = async (values: z.infer<typeof deployStackSchema>) => {
         try {
             setIsLoading(true);
             console.log('Form values:', values);

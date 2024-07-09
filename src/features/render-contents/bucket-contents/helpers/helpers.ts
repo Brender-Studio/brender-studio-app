@@ -1,7 +1,7 @@
 
 
-export const convertSize = (size: string) => {
-    const sizeInBytes = parseInt(size)
+export const convertSize = (size: number) => {
+    const sizeInBytes = size
     const sizeInKb = sizeInBytes / 1024
     const sizeInMb = sizeInKb / 1024
     return sizeInMb || 0

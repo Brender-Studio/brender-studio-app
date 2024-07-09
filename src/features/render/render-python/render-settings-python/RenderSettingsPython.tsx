@@ -4,10 +4,13 @@ import { useEffect } from "react"
 import FormFieldSkeleton from "@/components/custom/skeletons/FormFieldSkeleton"
 import RenderFormFields from "../../render-settings/RenderFormFields"
 import DataTableHeader from "@/components/custom/structure/DataTableHeader"
+import { UseFormReturn } from "react-hook-form"
+import { z } from "zod"
+import { formRenderSchema } from "@/schemas/formRenderSchema"
 
 interface RenderSettingsPythonProps {
     sectionType: sectionType
-    form: any
+    form: UseFormReturn<z.infer<typeof formRenderSchema>>;
 }
 
 const RenderSettingsPython = ({ form, sectionType }: RenderSettingsPythonProps) => {
@@ -15,10 +18,9 @@ const RenderSettingsPython = ({ form, sectionType }: RenderSettingsPythonProps) 
 
 
     useEffect(() => {
-        // set form value type (sectionType)
         console.log('changing type to', sectionType)
         form.setValue('type', sectionType)
-    }, [sectionType,])
+    }, [sectionType])
 
     return (
         <div>

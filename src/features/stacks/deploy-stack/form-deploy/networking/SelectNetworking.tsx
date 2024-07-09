@@ -3,9 +3,14 @@ import { Label } from "@/components/ui/label"
 import { networkingOptions } from "./costData";
 import { FormControl, FormDescription, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { useState } from "react";
+import { z } from "zod";
+import { deployStackSchema } from "@/schemas/deployStackSchema";
+import { UseFormReturn } from "react-hook-form";
+
+type FormDeploySchema = z.infer<typeof deployStackSchema>;
 
 interface SelectNetworkingProps {
-    form: any
+    form: UseFormReturn<FormDeploySchema>
 }
 
 const SelectNetworking = ({ form }: SelectNetworkingProps) => {

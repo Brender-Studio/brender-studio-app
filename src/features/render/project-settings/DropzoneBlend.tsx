@@ -2,7 +2,7 @@ import { BaseDirectory, readDir } from '@tauri-apps/api/fs';
 import { CheckCircle, PlusCircle, X } from "lucide-react"
 import { toast } from "@/components/ui/use-toast"
 import { useFormStore } from "@/store/useFormStore";
-import { getBlendFiles } from "./helpers/getBlendFiles";
+import { FileStructure, getBlendFiles } from "./helpers/getBlendFiles";
 import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -15,9 +15,12 @@ import { openFileDialog, openFolderDialog } from "./helpers/fileDialog";
 import { readDirectory } from './helpers/fileSystem';
 import { useFiledropHover } from '@/hooks/useFiledropHover';
 import { Switch } from '@/components/ui/switch';
+import { UseFormReturn } from 'react-hook-form';
+import { z } from 'zod';
+import { formRenderSchema } from '@/schemas/formRenderSchema';
 
 interface DropzoneProps {
-    form: any
+    form: UseFormReturn<z.infer<typeof formRenderSchema>>;
     isDataLoading: boolean
     setIsDataLoading: (value: boolean) => void
 }
@@ -27,11 +30,14 @@ const DIALOG_TYPES = {
     FILE: "file"
 };
 
+type DialogResult = string | string[] | null;
+
+
 const DropzoneBlend = ({ form, isDataLoading, setIsDataLoading }: DropzoneProps) => {
     const { clearAllFormStates, blendSelectOptions, setBlendSelectOptions, setSelectedPaths, selectedPaths, isFolder, setIsFolder, fileName, setFileName } = useFormStore()
     const { isHovering } = useFiledropHover()
 
-    const handleDialogResult = async (result: any, type: string) => {
+    const handleDialogResult = async (result: DialogResult, type: string) => {
         try {
             setIsDataLoading(true);
 
@@ -40,7 +46,7 @@ const DropzoneBlend = ({ form, isDataLoading, setIsDataLoading }: DropzoneProps)
             if (type === DIALOG_TYPES.FOLDER) {
                 const directoryPath = Array.isArray(result) ? result[0] : result;
                 const files = await readDirectory(directoryPath);
-                const blendFiles = getBlendFiles(files);
+                const blendFiles = getBlendFiles(files as FileStructure[]);
 
                 setBlendSelectOptions(blendFiles);
                 form.setValue("folder_path", directoryPath);
@@ -61,7 +67,7 @@ const DropzoneBlend = ({ form, isDataLoading, setIsDataLoading }: DropzoneProps)
         }
     };
 
-    const handleDialogError = (error: any) => {
+    const handleDialogError = (error: unknown) => {
         console.error('Error while handling dialog:', error);
         toast({ title: "An error occurred", description: "Failed to handle dialog", variant: "destructive" });
     };
@@ -104,7 +110,7 @@ const DropzoneBlend = ({ form, isDataLoading, setIsDataLoading }: DropzoneProps)
                     form.setValue("is_folder", true);
                     form.setValue("folder_path", firstFile.path);
                     const files = await readDir(firstFile.path, { dir: BaseDirectory.App, recursive: true });
-                    const blendFiles = getBlendFiles(files);
+                    const blendFiles = getBlendFiles(files as FileStructure[]);
                     setBlendSelectOptions(blendFiles);
                     form.setValue("file_path", blendFiles[0].path);
                     setSelectedPaths({ ...selectedPaths, folderPath: firstFile.path, filePath: blendFiles[0].path });
@@ -140,7 +146,7 @@ const DropzoneBlend = ({ form, isDataLoading, setIsDataLoading }: DropzoneProps)
                                 <div className="absolute top-0 right-0 flex items-center gap-2">
                                     <p className="text-xs text-muted-foreground">Folder</p>
                                     <Switch
-                                        {...field}
+                                        // {...field}
                                         checked={field.value}
                                         onCheckedChange={
                                             (checked: boolean) => {

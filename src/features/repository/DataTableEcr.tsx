@@ -20,6 +20,11 @@ interface DataTableEcrProps<TData, TValue> {
   isQueryLoading: boolean
 }
 
+interface EcrImageRow {
+  imageDigest: string;
+  imageTags: string; 
+}
+
 export function DataTableEcr<TData, TValue>({
   columns,
   data,
@@ -47,11 +52,11 @@ export function DataTableEcr<TData, TValue>({
 
   // Get data from selected rows in the table
   const selectedRows = table.getFilteredSelectedRowModel().rows.map(
-    (row) => row.original
+    (row) => row.original as EcrImageRow
   )
 
-  const itemsToDelete = selectedRows.map((row: any) => row.imageDigest)
-  const itemsToShow = selectedRows.map((row: any) => row.imageTags || row.imageDigest)
+  const itemsToDelete = selectedRows.map((row: EcrImageRow) => row.imageDigest)
+  const itemsToShow = selectedRows.map((row: EcrImageRow) => row.imageTags || row.imageDigest)
 
   const handleDelete = async () => {
     console.log("Deleting", itemsToDelete)

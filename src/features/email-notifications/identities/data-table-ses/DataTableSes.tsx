@@ -14,10 +14,6 @@ import DataTableHeader from "@/components/custom/structure/DataTableHeader"
 import { Skeleton } from "@/components/ui/skeleton"
 
 
-interface RowData {
-    identity: string;
-}
-
 interface DataTableSesProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
     data: TData[],
@@ -26,8 +22,14 @@ interface DataTableSesProps<TData, TValue> {
     isQueryLoading: boolean
 }
 
+interface SesIdentityRow {
+    identity: string;
+    email: string;
+    verified: boolean;
+}
 
-export function DataTableSes<TData extends RowData, TValue>({
+
+export function DataTableSes<TData, TValue>({
     columns,
     data,
     awsRegion,
@@ -54,11 +56,11 @@ export function DataTableSes<TData extends RowData, TValue>({
 
     // Get data from selected rows in the table
     const selectedRows = table.getFilteredSelectedRowModel().rows.map(
-        (row) => row.original
+        (row) => row.original as SesIdentityRow
     )
 
-    const itemsToDelete = selectedRows.map((row) => row.identity)
-    const itemsToShow = selectedRows.map((row) => row.identity)
+    const itemsToDelete = selectedRows.map((row: SesIdentityRow) => row.identity)
+    const itemsToShow = selectedRows.map((row: SesIdentityRow) => row.identity)
 
     const handleDelete = async () => {
         console.log("Deleting", itemsToDelete)

@@ -2,14 +2,21 @@ import TooltipInfo from "@/components/custom/tooltip/TooltipInfo"
 import { Checkbox } from "@/components/ui/checkbox"
 import { FormControl, FormField, FormItem } from "@/components/ui/form"
 import { Label } from "@/components/ui/label"
+import { formRenderSchema } from "@/schemas/formRenderSchema"
+import { UseFormReturn } from "react-hook-form"
+import { z } from "zod"
+
+type FormRenderSchema = z.infer<typeof formRenderSchema>;
+type FieldName = keyof FormRenderSchema;
 
 interface RenderCheckboxProps {
-    form: any
-    fieldName: string
+    form: UseFormReturn<z.infer<typeof formRenderSchema>>
+    fieldName: FieldName
     label: string
     defaultValue: boolean
     isCustom: boolean
 }
+
 
 
 const RenderCheckbox = ({ form, fieldName, defaultValue, label, isCustom }: RenderCheckboxProps) => {
@@ -46,7 +53,7 @@ const RenderCheckbox = ({ form, fieldName, defaultValue, label, isCustom }: Rend
                         <div className="flex gap-2 my-2">
                             <Checkbox
                                 type="button"
-                                checked={field.value}
+                                checked={!!field.value}
                                 onCheckedChange={field.onChange}
                                 disabled={!isCustom}
                                 defaultChecked={defaultValue}

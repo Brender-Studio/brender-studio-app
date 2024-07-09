@@ -4,9 +4,12 @@ import { useLocation } from "react-router-dom";
 import useBucketNameQuery from "@/react-query-utils/queries/s3-queries/useBucketNameQuery";
 import { efsBlenderFilePath, efsMainScriptPath } from '@/lib/utils/efsPaths';
 import { UseFormReturn } from 'react-hook-form';
+import { formRenderSchema } from '@/schemas/formRenderSchema';
+import { z } from 'zod';
 
+type FormRenderSchema = z.infer<typeof formRenderSchema>;
 
-const useEnvironmentVars = (form: UseFormReturn<any>) => {
+const useEnvironmentVars = (form: UseFormReturn<FormRenderSchema>) => {
     const currentPathname = useLocation().pathname;
     const { bucketName } = useBucketNameQuery();
 

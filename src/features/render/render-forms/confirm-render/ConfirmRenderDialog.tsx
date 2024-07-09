@@ -14,14 +14,18 @@ import { useNavigate } from "react-router-dom"
 import { toast } from "@/components/ui/use-toast"
 import ProgressList from "./ProgressList"
 import { efsBlenderFilePath, efsMainScriptPath } from "@/lib/utils/efsPaths"
+import { UseFormReturn } from "react-hook-form"
 
 interface ConfirmRenderDialogProps {
     openDialog: boolean
     setOpenDialog: (value: boolean) => void
-    // type form (react hook form)
-    form: any
+    form: UseFormReturn<z.infer<typeof formRenderSchema>>;
     title: string
     description: string
+}
+
+interface Progress {
+    [key: string]: boolean;
 }
 
 const ConfirmRenderDialog = ({ openDialog, setOpenDialog, form, title, description }: ConfirmRenderDialogProps) => {
@@ -33,7 +37,7 @@ const ConfirmRenderDialog = ({ openDialog, setOpenDialog, form, title, descripti
 
     const { bucketName } = useBucketNameQuery();
 
-    const [progress, setProgress] = useState<{ [key: string]: boolean }>({
+    const [progress, setProgress] = useState<Progress>({
         [PROGRESS_STEPS_RENDER.PREPARING_FILES]: false,
         [PROGRESS_STEPS_RENDER.UPLOADING_FILES]: false,
         [PROGRESS_STEPS_RENDER.SUBMITING_JOB_1]: false,
@@ -50,12 +54,27 @@ const ConfirmRenderDialog = ({ openDialog, setOpenDialog, form, title, descripti
         }
     };
 
-    const mappedJobQueue = form?.getValues()?.job_settings?.job_queue ? mapJobQueueName(form.getValues().job_settings.job_queue) : '';
-    const mappedJobDefinition = form?.getValues()?.job_settings?.job_definition ? mapJobDefinitionName(form.getValues().job_settings.job_definition) : '';
+    const jobSettings = form?.getValues()?.job_settings;
+    const jobQueue = jobSettings?.job_queue;
+    const jobDefinition = jobSettings?.job_definition;
+
+
+    if (!jobQueue || !jobDefinition) {
+        console.error('Job queue or job definition is missing');
+        return null;
+    }
+
+    const mappedJobQueue = mapJobQueueName(jobQueue);
+    const mappedJobDefinition = mapJobDefinitionName(jobDefinition);
 
     if (!mappedJobQueue || !mappedJobDefinition) {
-        return null
+        console.error('Failed to map job queue or job definition');
+        return null;
     }
+
+    // const mappedJobQueue = form?.getValues()?.job_settings?.job_queue ? mapJobQueueName(form.getValues().job_settings?.job_queue) : '';
+    // const mappedJobDefinition = form?.getValues()?.job_settings?.job_definition ? mapJobDefinitionName(form.getValues().job_settings?.job_definition) : '';
+
 
     async function callJobSubmitFn(values: any) {
         return new Promise<void>((resolve) => {
@@ -148,7 +167,7 @@ const ConfirmRenderDialog = ({ openDialog, setOpenDialog, form, title, descripti
                                         </p>
                                         <Card className="p-4">
                                             <p className="text-sm font-semibold">Project Name: <span className="font-normal text-muted-foreground">{form.getValues().project_name}</span></p>
-                                            <p className="text-sm font-semibold">Email Notifications: <span className="font-normal text-muted-foreground">{form.getValues().ses.ses_email ? form.getValues().ses.ses_email : 'No configured'}</span></p>
+                                            <p className="text-sm font-semibold">Email Notifications: <span className="font-normal text-muted-foreground">{form.getValues().ses?.ses_email ? form.getValues().ses?.ses_email : 'No configured'}</span></p>
                                             <p className="text-sm font-semibold">Blender file: <span className="font-normal text-muted-foreground">{form.getValues().file_path}</span></p>
                                             <p className="text-sm font-semibold">Blender version: <span className="font-normal text-muted-foreground">{mappedJobDefinition}</span></p>
                                             <p className="text-sm font-semibold">Job Queue: <span className="font-normal text-muted-foreground">{mappedJobQueue}</span></p>
@@ -174,10 +193,10 @@ const ConfirmRenderDialog = ({ openDialog, setOpenDialog, form, title, descripti
                                                     Output animation preview settings
                                                 </p>
                                                 <Card className="grid grid-cols-2 p-4">
-                                                    <p className="text-sm font-semibold">Output Quality: <span className="font-normal text-muted-foreground">{form.getValues().ses.animation_preview.output_quality}</span></p>
-                                                    <p className="text-sm font-semibold">Encoding Speed: <span className="font-normal text-muted-foreground">{form.getValues().ses.animation_preview.encoding_speed}</span></p>
-                                                    <p className="text-sm font-semibold">FFmpeg Format: <span className="font-normal text-muted-foreground">{form.getValues().ses.animation_preview.ffmpeg_format}</span></p>
-                                                    <p className="text-sm font-semibold">Auto Split: <span className="font-normal text-muted-foreground">{form.getValues().ses.animation_preview.autosplit ? 'Yes' : 'No'}</span></p>
+                                                    <p className="text-sm font-semibold">Output Quality: <span className="font-normal text-muted-foreground">{form.getValues()?.ses?.animation_preview?.output_quality ?? 'N/A'}</span></p>
+                                                    <p className="text-sm font-semibold">Encoding Speed: <span className="font-normal text-muted-foreground">{form.getValues()?.ses?.animation_preview?.encoding_speed ?? 'N/A'}</span></p>
+                                                    <p className="text-sm font-semibold">FFmpeg Format: <span className="font-normal text-muted-foreground">{form.getValues()?.ses?.animation_preview?.ffmpeg_format ?? 'N/A'}</span></p>
+                                                    <p className="text-sm font-semibold">Auto Split: <span className="font-normal text-muted-foreground">{form.getValues()?.ses?.animation_preview?.autosplit ? 'Yes' : 'No'}</span></p>
                                                 </Card>
                                             </>
                                         )}
@@ -185,12 +204,12 @@ const ConfirmRenderDialog = ({ openDialog, setOpenDialog, form, title, descripti
                                             Job container settings
                                         </p>
                                         <Card className="grid grid-cols-2 p-4">
-                                            <p className="text-sm font-semibold">vCPUs: <span className="font-normal text-muted-foreground">{form.getValues().job_settings.vcpus}</span></p>
-                                            <p className="text-sm font-semibold">Memory: <span className="font-normal text-muted-foreground">{form.getValues().job_settings.memory} MB</span></p>
-                                            <p className="text-sm font-semibold">Timeout: <span className="font-normal text-muted-foreground">{form.getValues().job_settings.timeout} seconds</span></p>
-                                            <p className="text-sm font-semibold">Job Attempts: <span className="font-normal text-muted-foreground">{form.getValues().job_settings.job_attempts}</span></p>
-                                            <p className="text-sm font-semibold">Number GPU's: <span className="font-normal text-muted-foreground">{form.getValues().job_settings.number_gpus}</span></p>
-                                            <p className="text-sm font-semibold">Array Size: <span className="font-normal text-muted-foreground">{form.getValues().job_settings.array_size}</span></p>
+                                            <p className="text-sm font-semibold">vCPUs: <span className="font-normal text-muted-foreground">{form.getValues()?.job_settings?.vcpus ?? 'N/A'} </span></p>
+                                            <p className="text-sm font-semibold">Memory: <span className="font-normal text-muted-foreground">{form.getValues()?.job_settings?.memory ?? 'N/A'} MB</span></p>
+                                            <p className="text-sm font-semibold">Timeout: <span className="font-normal text-muted-foreground">{form.getValues()?.job_settings?.timeout ?? 'N/A'} seconds</span></p>
+                                            <p className="text-sm font-semibold">Job Attempts: <span className="font-normal text-muted-foreground">{form.getValues().job_settings?.job_attempts ?? 'N/A'}</span></p>
+                                            <p className="text-sm font-semibold">Number GPU's: <span className="font-normal text-muted-foreground">{form.getValues().job_settings?.number_gpus ?? 'N/A'}</span></p>
+                                            <p className="text-sm font-semibold">Array Size: <span className="font-normal text-muted-foreground">{form.getValues()?.job_settings?.array_size ?? 'N/A'}</span></p>
                                         </Card>
                                         {
                                             form.watch('type') === 'custom_render_python' && (
@@ -207,12 +226,12 @@ const ConfirmRenderDialog = ({ openDialog, setOpenDialog, form, title, descripti
                                                     <Card className="p-4">
                                                         <p className="text-sm font-semibold">EFS_MAIN_SCRIPT_PATH: <span className="font-normal text-muted-foreground">{efsMainScriptPath(form.getValues())}</span></p>
                                                         <p className="text-sm font-semibold">EFS_BLENDER_FILE_PATH: <span className="font-normal text-muted-foreground">{efsBlenderFilePath(form.getValues())}</span></p>
-                                                        <p className="text-sm font-semibold">EFS_BLENDER_OUTPUT_FOLDER_PATH: <span className="font-normal text-muted-foreground">{form.getValues().python_env_vars.efs_blender_output_folder_path}</span></p>
-                                                        <p className="text-sm font-semibold">BLENDER_EXECUTABLE: <span className="font-normal text-muted-foreground">{form.getValues().python_env_vars.blender_executable_path}</span></p>
-                                                        <p className="text-sm font-semibold">USE_EEVEE: <span className="font-normal text-muted-foreground">{form.getValues().python_env_vars.use_eevee}</span></p>
-                                                        <p className="text-sm font-semibold">USE_GPU: <span className="font-normal text-muted-foreground">{form.getValues().python_env_vars.use_gpus}</span></p>
-                                                        <p className="text-sm font-semibold">BUCKET_NAME: <span className="font-normal text-muted-foreground">{form.getValues().python_env_vars.bucket_name}</span></p>
-                                                        <p className="text-sm font-semibold">BUCKET_KEY: <span className="font-normal text-muted-foreground">{form.getValues().python_env_vars.bucket_key}</span></p>
+                                                        <p className="text-sm font-semibold">EFS_BLENDER_OUTPUT_FOLDER_PATH: <span className="font-normal text-muted-foreground">{form.getValues().python_env_vars?.efs_blender_output_folder_path ?? 'N/A'}</span></p>
+                                                        <p className="text-sm font-semibold">BLENDER_EXECUTABLE: <span className="font-normal text-muted-foreground">{form.getValues().python_env_vars?.blender_executable_path ?? 'N/A'}</span></p>
+                                                        <p className="text-sm font-semibold">USE_EEVEE: <span className="font-normal text-muted-foreground">{form.getValues().python_env_vars?.use_eevee ?? 'N/A'}</span></p>
+                                                        <p className="text-sm font-semibold">USE_GPU: <span className="font-normal text-muted-foreground">{form.getValues().python_env_vars?.use_gpus ?? 'N/A'}</span></p>
+                                                        <p className="text-sm font-semibold">BUCKET_NAME: <span className="font-normal text-muted-foreground">{form.getValues().python_env_vars?.bucket_name ?? 'N/A'}</span></p>
+                                                        <p className="text-sm font-semibold">BUCKET_KEY: <span className="font-normal text-muted-foreground">{form.getValues().python_env_vars?.bucket_key ?? 'N/A'}</span></p>
                                                         {form.getValues().custom_env_vars?.map((envVar: any, index: number) => (
                                                             <p key={index} className="text-sm font-semibold">
                                                                 {envVar.name && envVar.value && (

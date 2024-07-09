@@ -7,12 +7,16 @@ import { Check } from "lucide-react"
 import { PROGRESS_STEPS } from "@/constants/progress/progressConstants"
 import { useExecuteCodeBuildSequenceQuery } from "@/react-query-utils/queries/codebuild-queries/useExecuteCodeBuildSequenceQuery"
 import { Card } from "@/components/ui/card"
+import { UseFormReturn } from "react-hook-form"
+import { z } from "zod"
+import { deployStackSchema } from "@/schemas/deployStackSchema"
 
+type FormDeploySchema = z.infer<typeof deployStackSchema>;
 
 interface ConfirmDeployDialogProps {
     openDialog: boolean
     setOpenDialog: (value: boolean) => void
-    form: any
+    form: UseFormReturn<FormDeploySchema>
     title: string
     description: string
 }
@@ -61,7 +65,7 @@ const ConfirmDeployDialog = ({ openDialog, setOpenDialog, form, title, descripti
         </div>
     ));
 
-    const onSubmit = async (values: any) => {
+    const onSubmit = async (values: z.infer<typeof deployStackSchema>) => {
         try {
             await deployStack(values);
             console.log('Deploying stack', values)
@@ -82,15 +86,16 @@ const ConfirmDeployDialog = ({ openDialog, setOpenDialog, form, title, descripti
         }
     };
 
-    const KeyValueConfirm = ({ keyName, value }: any) => (
+    const KeyValueConfirm = ({ keyName, value }: { keyName: string, value: string }) => (
         <p className="text-sm font-semibold">
             {keyName}: <span className="font-normal text-muted-foreground text-sm">{value}</span>
         </p>
     );
 
+    const hasErrors = Object.keys(form.formState.errors).length > 0;
 
 
-    console.log(form.getValues())
+    // console.log(form.getValues())
     return (
         <div className="flex justify-center">
             <Dialog open={openDialog}
@@ -104,7 +109,7 @@ const ConfirmDeployDialog = ({ openDialog, setOpenDialog, form, title, descripti
                 <DialogTrigger asChild>
                     <Button
                         type="button"
-                        disabled={!form.getValues().stackName || !form.getValues().region || !form.formState.isValid}
+                        disabled={!form.getValues().stackName || !form.getValues().region || hasErrors}
                     >
                         Review & Deploy
                     </Button>
@@ -196,7 +201,7 @@ const ConfirmDeployDialog = ({ openDialog, setOpenDialog, form, title, descripti
                             onClick={() => onSubmit(form.getValues())}
                             type="submit"
                             className={isLoading ? 'gap-2 flex' : ''}
-                            disabled={isLoading || !form.getValues().stackName || !form.getValues().region || !form.formState.isValid}
+                            disabled={isLoading || !form.getValues().stackName || !form.getValues().region || hasErrors}
                         >
                             {isLoading && <SpinnerButton />}
                             {isLoading ? 'Deploying' : 'Deploy Farm'}

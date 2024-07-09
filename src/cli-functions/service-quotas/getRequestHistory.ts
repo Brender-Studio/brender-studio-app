@@ -17,12 +17,10 @@ export async function getRequestHistory(profile: string, region: string) {
             "json"
         ]);
 
-        console.log('Executing command:', command);
-
         const child = await command.execute();
 
-        console.log('Command executed:', child.code, child.stdout, child.stderr);
-
+        // console.log('Command executed:', child.code, child.stdout, child.stderr);
+        
         if (child.code !== 0) {
             throw new Error(`Command failed with code ${child.code}. Error: ${child.stderr}`);
         }

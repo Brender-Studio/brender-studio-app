@@ -2,10 +2,13 @@ import CustomTabs from '@/components/custom/tabs/CustomTabs'
 import CustomScriptSection from './custom-script/CustomScriptSection'
 import PresetScriptSection from './preset-scripts/PresetScriptSection'
 import PythonGuideDialog from '../python-guide/PythonGuideDialog'
+import { UseFormReturn } from 'react-hook-form';
+import { z } from 'zod';
+import { formRenderSchema } from '@/schemas/formRenderSchema';
 // import LabelSeparator from '@/components/custom/structure/LabelSeparator'
 
 interface PythonTabsProps {
-    form: any
+    form: UseFormReturn<z.infer<typeof formRenderSchema>>;
 }
 
 const PythonTabs = ({ form }: PythonTabsProps) => {

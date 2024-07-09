@@ -1,8 +1,11 @@
+import { UseFormReturn } from 'react-hook-form';
 import CodePreview from './CodePreview'
 import DropzonePythonScript from './dropzone-pyhton/DropzonePythonScript'
+import { z } from 'zod';
+import { formRenderSchema } from '@/schemas/formRenderSchema';
 
 interface CustomScriptSectionProps {
-    form: any
+    form: UseFormReturn<z.infer<typeof formRenderSchema>>;
 }
 
 const CustomScriptSection = ({ form }: CustomScriptSectionProps) => {

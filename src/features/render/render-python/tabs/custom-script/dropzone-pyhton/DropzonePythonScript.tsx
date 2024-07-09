@@ -6,13 +6,16 @@ import { useFormStore } from "@/store/useFormStore"
 import { FileJson, Folder } from "lucide-react"
 import { openFileDialog, openFolderDialog } from "./helpers/openDialogByType"
 import { readDirectory } from "@/features/render/project-settings/helpers/fileSystem"
-import { getPythonScripts } from "./helpers/getPythonScripts"
+import { File, getPythonScripts } from "./helpers/getPythonScripts"
 import FileScriptSelect from "./components/FileScriptSelect"
 import { toast } from "@/components/ui/use-toast"
 import { useEffect } from "react"
+import { UseFormReturn } from "react-hook-form"
+import { z } from "zod"
+import { formRenderSchema } from "@/schemas/formRenderSchema"
 
 interface DropzonePythonScriptProps {
-  form: any
+  form: UseFormReturn<z.infer<typeof formRenderSchema>>
 }
 
 const DIALOG_TYPES = {
@@ -24,7 +27,7 @@ const DIALOG_TYPES = {
 const DropzonePythonScript = ({ form }: DropzonePythonScriptProps) => {
   const { pythonSelectOptions, setPythonSelectOptions, setIsFolderPython, selectedPathsPython, setSelectedPathsPython } = useFormStore()
 
-  const handleDialogResult = async (result: any, type: string) => {
+  const handleDialogResult = async (result: string | string[] | null, type: string) => {
     try {
 
       if (!result) return;
@@ -32,7 +35,7 @@ const DropzonePythonScript = ({ form }: DropzonePythonScriptProps) => {
       if (type === DIALOG_TYPES.FOLDER) {
         const directoryPath = Array.isArray(result) ? result[0] : result;
         const files = await readDirectory(directoryPath);
-        const pythonScripts = getPythonScripts(files);
+        const pythonScripts = getPythonScripts(files as File[]);
         console.log("Python scripts: ", pythonScripts);
 
         console.log("Folder path: ", directoryPath);
@@ -47,7 +50,7 @@ const DropzonePythonScript = ({ form }: DropzonePythonScriptProps) => {
           setSelectedPathsPython({
             ...selectedPathsPython,
             folderPath: directoryPath,
-            filePath: pythonScripts[0].path 
+            filePath: pythonScripts[0].path
           });
         } else {
           form.setValue("python_script_path", "");
@@ -60,12 +63,12 @@ const DropzonePythonScript = ({ form }: DropzonePythonScriptProps) => {
 
       } else {
         console.log("File path: ", result);
-        form.setValue("python_script_path", result);
+        form.setValue("python_script_path", result.toString());
         // TODO: REVIEW THIS
         const filePath = Array.isArray(result) ? result[0] : result;
         const fileName = filePath?.split(/(\\|\/)/g).pop();
         console.log("File name: ", fileName);
-        setSelectedPathsPython({ ...selectedPathsPython, filePath: Array.isArray(result) ? result[0] : result  })
+        setSelectedPathsPython({ ...selectedPathsPython, filePath: Array.isArray(result) ? result[0] : result })
 
       }
     } catch (error) {
@@ -121,7 +124,7 @@ const DropzonePythonScript = ({ form }: DropzonePythonScriptProps) => {
                   <div className="flex items-center gap-2">
                     <p className="text-xs text-muted-foreground">Folder</p>
                     <Switch
-                      {...field}
+                      // {...field}
                       checked={field.value}
                       onCheckedChange={
                         (checked: boolean) => {
@@ -148,7 +151,7 @@ const DropzonePythonScript = ({ form }: DropzonePythonScriptProps) => {
                   className="hover:cursor-pointer min-h-60 hover:bg-accent text-muted-foreground p-6 flex flex-col text-center justify-center items-center gap-2">
                   <Folder size={32} />
                   <p className="text-xs text-muted-foreground">
-                    {form.watch("folder_path_python") ? getFolderNameFromPath(form.watch("folder_path_python")) : "Choose a folder with Python scripts"}
+                    {getFolderNameFromPath(form.watch("folder_path_python") ?? "") || "Choose a folder with Python scripts"}
                   </p>
                 </Card >
                 {form.watch("folder_path_python") && (
@@ -193,7 +196,7 @@ const DropzonePythonScript = ({ form }: DropzonePythonScriptProps) => {
                   <FileJson size={32} />
                   <p className="text-xs text-muted-foreground">
                     {/* colocar nombre del script python si existe en el form */}
-                    {form.watch("python_script_path") ? getFileNameFromPath(form.watch("python_script_path")) : "No file selected"}
+                    {getFileNameFromPath(form.watch("python_script_path") ?? "") || "No file selected"}
                   </p>
                 </Card >
                 {form.watch("python_script_path") && (
