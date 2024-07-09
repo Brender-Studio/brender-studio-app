@@ -1,23 +1,22 @@
 import { create } from "zustand";
 
+interface CodeBuildNotification {
+    id: string;
+    buildStatus: string;
+    arn: string;
+    startTime: string;
+    stackName: string;
+}
+
 interface useNotificationStoreState {
-    codeBuildNotifications: any[];
-    batchJobsNotifications: any[];
-    setBatchJobsNotifications: (notifications: any[]) => void;
-    addBatchJobsNotification: (notification: any) => void;
-    removeBatchJobsNotification: (notification: any) => void;
-    setCodeBuildNotifications: (notifications: any[]) => void;
-    addCodeBuildNotification: (notification: any) => void;
-    removeCodeBuildNotification: (notification: any) => void;
+    codeBuildNotifications: CodeBuildNotification[];
+    setCodeBuildNotifications: (notifications: CodeBuildNotification[]) => void;
+    addCodeBuildNotification: (notification: CodeBuildNotification) => void;
+    removeCodeBuildNotification: (notification: CodeBuildNotification) => void;
     clearCodeBuildNotifications: () => void;
 }
 
 export const useNotificationStore = create<useNotificationStoreState>((set) => ({
-    // Batch Jobs
-    batchJobsNotifications: [],
-    setBatchJobsNotifications: (notifications) => set({ batchJobsNotifications: notifications }),
-    addBatchJobsNotification: (notification) => set((state) => ({ batchJobsNotifications: [...state.batchJobsNotifications, notification] })),
-    removeBatchJobsNotification: (notification) => set((state) => ({ batchJobsNotifications: state.batchJobsNotifications.filter((n) => n.id !== notification.id) })),
     // CodeBuild
     codeBuildNotifications: [],
     setCodeBuildNotifications: (notifications) => set({ codeBuildNotifications: notifications }),
@@ -25,6 +24,4 @@ export const useNotificationStore = create<useNotificationStoreState>((set) => (
     removeCodeBuildNotification: (notification) => set((state) => ({ codeBuildNotifications: state.codeBuildNotifications.filter((n) => n.id !== notification.id) })),
     // Clear CodeBuild
     clearCodeBuildNotifications: () => set({ codeBuildNotifications: [] }),
-    // Clear Batch Jobs
-    clearBatchJobsNotifications: () => set({ batchJobsNotifications: [] }),
 }));
