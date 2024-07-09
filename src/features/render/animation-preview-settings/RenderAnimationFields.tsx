@@ -4,9 +4,12 @@ import { Label } from "@/components/ui/label"
 import { FormControl, FormField, FormItem } from "@/components/ui/form"
 import { Checkbox } from "@/components/ui/checkbox"
 import TooltipInfo from "@/components/custom/tooltip/TooltipInfo"
+import { UseFormReturn } from "react-hook-form"
+import { z } from "zod"
+import { formRenderSchema } from "@/schemas/formRenderSchema"
 
 interface RenderAnimationFieldsProps {
-    form: any
+    form: UseFormReturn<z.infer<typeof formRenderSchema>>;
 }
 
 const RenderAnimationFields = ({ form }: RenderAnimationFieldsProps) => {

@@ -1,7 +1,30 @@
 import { Command } from "@tauri-apps/api/shell";
 
 
-export async function getAutoscalingActivityLogs(region: string, profile: string, autoscalingGroupName: string){
+interface AWSActivityLog {
+    ActivityId: string;
+    StatusCode: string;
+    Description: string;
+    Cause: string;
+    StartTime: string;
+    EndTime: string;
+}
+
+interface MappedActivity {
+    status: string;
+    description: string;
+    cause: string;
+    startTime: string;
+    endTime: string;
+}
+
+export async function getAutoscalingActivityLogs(
+    region: string,
+    profile: string,
+    autoscalingGroupName: string
+): Promise<MappedActivity[]> {
+
+
     try {
         const command = new Command("aws-cli", [
             "autoscaling",
@@ -18,11 +41,11 @@ export async function getAutoscalingActivityLogs(region: string, profile: string
 
         const output = await command.execute();
         const stdout = output.stdout?.toString() || '';
-        const json = JSON.parse(stdout);
+        const json: { Activities: AWSActivityLog[] } = JSON.parse(stdout);
 
         console.log('JSON Response from autoscaling activity logs cli fn: ', json);
 
-        const mappedData = json.Activities.map((activity: any) => {
+        const mappedData: MappedActivity[] = json.Activities.map((activity: AWSActivityLog) => {
             return {
                 // id: activity.ActivityId,
                 status: activity.StatusCode,
@@ -33,7 +56,7 @@ export async function getAutoscalingActivityLogs(region: string, profile: string
             };
         });
 
-        return mappedData || [];
+        return mappedData;
     } catch (error) {
         console.error('Error getting autoscaling activity logs: ', error);
         return [];

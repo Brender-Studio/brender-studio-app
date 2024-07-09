@@ -1,11 +1,7 @@
 import { Command } from '@tauri-apps/api/shell';
 
-
-//  aws service-quotas list-requested-service-quota-change-history --service-code ec2 --region us-east-1 
-
 export async function getRequestHistory(profile: string, region: string) {
     try {
-        
         const command = new Command('aws-cli', [
             "service-quotas",
             "list-requested-service-quota-change-history",
@@ -21,32 +17,29 @@ export async function getRequestHistory(profile: string, region: string) {
             "json"
         ]);
 
-        let errorOutput = '';
-        let output = '';
+        console.log('Executing command:', command);
 
-      
-        command.stderr.on('data', data => {
-            errorOutput += data.toString();
-        });
-
-        
-        command.stdout.on('data', data => {
-            output += data.toString();
-        });
-
-        
         const child = await command.execute();
 
-        
+        console.log('Command executed:', child.code, child.stdout, child.stderr);
+
         if (child.code !== 0) {
-            throw new Error(`Command failed with code ${child.code}. Error: ${errorOutput}`);
+            throw new Error(`Command failed with code ${child.code}. Error: ${child.stderr}`);
         }
-        
-        const response = JSON.parse(output);
+
+        if (!child.stdout) {
+            throw new Error('No output received from command.');
+        }
+
+        const response = JSON.parse(child.stdout);
 
         return response;
-    } catch (error: any) {
+    } catch (error) {
         console.error('Error executing command:', error);
-        throw new Error(`Failed to get EC2 service quotas: ${error.message}`);
+
+        if (error instanceof Error) {
+            throw new Error(`Failed to get EC2 service quotas: ${error.message}`);
+        }
+
     }
 }

@@ -2,11 +2,11 @@ import { resolveResource } from "@tauri-apps/api/path";
 import { getDataBlenderScene } from "@/cli-functions/blender/getDataBlenderScene";
 import { modifyAllScenes } from "./modifyAllScenes";
 import { getCurrentSceneFromAllScenes } from "./getCurrentSceneFromAllScenes";
-import { Scene } from "../ProjectSettings.types";
+import {  Sceneform } from "../ProjectSettings.types";
 
 interface BlenderData {
     setIsDataLoading: (value: boolean) => void;
-    setAllScenes: (scenes: Scene[]) => void;
+    setAllScenes: (scenes: Sceneform[]) => void;
     blenderExecPath: string;
     selectedPaths: { filePath: string };
     setCurrentScene: any

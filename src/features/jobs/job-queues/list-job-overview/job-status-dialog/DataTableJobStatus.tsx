@@ -20,7 +20,11 @@ interface DataTableJobStatusProps<TData, TValue> {
     isQueryLoading: boolean
 }
 
-export function DataTableJobStatus<TData, TValue>({
+interface RowData {
+    jobId: string
+}
+
+export function DataTableJobStatus<TData extends RowData, TValue>({
     columns,
     data,
     linkAwsConsole,
@@ -50,7 +54,7 @@ export function DataTableJobStatus<TData, TValue>({
         (row) => row.original
     )
 
-    const itemsToDelete = selectedRows.map((row: any) => row.jobId)
+    const itemsToDelete = selectedRows.map((row) => row.jobId)
 
     const { refreshQuery, isRefreshing } = useRefreshQuery(jobQueries.jobByStatusQueryKey(awsRegion!, awsProfile!, currentStack!, jobStatus, jobQueueName))
 

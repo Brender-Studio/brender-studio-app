@@ -1,12 +1,11 @@
-import { GroupsCostServices } from "@/features/cost-explorer/costExplorerTypes";
+import { ResultByTime, GroupsCostServices } from "@/features/cost-explorer/costExplorerTypes";
 
-export const calculateTotalCostByService = (data: any[]) => {
-
-
+export const calculateTotalCostByService = (data: ResultByTime[]): { [key: string]: number } => {
     const totalCostByService: { [key: string]: number } = {};
+
     if (data) {
-        data?.forEach(result => {
-            if (!result || result.length === 0) {
+        data.forEach(result => {
+            if (!result || result.Groups.length === 0) {
                 console.error('No results found or results is empty');
                 return {};
             }
@@ -18,7 +17,6 @@ export const calculateTotalCostByService = (data: any[]) => {
                 }
             });
         });
-
     }
 
     return totalCostByService;

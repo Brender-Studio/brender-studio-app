@@ -7,9 +7,10 @@ import useGetServiceQuotaGpuQuery from "@/react-query-utils/queries/service-quot
 import { useUserSessionStore } from "@/store/useSessionStore";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { QuotaData } from "./quota-types";
 
 interface GpuQuotaProps {
-    setGpuQuotas: (value: any) => void
+    setGpuQuotas: (gpuQuotas: { spot: number, onDemand: number }) => void;
 }
 
 const GpuQuota = ({ setGpuQuotas }: GpuQuotaProps) => {
@@ -26,8 +27,8 @@ const GpuQuota = ({ setGpuQuotas }: GpuQuotaProps) => {
 
     useEffect(() => {
         if (data) {
-            const spot = data?.find((item: any) => item.QuotaName === 'All G and VT Spot Instance Requests')
-            const onDemand = data?.find((item: any) => item.QuotaName === 'Running On-Demand G and VT instances')
+            const spot = data?.find((item: QuotaData) => item.QuotaName === 'All G and VT Spot Instance Requests')
+            const onDemand = data?.find((item: QuotaData) => item.QuotaName === 'Running On-Demand G and VT instances')
 
             setGpuQuotas({
                 spot: spot?.Value,
@@ -71,7 +72,7 @@ const GpuQuota = ({ setGpuQuotas }: GpuQuotaProps) => {
                             </Button>
                         </div>
                         <div className="grid grid-cols-2 gap-2 items-center">
-                            {data?.map((item: any) => (
+                            {data?.map((item: QuotaData) => (
                                 <Card key={item.QuotaCode} className="text-sm text-muted-foreground p-6">
                                     <div className="font-semibold text-white">{item.QuotaName}</div>
                                     <div className="text-sm">Current quota: {item.Value} (max vCPUs)</div>

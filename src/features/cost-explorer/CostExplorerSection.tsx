@@ -1,5 +1,5 @@
 import { useUserSessionStore } from "@/store/useSessionStore"
-import SectionCostExplorer from "./charts/structure/SectionCostExplorer"
+import SectionCostExplorer from "./structure/SectionCostExplorer"
 import CostExplorerInfo from "./charts/helpers/CostExplorerInfo"
 import TableExplorer from "./table-explorer/TableExplorer"
 import { useDateRangeStore } from "@/store/useDateRangeStore"
@@ -7,25 +7,20 @@ import { DateRange } from "react-day-picker"
 import { useSectionActiveStore } from "@/store/useSectionActiveStore"
 import SectionCharts from "./charts/chart-sections/SectionCharts"
 import useGetDailyTotalCost from "@/react-query-utils/queries/cost-explorer-queries/useGetDailyTotalCost"
-import { useToast } from "@/components/ui/use-toast"
-import CostExplorerHeader from "./CostExplorerHeader"
+import CostExplorerHeader from "./structure/CostExplorerHeader"
 import HeaderChartSection from "./charts/chart-sections/HeaderChartSection"
 import { useSelectedTypeChartStore } from "@/store/useSelectedTypeChartStore"
-import TitleChartSection from "./TitleChartSection"
+import TitleChartSection from "./structure/TitleChartSection"
 import NoStackSelected from "@/components/custom/no-data/NoStackSelected"
 import DisabledCostExplorerSection from "./DisabledCostExplorerSection"
-
-
+import { toast } from '@/components/ui/use-toast';
 
 const CostExplorerSection = () => {
-
-  const { toast } = useToast();
   const { currentStack } = useUserSessionStore((state) => state.getSessionData());
 
   const { setSelectedDateRange } = useDateRangeStore();
   const { isSectionActive, setSectionActive } = useSectionActiveStore();
   const { selectedType, setSelectedType } = useSelectedTypeChartStore();
-
 
   const {
     isLoading,
@@ -37,21 +32,16 @@ const CostExplorerSection = () => {
     barChartData,
     areaChartData,
     services,
-    processedDataCharts } = useGetDailyTotalCost();
+    processedDataCharts
+  } = useGetDailyTotalCost();
 
-
-
-
-
-  if (isError) {
+  if (isError && error instanceof Error) {
     toast({
       title: 'Error',
       description: error.message,
       variant: 'destructive'
     });
   }
-
-
 
   const handleDateChange = (newDateRange: DateRange | undefined) => {
     setSelectedDateRange(newDateRange);
@@ -61,10 +51,9 @@ const CostExplorerSection = () => {
     setSectionActive(!isSectionActive);
   };
 
-  const handleChangeTypeChart = (typeChart: string) => {
-    setSelectedType(typeChart);
+  const handleChangeTypeChart = (selectedType: string) => {
+    setSelectedType(selectedType);
   };
-
 
   return (
     <div>
@@ -81,7 +70,7 @@ const CostExplorerSection = () => {
             <SectionCostExplorer
               cardTitle={
                 <TitleChartSection
-                  currentStack={currentStack!}
+                  currentStack={currentStack}
                 />
               }
               cardHeader={
@@ -116,7 +105,7 @@ const CostExplorerSection = () => {
         <DisabledCostExplorerSection />
       )}
     </div>
-  )
-}
+  );
+};
 
-export default CostExplorerSection
+export default CostExplorerSection;

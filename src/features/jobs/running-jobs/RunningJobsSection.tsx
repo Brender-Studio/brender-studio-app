@@ -27,7 +27,7 @@ const RunningJobsSection = () => {
             <DataTableRunningJobs
                 isQueryLoading={isLoading}
                 data={runningJobs || []}
-                columns={columns as any}
+                columns={columns}
                 awsProfile={currentProfile!}
                 awsRegion={currentAwsRegion}
                 currentStack={currentStack!}

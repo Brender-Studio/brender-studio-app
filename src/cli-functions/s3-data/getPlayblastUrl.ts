@@ -28,7 +28,7 @@ async function listS3Objects(bucket: string, prefix: string, region: string, pro
     return JSON.parse(output);
 }
 
-export async function getPlayblastUrl(bucket: any, profile: string, region: string, path: string) {
+export async function getPlayblastUrl(bucket: string, profile: string, region: string, path: string) {
     try {
         // Listar los objetos en el bucket con el "path" proporcionado
         const objects = await listS3Objects(bucket, path, region, profile);

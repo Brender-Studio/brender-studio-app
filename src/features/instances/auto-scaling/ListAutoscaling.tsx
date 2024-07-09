@@ -4,10 +4,12 @@ import useGetAutoscalingGroupsQuery from "@/react-query-utils/queries/ec2-querie
 import { useUserSessionStore } from "@/store/useSessionStore"
 
 const ListAutoscaling = () => {
-    // const { currentStack, currentAwsRegion, currentProfile } = useUserSessionStore()
+
     const { getSessionData } = useUserSessionStore();
     const sessionData = getSessionData();
     const { currentAwsRegion, currentProfile, currentStack } = sessionData;
+
+    // const { currentAwsRegion, currentProfile, currentStack } = useUserSessionStore().getSessionData();
 
     const { data, isLoading } = useGetAutoscalingGroupsQuery();
 
@@ -19,7 +21,7 @@ const ListAutoscaling = () => {
                 data={data || []}
                 linkAwsConsole={`https://${currentAwsRegion}.console.aws.amazon.com/ec2/home?region=${currentAwsRegion}#AutoScalingGroups:`}
                 awsRegion={currentAwsRegion}
-                // Revisar valores de awsProfile y currentStack que puedan ser nulos?
+                // Review values of awsProfile and currentStack that may be null?
                 awsProfile={currentProfile || ''}
                 currentStack={currentStack || ''}
             />

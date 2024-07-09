@@ -14,6 +14,10 @@ import DataTableHeader from "@/components/custom/structure/DataTableHeader"
 import { Skeleton } from "@/components/ui/skeleton"
 
 
+interface RowData {
+    identity: string;
+}
+
 interface DataTableSesProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
     data: TData[],
@@ -23,7 +27,7 @@ interface DataTableSesProps<TData, TValue> {
 }
 
 
-export function DataTableSes<TData, TValue>({
+export function DataTableSes<TData extends RowData, TValue>({
     columns,
     data,
     awsRegion,
@@ -53,8 +57,8 @@ export function DataTableSes<TData, TValue>({
         (row) => row.original
     )
 
-    const itemsToDelete = selectedRows.map((row: any) => row.identity)
-    const itemsToShow = selectedRows.map((row: any) => row.identity)
+    const itemsToDelete = selectedRows.map((row) => row.identity)
+    const itemsToShow = selectedRows.map((row) => row.identity)
 
     const handleDelete = async () => {
         console.log("Deleting", itemsToDelete)

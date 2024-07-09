@@ -7,14 +7,16 @@ import useGetServiceQuotaCpuQuery from "@/react-query-utils/queries/service-quot
 import { useUserSessionStore } from "@/store/useSessionStore";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { QuotaData } from "./quota-types";
 
 interface CpuQuotaProps {
-    setCpuQuotas: (value: any) => void
+    setCpuQuotas: (cpuQuotas: { spot: number, onDemand: number }) => void;
 }
 
+
 const CpuQuota = ({ setCpuQuotas }: CpuQuotaProps) => {
-    const { getSessionData } = useUserSessionStore();
-    const { currentAwsRegion } = getSessionData();
+    const { currentAwsRegion } = useUserSessionStore().getSessionData();
+    // const { currentAwsRegion } = getSessionData();
     const navigate = useNavigate();
 
     const { data, isLoading } = useGetServiceQuotaCpuQuery();
@@ -31,7 +33,7 @@ const CpuQuota = ({ setCpuQuotas }: CpuQuotaProps) => {
                 onDemand: onDemand?.Value
             })
         }
-    }, [data])
+    }, [data, setCpuQuotas])
 
 
     const nameMapping: { [key: string]: string } = {
@@ -39,11 +41,11 @@ const CpuQuota = ({ setCpuQuotas }: CpuQuotaProps) => {
         'Running On-Demand Standard (A, C, D, H, I, M, R, T, Z) instances': 'On-demand Standard Instances'
     };
 
-    // Filtrar y mapear los datos para mostrar solo los ítems deseados con nombres simplificados
-    const filteredData = data?.filter((item: any) =>
+    // Show only the quotas that are needed
+    const filteredData: QuotaData[] | undefined = data?.filter((item: QuotaData) =>
         item.QuotaName === 'All Standard (A, C, D, H, I, M, R, T, Z) Spot Instance Requests' ||
         item.QuotaName === 'Running On-Demand Standard (A, C, D, H, I, M, R, T, Z) instances'
-    ).map((item: any) => ({
+    ).map((item: QuotaData) => ({
         ...item,
         QuotaName: nameMapping[item.QuotaName] || item.QuotaName
     }));
@@ -81,7 +83,7 @@ const CpuQuota = ({ setCpuQuotas }: CpuQuotaProps) => {
                             </Button>
                         </div>
                         <div className="grid grid-cols-2 gap-2 items-center">
-                            {filteredData?.map((item: any) => (
+                            {filteredData?.map((item: QuotaData) => (
                                 <Card key={item.QuotaCode} className="text-sm text-muted-foreground p-6">
                                     <div className="font-semibold text-white">{item.QuotaName}</div>
                                     <div className="text-sm">Current quota: {item.Value} (max vCPUs)</div>

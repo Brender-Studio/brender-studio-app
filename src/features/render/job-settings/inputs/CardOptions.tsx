@@ -1,45 +1,47 @@
-import GpuIcon from "@/components/custom/icons/GpuIcon"
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tooltip, TooltipContent, TooltipTitle, TooltipTrigger } from "@/components/ui/tooltip"
-import { AlertTriangle, Cpu, MemoryStick } from "lucide-react"
+import GpuIcon from "@/components/custom/icons/GpuIcon";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tooltip, TooltipContent, TooltipTitle, TooltipTrigger } from "@/components/ui/tooltip";
+import { AlertTriangle, Cpu, MemoryStick } from "lucide-react";
+import { UseFormReturn } from "react-hook-form";
+import { Quota } from "../components/quota-types";
+import { z } from "zod";
+import { formRenderSchema } from "@/schemas/formRenderSchema";
 
 interface CardOptionsProps {
-    form: any
-    name: string
-    vcpus: string
-    memory: string
-    gpus?: string
-    gpuQuotas?: any
-    cpuQuotas?: any
+    form: UseFormReturn<z.infer<typeof formRenderSchema>>;
+    name: string;
+    vcpus: string;
+    memory: string;
+    gpus?: string;
+    gpuQuotas?: Quota;
+    cpuQuotas?: Quota;
 }
 
 const CardOptions = ({ form, name, vcpus, memory, gpus, gpuQuotas, cpuQuotas }: CardOptionsProps) => {
 
     const onSelect = (memory: string, vcpus: string, gpus: string) => {
-        const jobQueue = form.watch('job_settings.job_queue');
+        const jobQueue = form.watch('job_settings.job_queue') ?? '';
 
-        // Check if there is quota available for the selected instance type
         const hasQuota =
-            (jobQueue.includes('Spot') && gpuQuotas?.spot >= 0 && gpuQuotas.spot >= parseInt(vcpus) + 2) ||
-            (jobQueue.includes('OnDemand') && gpuQuotas?.onDemand >= 0 && gpuQuotas.onDemand >= parseInt(vcpus) + 2) ||
-            (jobQueue.includes('Spot') && cpuQuotas?.spot >= 0 && cpuQuotas.spot >= parseInt(vcpus) + 2) ||
-            (jobQueue.includes('OnDemand') && cpuQuotas?.onDemand >= 0 && cpuQuotas.onDemand >= parseInt(vcpus) + 2);
+            (jobQueue.includes('Spot') && gpuQuotas?.spot !== undefined && gpuQuotas.spot >= parseInt(vcpus) + 2) ||
+            (jobQueue.includes('OnDemand') && gpuQuotas?.onDemand !== undefined && gpuQuotas.onDemand >= parseInt(vcpus) + 2) ||
+            (jobQueue.includes('Spot') && cpuQuotas?.spot !== undefined && cpuQuotas.spot >= parseInt(vcpus) + 2) ||
+            (jobQueue.includes('OnDemand') && cpuQuotas?.onDemand !== undefined && cpuQuotas.onDemand >= parseInt(vcpus) + 2);
 
-        // If there is quota available, set the values
         if (hasQuota) {
-            form.setValue('job_settings.vcpus', vcpus)
-            form.setValue('job_settings.memory', memory)
+            form.setValue('job_settings.vcpus', vcpus);
+            form.setValue('job_settings.memory', memory);
             form.setValue('job_settings.number_gpus', gpus || '0');
         } else {
             console.log('No quota available for this instance type.');
         }
-    }
+    };
 
+    const jobQueue = form.watch('job_settings.job_queue') ?? '';
 
     return (
         <div className="relative">
-            {/* Tooltip para Spot GPU */}
-            {form.watch('job_settings.job_queue').includes('Spot') && gpuQuotas && gpuQuotas.spot >= 0 && gpuQuotas.spot < (parseInt(vcpus) + 2) && (
+            {jobQueue.includes('Spot') && gpuQuotas && gpuQuotas.spot >= 0 && gpuQuotas.spot < (parseInt(vcpus) + 2) && (
                 <Tooltip>
                     <TooltipTrigger asChild>
                         <AlertTriangle size={16} className="text-yellow-700 absolute top-5 right-5 z-[1] cursor-pointer" />
@@ -55,8 +57,7 @@ const CardOptions = ({ form, name, vcpus, memory, gpus, gpuQuotas, cpuQuotas }: 
                 </Tooltip>
             )}
 
-            {/* Tooltip para OnDemand GPU */}
-            {form.watch('job_settings.job_queue').includes('OnDemand') && gpuQuotas && gpuQuotas.onDemand >= 0 && gpuQuotas.onDemand < (parseInt(vcpus) + 2) && (
+            {jobQueue.includes('OnDemand') && gpuQuotas && gpuQuotas.onDemand >= 0 && gpuQuotas.onDemand < (parseInt(vcpus) + 2) && (
                 <Tooltip>
                     <TooltipTrigger asChild>
                         <AlertTriangle size={16} className="text-yellow-700  absolute top-5 right-5 z-[1] cursor-pointer" />
@@ -72,8 +73,7 @@ const CardOptions = ({ form, name, vcpus, memory, gpus, gpuQuotas, cpuQuotas }: 
                 </Tooltip>
             )}
 
-            {/* Tooltip para Spot CPU */}
-            {form.watch('job_settings.job_queue').includes('Spot') && cpuQuotas && cpuQuotas.spot >= 0 && cpuQuotas.spot < (parseInt(vcpus) + 2) && (
+            {jobQueue.includes('Spot') && cpuQuotas && cpuQuotas.spot >= 0 && cpuQuotas.spot < (parseInt(vcpus) + 2) && (
                 <Tooltip>
                     <TooltipTrigger asChild>
                         <AlertTriangle size={16} className="text-yellow-700  absolute top-5 right-5 z-[1] cursor-pointer" />
@@ -89,8 +89,7 @@ const CardOptions = ({ form, name, vcpus, memory, gpus, gpuQuotas, cpuQuotas }: 
                 </Tooltip>
             )}
 
-            {/* Tooltip para OnDemand CPU */}
-            {form.watch('job_settings.job_queue').includes('OnDemand') && cpuQuotas && cpuQuotas.onDemand >= 0 && cpuQuotas.onDemand < (parseInt(vcpus) + 2) && (
+            {jobQueue.includes('OnDemand') && cpuQuotas && cpuQuotas.onDemand >= 0 && cpuQuotas.onDemand < (parseInt(vcpus) + 2) && (
                 <Tooltip>
                     <TooltipTrigger asChild>
                         <AlertTriangle size={16} className="text-yellow-700 absolute top-5 right-5 z-[1] cursor-pointer" />
@@ -105,14 +104,15 @@ const CardOptions = ({ form, name, vcpus, memory, gpus, gpuQuotas, cpuQuotas }: 
                     </TooltipContent>
                 </Tooltip>
             )}
+
             <Card
                 className={`w-full hover:bg-accent rounded-md cursor-pointer ${form.watch('job_settings.vcpus') === vcpus && form.watch('job_settings.memory') === memory ? 'border-2 border-[#F63652]' : ''}`}
                 onClick={() => onSelect(memory, vcpus, gpus || '0')}
                 disabled={
-                    (form.watch('job_settings.job_queue').includes('Spot') && gpuQuotas && gpuQuotas.spot >= 0 && gpuQuotas.spot < (parseInt(vcpus) + 2)) ||
-                    (form.watch('job_settings.job_queue').includes('OnDemand') && gpuQuotas && gpuQuotas.onDemand >= 0 && gpuQuotas.onDemand < (parseInt(vcpus) + 2)) ||
-                    (form.watch('job_settings.job_queue').includes('Spot') && cpuQuotas && cpuQuotas.spot >= 0 && cpuQuotas.spot < (parseInt(vcpus) + 2)) ||
-                    (form.watch('job_settings.job_queue').includes('OnDemand') && cpuQuotas && cpuQuotas.onDemand >= 0 && cpuQuotas.onDemand < (parseInt(vcpus) + 2))
+                    (jobQueue.includes('Spot') && gpuQuotas && gpuQuotas.spot >= 0 && gpuQuotas.spot < (parseInt(vcpus) + 2)) ||
+                    (jobQueue.includes('OnDemand') && gpuQuotas && gpuQuotas.onDemand >= 0 && gpuQuotas.onDemand < (parseInt(vcpus) + 2)) ||
+                    (jobQueue.includes('Spot') && cpuQuotas && cpuQuotas.spot >= 0 && cpuQuotas.spot < (parseInt(vcpus) + 2)) ||
+                    (jobQueue.includes('OnDemand') && cpuQuotas && cpuQuotas.onDemand >= 0 && cpuQuotas.onDemand < (parseInt(vcpus) + 2))
                 }
             >
                 <CardHeader >
@@ -133,7 +133,7 @@ const CardOptions = ({ form, name, vcpus, memory, gpus, gpuQuotas, cpuQuotas }: 
                 </CardHeader>
             </Card>
         </div>
-    )
+    );
 }
 
-export default CardOptions
+export default CardOptions;
