@@ -11,7 +11,8 @@ export const setFormRenderSceneValues = (currentScene: any[], form: any) => {
         setValue('scene_name', sceneData?.scene_name || '');
         setValue('camera_name', camera.active || '');
         setValue('layer_name', layer.active_layer || '');
-        setValue('engine', engine === 'CYCLES' ? 'CYCLES' : 'BLENDER_EEVEE');
+        setValue('engine', engine || '');
+        // setValue('engine', engine === 'CYCLES' ? 'CYCLES' : 'BLENDER_EEVEE');
         setValue('active_frame', active_frame || 0);
         // frame range
         setValue('frame_range.start', frame_range.start || 0);

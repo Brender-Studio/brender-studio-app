@@ -31,10 +31,23 @@ const RenderSelect = ({ defaultValue, fieldName, form, label, options, isCustom,
     const onValueChange = (value: string | number) => {
         // if fieldname is scene_name then setCurrentScene where scene_name is equal to value from allScenes
         if (fieldName === "scene_name") {
-            const scene = allScenes.filter((scene: Scene) => scene.scene_name === value)
+            const scene = allScenes.filter((scene) => scene.scene_name === value)
             console.log('scene select field', scene)
             setCurrentScene(scene)
         }
+
+        // detect if fieldName is camera_name and if "" then setformstateerror
+
+        if(fieldName === "camera_name") {
+            console.log('camera name', value)
+            if (value === "") {
+                form.setError('camera_name', {
+                    type: 'manual',
+                    message: 'Camera name is required'
+                })
+            }
+        }
+
 
         // if engine is selected then set engine value to form
         if (fieldName === "engine") {
@@ -83,7 +96,6 @@ const RenderSelect = ({ defaultValue, fieldName, form, label, options, isCustom,
             }
         }
 
-
         form.setValue(fieldName, value)
     }
 
@@ -97,7 +109,7 @@ const RenderSelect = ({ defaultValue, fieldName, form, label, options, isCustom,
                     <Select
                         // onValueChange={field.onChange} 
                         onValueChange={onValueChange}
-                        defaultValue={defaultValue.toString()}
+                        defaultValue={defaultValue as any}
                         value={field.value as any}
                         disabled={!isCustom}
                     >

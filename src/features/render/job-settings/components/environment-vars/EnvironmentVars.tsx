@@ -38,6 +38,16 @@ const EnvironmentVars = ({ form }: EnvironmentVarsProps) => {
         append({ name: "", value: "" });
     };
 
+    // const addCustomEnvVar = async () => {
+    //    append({ name: "", value: "" });
+    //    const isValid = await form.trigger();
+    //      if (!isValid) {
+    //           remove(fields.length - 1);
+    //         }
+
+    // };
+
+
     const deleteCustomEnvVar = (index: number) => {
         remove(index);
     };
