@@ -21,7 +21,7 @@ const ListPresets = ({ form }: ListPresetsProps) => {
         // resolve path also here
         handleResolveResource(script).then((realPath) => {
             console.log('Real path:', realPath)
-            form.setValue('python_script_path', realPath)
+            form.setValue('python_script_path', realPath!)
             setSelected(script) // set selected (for styling purposes only)
         })
     }
@@ -45,7 +45,7 @@ const ListPresets = ({ form }: ListPresetsProps) => {
         const fetchScriptContent = async () => {
             const content = await handleResolveResource(predefinedScripts[0].code_path);
             console.log('Content:', content)
-            form.setValue('python_script_path', content)
+            form.setValue('python_script_path', content!)
         };
 
         if (predefinedScripts[0].code_path) {
