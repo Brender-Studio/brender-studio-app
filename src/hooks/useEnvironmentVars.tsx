@@ -27,8 +27,8 @@ const useEnvironmentVars = (form: UseFormReturn<FormRenderSchema>) => {
 
     useEffect(() => {
         form.setValue('python_env_vars', {
-            user_main_script_path: form.watch('python_script_path'),
-            efs_blender_file_path: form.watch('file_path'),
+            user_main_script_path: form.watch('python_script_path') || '',
+            efs_blender_file_path: form.watch('file_path') || '',
             efs_blender_output_folder_path: `/mnt/efs/projects/${form.watch('project_name')}/output`,
             blender_executable_path: '/usr/bin/blender',
             use_eevee: form.watch('engine') === 'BLENDER_EEVEE' ? 'True' : 'False',
