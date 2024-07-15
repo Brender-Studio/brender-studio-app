@@ -19,6 +19,7 @@ import { UseFormReturn } from "react-hook-form";
 import { z } from "zod";
 import { formRenderSchema } from "@/schemas/formRenderSchema";
 import { Quota } from "./components/quota-types";
+import { DEFAULT_JOB_SETTINGS, JOB_TYPES } from "./data/defaultJobSettings";
 
 interface RenderJobFieldsProps {
     form: UseFormReturn<z.infer<typeof formRenderSchema >>;
@@ -90,23 +91,25 @@ const RenderJobFields = ({ form, currentPathname }: RenderJobFieldsProps) => {
     // set from values if job definitions and job queues data is available
     useEffect(() => {
         if (JobDefinitions && JobQueues) {
+            const isGPU = currentPathname === '/render-gpu'
+            const jobSettings = isGPU ? DEFAULT_JOB_SETTINGS.GPU : DEFAULT_JOB_SETTINGS.CPU
+    
             form.setValue('job_settings.job_definition', filteredJobDefinitions?.[0]?.jobDefinitionName)
             form.setValue('job_settings.job_queue', filteredJobQueues?.[0]?.jobQueueName)
-            form.setValue('job_settings.number_gpus', currentPathname === '/render-gpu' ? '1' : '0')
-            form.setValue('job_settings.vcpus', currentPathname === '/render-gpu' ? '2' : '4')
-            form.setValue('job_settings.memory', currentPathname === '/render-gpu' ? '12000' : '16000')
-            form.setValue('job_settings.timeout', '3600')
-            form.setValue('job_settings.job_attempts', '3')
-
-            if (form.watch('type') === 'animation') {
-                form.setValue('job_settings.array_size', currentPathname === '/render-gpu' ? '2' : '10')
-            } else if (form.watch('type') === 'frame') {
-                form.setValue('job_settings.array_size', '0')
-            } else if (form.watch('type') === 'custom_render_python') {
+            form.setValue('job_settings.number_gpus', jobSettings.number_gpus)
+            form.setValue('job_settings.vcpus', jobSettings.vcpus)
+            form.setValue('job_settings.memory', jobSettings.memory)
+            form.setValue('job_settings.timeout', DEFAULT_JOB_SETTINGS.COMMON.timeout)
+            form.setValue('job_settings.job_attempts', DEFAULT_JOB_SETTINGS.COMMON.job_attempts)
+    
+            const jobType = form.watch('type')
+            if (jobType === JOB_TYPES.ANIMATION) {
+                form.setValue('job_settings.array_size', jobSettings.array_size)
+            } else if (jobType === JOB_TYPES.FRAME || jobType === JOB_TYPES.CUSTOM_RENDER_PYTHON) {
                 form.setValue('job_settings.array_size', '0')
             }
         }
-    }, [JobDefinitions, JobQueues, form.watch('type')])
+    }, [JobDefinitions, JobQueues, form.watch('type'), currentPathname])
 
     // console.log('Gpu Quotas: ', gpuQuotas)
 
