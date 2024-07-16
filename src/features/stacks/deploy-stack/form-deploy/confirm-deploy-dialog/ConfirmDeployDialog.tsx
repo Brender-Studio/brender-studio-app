@@ -109,7 +109,7 @@ const ConfirmDeployDialog = ({ openDialog, setOpenDialog, form, title, descripti
                 <DialogTrigger asChild>
                     <Button
                         type="button"
-                        disabled={!form.getValues().stackName || !form.getValues().region || hasErrors}
+                        disabled={!form.getValues().stackName || !form.getValues().region || !form.getValues().blenderVersions || !form.getValues().terms || hasErrors}
                     >
                         Review & Deploy
                     </Button>
@@ -201,7 +201,7 @@ const ConfirmDeployDialog = ({ openDialog, setOpenDialog, form, title, descripti
                             onClick={() => onSubmit(form.getValues())}
                             type="submit"
                             className={isLoading ? 'gap-2 flex' : ''}
-                            disabled={isLoading || !form.getValues().stackName || !form.getValues().region || hasErrors}
+                            disabled={isLoading || !form.getValues().stackName || !form.getValues().region || !form.getValues().blenderVersions || !form.getValues().terms || hasErrors}
                         >
                             {isLoading && <SpinnerButton />}
                             {isLoading ? 'Deploying' : 'Deploy Farm'}
