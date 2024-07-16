@@ -16,20 +16,30 @@ if __name__ == "__main__":
 
 export const folderStructure = `project_folder/ # Folder containing all files required by the main script
     ├── main_script.py # Main script to be executed
-    ├── utils.py 
-    └── setup_gpus.py`;
+    └─ utils/ # Folder containing utility functions
+        ├── helper_functions.py # Helper functions used by the main script
+        └── config.json # Configuration file`;
+        
 
 export const pythonPathEnv = `# Configure the PYTHONPATH to include the path to the project directory
 
 def setup_env_python_path(bucket_key):
     efs_project_path = f"/mnt/efs/projects/{bucket_key}"
-    print('efs_project_path:', efs_project_path)
-                        
-    # Set PYTHONPATH to include the project directory and site-packages
+    print('Project directory path:', efs_project_path)
+    
+    # Add the Python packages path
     python_site_packages = '/usr/local/lib/python3.10/dist-packages'
-    os.environ['PYTHONPATH'] = f"{efs_project_path}:{python_site_packages}:{os.environ.get('PYTHONPATH', '')}"
-                        
-    # Print the PYTHONPATH
+    current_pythonpath = os.environ.get('PYTHONPATH', '')
+    
+    # Add all project subfolders to PYTHONPATH
+    project_dirs = []
+    for root, dirs, files in os.walk(efs_project_path):
+        project_dirs.append(root)
+    
+    new_pythonpath = f"{':'.join(project_dirs)}:{python_site_packages}:{current_pythonpath}"
+    os.environ['PYTHONPATH'] = new_pythonpath
+    
+    # Print PYTHONPATH for debugging
     print("PYTHONPATH:", os.environ['PYTHONPATH'])`
 
 
@@ -109,6 +119,7 @@ response = ses.send_email(
 
 print('Email sent! Message ID:', response['MessageId'])`;
 
+
 export const iamRolePolicy = `{
     "Version": "2012-10-17",
     "Statement": [
@@ -123,7 +134,11 @@ export const iamRolePolicy = `{
                 "ses:SendTemplatedEmail",
                 "ses:SendEmail",
                 "ses:SendRawEmail",
-                "ses:SendBulkTemplatedEmail"
+                "ses:SendBulkTemplatedEmail",
+                "ecs:DescribeContainerInstances",
+                "ecs:ListContainerInstances",
+                "ecs:DescribeClusters",
+                "ec2:DescribeInstances"
             ],
             "Resource": "*"
         }
