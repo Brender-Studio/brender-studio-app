@@ -13,6 +13,8 @@ export const setFormRenderSceneValues = (currentScene: Sceneform[], form: UseFor
 
         console.log('camera', camera.active)
         const setValue = (key: string, value: any) => form.setValue(key as any, value);  
+        
+        console.log('Engine', engine);
 
         setValue('scene_name', sceneData?.scene_name || '');
         setValue('camera_name', camera.active || '');

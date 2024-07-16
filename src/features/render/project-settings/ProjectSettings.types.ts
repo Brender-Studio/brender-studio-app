@@ -91,7 +91,7 @@ export interface Sceneform {
         available_cameras: string[];
         active: string;
     };
-    engine: 'CYCLES' | 'BLENDER_EEVEE';
+    engine: 'CYCLES' | 'BLENDER_EEVEE' | 'BLENDER_EEVEE_NEXT';
     active_frame: number;
     eevee_config?: {
         taa_samples: number;
