@@ -68,7 +68,7 @@ const RenderFormFields = ({ form, sectionType }: RenderFormFieldsProps) => {
                                 {renderSelectField("scene_name", "Scene", allScenes.map((scene: Sceneform) => scene.scene_name), scene.scene_name)}
                                 {renderSelectField("layer_name", "Layer", scene.layer.available_layers, scene.layer.active_layer)}
                                 {renderSelectField("camera_name", "Camera", scene.camera.available_cameras, scene.camera.active)}
-                                {renderSelectField("engine", "Engine", ['CYCLES', 'BLENDER_EEVEE', 'BLENDER_EEVEE_NEXT'], scene.engine)}
+                                {renderSelectField("engine", "Engine", ['CYCLES', 'BLENDER_EEVEE'], scene.engine)}
                                 {renderInputField("active_frame", "Active Frame", "number", "Frame", scene.active_frame, 0)}
                                 {form.watch("engine") === 'CYCLES' && scene.cycles_config && renderInputField("cycles_config.samples", "Max Samples", "number", "Samples", scene.cycles_config.samples, 0)}
                             </div>
