@@ -9,15 +9,17 @@ import { z } from "zod";
 export const setFormRenderSceneValues = (currentScene: Sceneform[], form: UseFormReturn<z.infer<typeof formRenderSchema>>) => {
     if (currentScene && currentScene.length > 0) {
         const sceneData = currentScene[0];
-        const { camera, layer, engine, active_frame, resolution, aspect_ratio, output,  use_denoise, use_compositor, use_sequencer, use_stamp, cycles_config, frame_range } = sceneData;
+        const { camera, layer, engine, active_frame, resolution, aspect_ratio, output, use_denoise, use_compositor, use_sequencer, use_stamp, cycles_config, frame_range } = sceneData;
 
         console.log('camera', camera.active)
-        const setValue = (key: string, value: any) => form.setValue(key as any, value);  
+        const setValue = (key: string, value: any) => form.setValue(key as any, value);
+
+        console.log('Engine', engine);
 
         setValue('scene_name', sceneData?.scene_name || '');
         setValue('camera_name', camera.active || '');
         setValue('layer_name', layer.active_layer || '');
-        setValue('engine', engine || '');
+        setValue('engine', engine === 'BLENDER_EEVEE_NEXT' ? 'BLENDER_EEVEE' : engine);
         // setValue('engine', engine === 'CYCLES' ? 'CYCLES' : 'BLENDER_EEVEE');
         setValue('active_frame', active_frame || 0);
         // frame range
@@ -47,7 +49,7 @@ export const setFormRenderSceneValues = (currentScene: Sceneform[], form: UseFor
 
             const cyclesConfig: { denoise_config?: any, light_paths?: any, samples?: any } = sceneData.cycles_config || {};
             console.log('cyclesConfig', cyclesConfig);
-            
+
             setValue('cycles_config', {
                 denoise_config: cyclesConfig.denoise_config,
                 light_paths: cyclesConfig.light_paths,

@@ -117,7 +117,7 @@ const RenderFormFields = ({ form, sectionType }: RenderFormFieldsProps) => {
                             isCustom && (
                                 <>
                                     {
-                                        form.watch("engine") !== 'BLENDER_EEVEE' && (
+                                        form.watch("engine") === 'CYCLES' && (
                                             <>
                                                 <LabelSeparator label="Cycles Configuration" colSpan={6} py={8} />
                                                 {renderCheckboxField("use_denoise", "Denoise", scene.use_denoise || false)}

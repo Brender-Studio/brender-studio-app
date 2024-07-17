@@ -120,7 +120,11 @@ export async function createRenderJson(values: z.infer<typeof formRenderSchema>)
             type: values.type,
             is_render_auto: values.is_custom ? false : true,
             use_denoise: values.use_denoise ?? false,
-            engine: values.engine === "CYCLES" || values.engine === "BLENDER_EEVEE" ? values.engine : "CYCLES",
+            // IF BLENDER_EEVEE_NEXT SET BLENDER_EEVEE INSTEAD
+            engine: values.engine === "CYCLES" || values.engine === "BLENDER_EEVEE" || values.engine === "BLENDER_EEVEE_NEXT" 
+            ? (values.engine === "BLENDER_EEVEE_NEXT" ? "BLENDER_EEVEE" : values.engine)
+            : "CYCLES",
+            // engine: values.engine === "CYCLES" || values.engine === "BLENDER_EEVEE" ? values.engine : "CYCLES",
             use_gpu: values.use_gpu ?? false,
             use_compositor: values.use_compositor ?? false,
             use_sequencer: values.use_sequencer ?? false,
