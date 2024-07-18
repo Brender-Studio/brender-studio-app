@@ -21,7 +21,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
             FallbackComponent={ErrorFallback}
             onReset={() => {
               window.location.reload();
-              window.location.href = '/'; // review this
+              window.location.href = '/'; 
             }}
             onError={(error, info) => {
               console.log('info', info)

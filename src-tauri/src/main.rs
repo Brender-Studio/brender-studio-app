@@ -36,6 +36,7 @@ fn get_folder_size(path: String) -> Result<u64, String> {
 
     Ok(total_size)
 }
+
 // Close the splashscreen and show the main window
 #[tauri::command]
 async fn close_splashscreen(window: Window) {
@@ -49,10 +50,10 @@ async fn close_splashscreen(window: Window) {
 // Run a blender command and return the output scene data
 #[tauri::command]
 async fn run_blender_command(blender_path: String, blend_file_path: String, script_path: String) -> Result<String, String> {
-    // Crear un canal para la comunicación
+    // Create a channel to send the result back to the main task
     let (tx, mut rx) = mpsc::channel(1);
 
-    // Crear una nueva tarea para ejecutar el comando en segundo plano
+    // Create a background task to run the blender command
     task::spawn_blocking(move || {
         let output = Command::new(&blender_path)
             .arg("-b")
@@ -61,7 +62,7 @@ async fn run_blender_command(blender_path: String, blend_file_path: String, scri
             .arg(&script_path)
             .output();
 
-        // Enviar el resultado de vuelta a la tarea principal
+        // Send the result back to the main task
         let result = match output {
             Ok(output) => {
                 if output.status.success() {
@@ -80,7 +81,7 @@ async fn run_blender_command(blender_path: String, blend_file_path: String, scri
         tx.blocking_send(result).expect("Failed to send result");
     });
 
-    // Esperar el resultado de la tarea en segundo plano
+    // Wait for the result from the background task
     match rx.recv().await {
         Some(result) => result,
         None => Err("Failed to receive result from background task".to_string()),

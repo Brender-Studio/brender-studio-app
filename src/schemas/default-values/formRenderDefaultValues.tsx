@@ -96,14 +96,12 @@ export const formRenderDefaultValues = (use_gpu: boolean) => {
         job_settings: {
             job_definition: '',
             job_queue: '',
-            // instance_type: '',
             array_size: '0',
             number_gpus: '',
             vcpus: '',
             memory: '',
             timeout: '',
             job_attempts: '',
-            // job_priority: '',
         },
         ses: {
             enable_notifications: false,
