@@ -23,7 +23,6 @@ const StackSelect = () => {
 
     const { data, isLoading, isError, error } = useQuery({
         queryKey: stackQueries.stacksQueryKey(currentAwsRegion, currentProfile!),
-        // queryFn: () => getStacksByRegion(currentAwsRegion, currentProfile),
         queryFn: () => {
             if (currentAwsRegion && currentProfile) {
                 return getStacksByRegion(currentAwsRegion, currentProfile);
@@ -87,7 +86,6 @@ const StackSelect = () => {
                         <SelectGroup>
                             {data?.map((item: Item, index: number) => (
                                 <SelectItem
-                                    // defaultValue={currentStack === null ? item.StackName : currentStack}
                                     defaultChecked={item.StackName === currentStack}
                                     key={index}
                                     disabled={item.StackStatus !== 'CREATE_COMPLETE'}

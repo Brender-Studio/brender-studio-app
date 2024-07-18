@@ -25,7 +25,6 @@ interface DeleteObjectDialogProps {
 const DeleteObjectDialog = ({ isFolderItem, objectKey, currentPathname, bucketName, splitPathname, state, setState }: DeleteObjectDialogProps) => {
     const queryClient = useQueryClient();
 
-    // const { currentStack, currentAwsRegion, currentProfile } = useUserSessionStore();
     const { getSessionData } = useUserSessionStore();
     const sessionData = getSessionData();
     const { currentProfile, currentAwsRegion , currentStack} = sessionData;
@@ -41,12 +40,9 @@ const DeleteObjectDialog = ({ isFolderItem, objectKey, currentPathname, bucketNa
             const objectPathToDelete = currentPathname === '/renders' ? objectKey : splitPathname.slice(2).join('/') + '/' + objectKey;
 
             const res = await deleteObject({ bucketName, objectPath: objectPathToDelete, isFolderItem, currentProfile: currentProfile! });
-            console.log('res:', res);
+            // console.log('res:', res);
 
             if (res) {
-                // queryClient.refetchQueries({
-                //     queryKey: s3BucketQueryKey,
-                // });
                 queryClient.invalidateQueries({
                     queryKey: s3BucketQueryKey,
                 });

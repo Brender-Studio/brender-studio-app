@@ -38,7 +38,6 @@ export const columns: ColumnDef<EfsData>[] = [
         cell: ({ row }) => {
 
             const openUrl = (id: string) => {
-                console.log('id: ', id)
                 // extract region from arn
                 const region = row.original.FileSystemArn.split(":")[3];
                 const url = `https://${region}.console.aws.amazon.com/efs/home?region=${region}#/file-systems/${id}`;
@@ -58,11 +57,6 @@ export const columns: ColumnDef<EfsData>[] = [
             )
         }
     },
-    // {
-    //     id: "Name",
-    //     header: "Name",
-    //     cell: ({ row }) => row.original.Name,
-    // },
     {
         id: "SizeInBytes",
         header: "Size (GB)",
@@ -71,7 +65,6 @@ export const columns: ColumnDef<EfsData>[] = [
             const bytes = row.original.SizeInBytes.Value
             const gb = bytes / (1024 * 1024 * 1024)
             return <p>{gb.toFixed(4)} GB</p>
-            // <p>{row.original.SizeInBytes.Value}</p>
         }
 
     },

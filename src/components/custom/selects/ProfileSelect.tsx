@@ -19,7 +19,6 @@ const ProfileSelect = () => {
     });
 
     const handleProfileChange = (value: string) => {
-        // console.log('value', value)
         const selectedProfile = value;
         setSessionData({ ...sessionData, currentProfile: selectedProfile, currentStack: null });
 
@@ -43,10 +42,7 @@ const ProfileSelect = () => {
                     <User className="w-4 h-4 mr-1" />
                     {isLoading ? <SpinnerFooter /> : <SelectValueFooter placeholder={currentProfile} defaultValue={currentProfile!} />}
                     {isError ? <p>Error loading profiles</p> : null}
-                    {/* {data?.length === 0 ? <p>No profiles found</p> : null} */}
                     {!isLoading && !currentProfile && !isError && <p>Select a profile</p>}
-                    {/* Check if data profiles exists in current profile, if not set the first item from data */}
-                    {/* {data?.length !== 0 && !data?.includes(currentProfile!) && !isError && !isLoading && <p>Profile not found</p>} */}
                 </SelectTriggerFooter>
                 <SelectContent className="z-[120]">
                     {isError ? (

@@ -59,7 +59,6 @@ const WelcomeDialog = () => {
                         Welcome to Brender Studio!
                     </DialogTitle>
                   
-                    {/* <Separator className="my-4" /> */}
                     <div></div>
                     <DialogDescription >
                         Before you get started, make sure you have an AWS account and have set up your AWS credentials. If you haven't done so, please check the documentation for more information.

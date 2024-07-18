@@ -24,7 +24,6 @@ interface CustomSelectvCpusProps {
 
 export const CustomSelectvCpus = ({ form, defaultValue, fieldName, onValueChange, options, label, disabled }: CustomSelectvCpusProps) => {
 
-    console.log('defaultValue:', defaultValue)
     return (
         <FormField
             control={form.control}

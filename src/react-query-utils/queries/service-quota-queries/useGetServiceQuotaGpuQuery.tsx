@@ -17,7 +17,6 @@ export const useGetServiceQuotaGpuQuery = () => {
         queryFn: () => getEc2ServiceQuotasGpu(currentProfile!, currentAwsRegion),
         retry: 1,
         enabled: !!currentAwsRegion && !!currentProfile,
-        // refetchInterval: 30000 // 30 seconds
     });
 
     return {

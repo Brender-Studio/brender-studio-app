@@ -10,13 +10,6 @@ export type JobDefinition = {
         image: string;
         mountPoints: { containerPath: string, sourceVolume: string }[];
         resourceRequirements: { type: string, value: number }[];
-        // command: string[];
-        // environment: { [key: string]: string };
-        // executionRoleArn: string;
-        // readonlyRootFilesystem: boolean;
-        // secrets: string[];
-        // ulimits: { hardLimit: number, name: string, softLimit: number }[];
-        // volumes: { [key: string]: TODO: Typer }[];
     };
     retryStrategy: {
         attempts: number;
@@ -25,12 +18,6 @@ export type JobDefinition = {
     timeout: {
         attemptDurationSeconds: number;
     };
-    // revision: number;
-    // tags: { [key: string]: string };
-    // parameters: { [key: string]: Todo: Typer };
-    // platformCapabilities: string[];
-    // propagateTags: boolean;
-    // type: string;
 };
 
 
@@ -105,7 +92,6 @@ export const columns: ColumnDef<JobDefinition>[] = [
             )
         },
     },
-    // efs mount points
     {
         id: "efs",
         header: "EFS",

@@ -14,9 +14,9 @@ interface DatePickerRangeProps {
 
 export function DatePickerRange({
     className,
-    initialDateRange, // Recibir el período de fechas inicial
+    initialDateRange, 
 }: React.HTMLAttributes<HTMLDivElement> & DatePickerRangeProps) {
-    const [date, setDate] = React.useState<DateRange | undefined>(initialDateRange); // Usar el prop como valor inicial
+    const [date, setDate] = React.useState<DateRange | undefined>(initialDateRange);
 
 
     return (

@@ -149,6 +149,5 @@ export const errors = [
                 solution_description: `As a forced measure, delete a stack and all associated images in ECR to mitigate potential misconfiguration issues. It's important to note that if ECR images are deleted, all stacks will become unusable, and you will need to re-deploy them.`
             }
         ],
-        // web_docs_link: 'https://brenderstudio.com/docs/troubleshooting/forced-troubleshooting'
     },
 ]

@@ -8,7 +8,6 @@ const TroubleshootingPage = () => {
             content={<TroubleshootingSection />}
             justify='start'
             backBtn={false}
-            // tooltip_description='Here you can find some common issues and how to solve them.'
         />
     )
 }

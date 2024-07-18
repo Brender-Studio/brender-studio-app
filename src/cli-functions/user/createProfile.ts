@@ -11,10 +11,10 @@ export async function createProfile(profileName: string, accessKey: string, secr
             accessKey,
             "--profile", profileName
         ]);
-        console.log('Create profile command:', createProfileCommand);
+        // console.log('Create profile command:', createProfileCommand);
 
         const createProfileOutput = await createProfileCommand.execute();
-        console.log('Create profile output:', createProfileOutput);
+        // console.log('Create profile output:', createProfileOutput);
         const createProfileStderr = createProfileOutput.stderr?.toString() || '';
 
         if (createProfileOutput.code !== 0) {
@@ -31,10 +31,10 @@ export async function createProfile(profileName: string, accessKey: string, secr
             secretKey,
             "--profile", profileName
         ]);
-        console.log('Set secret key command:', setSecretKeyCommand);
+        // console.log('Set secret key command:', setSecretKeyCommand);
 
         const setSecretKeyOutput = await setSecretKeyCommand.execute();
-        console.log('Set secret key output:', setSecretKeyOutput);
+        // console.log('Set secret key output:', setSecretKeyOutput);
         const setSecretKeyStderr = setSecretKeyOutput.stderr?.toString() || '';
 
         if (setSecretKeyOutput.code !== 0) {

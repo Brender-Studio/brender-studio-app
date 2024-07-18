@@ -23,9 +23,8 @@ export const columns: ColumnDef<JobQueueStatus, unknown>[] = [
         header: "Job Queue Name",
         cell: ({ row }) => {
             const openUrl = (id: string) => {
-                // extrer region from arn
                 const region = id.split(':')[3];
-                console.log('region', region)
+                // console.log('region', region)
                 const url = `https://${region}.console.aws.amazon.com/batch/home?region=${region}#queues/detail/${id}`;
                 open(url);
             };
@@ -83,7 +82,6 @@ export const columns: ColumnDef<JobQueueStatus, unknown>[] = [
         id: "RUNNABLE",
         header: "RUNNABLE",
         cell: ({ row }) => {
-            // here job status dialog to manage the job states (terminate, cancel, etc.)
             const [openDialog, setOpenDialog] = useState(false);
             return (
                 <JobStatusDialog

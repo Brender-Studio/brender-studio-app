@@ -1,14 +1,16 @@
 import { Command } from "@tauri-apps/api/shell";
 import { S3_UPLOAD_CONFIGS } from "./s3-cli-config";
 
+// This function sets the S3 CLI config based on the size of the file (.blend) being uploaded. Improves upload performance.
+
 export async function setS3cliConfig(region: string, profile: string, size: number) {
-    // Función para convertir bytes a MB
+    // Function to convert bytes to MB
     const bytesToMB = (bytes: number) => bytes / (1024 * 1024);
 
-    // Convertir size a MB
+    // Convert size to MB
     const sizeMB = bytesToMB(size);
 
-    // Determinar la configuración apropiada
+    // Get the S3 CLI config based on the size
     let config;
     if (sizeMB <= 100) {
         config = S3_UPLOAD_CONFIGS["100MB"];
@@ -26,9 +28,9 @@ export async function setS3cliConfig(region: string, profile: string, size: numb
         config = S3_UPLOAD_CONFIGS["10GB"];
     }
 
-    console.log(`Setting S3 CLI config to: ${JSON.stringify(config)}`);
+    // console.log(`Setting S3 CLI config to: ${JSON.stringify(config)}`);
 
-    // Array de configuraciones a establecer
+    // Array of settings to apply
     const configSettings = [
         { key: "default.s3.max_concurrent_requests", value: config.maxConcurrentRequests.toString() },
         { key: "default.s3.multipart_chunksize", value: config.multipartChunksize },
@@ -37,7 +39,7 @@ export async function setS3cliConfig(region: string, profile: string, size: numb
         { key: "default.s3.max_queue_size", value: config.maxQueueSize.toString() }
     ];
 
-    // Aplicar cada configuración
+    // Apply the settings
     for (const setting of configSettings) {
         const command = new Command("aws-cli", [
             "configure",

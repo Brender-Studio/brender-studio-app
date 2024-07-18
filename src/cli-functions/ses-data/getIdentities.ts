@@ -1,23 +1,5 @@
 import { Command } from "@tauri-apps/api/shell";
 
-
-// example:  aws ses list-identities --identity-type EmailAddress --profile jer-info-dev --region us-west-2
-// {
-//     "Identities": [
-//         "jernono2022@gmail.com",
-//         "jer.info.dev@gmail.com"
-//     ]
-// }
-
-// aws ses get-identity-verification-attributes --identities jernono2022@gmail.com --profile jer-info-dev --region us-west-2
-// {
-//     "VerificationAttributes": {
-//         "jernono2022@gmail.com": {
-//             "VerificationStatus": "Pending"
-//         }
-//     }
-// }
-
 export async function getIdentities(region: string, profile: string) {
     const command = new Command("aws-cli", [
         "ses",

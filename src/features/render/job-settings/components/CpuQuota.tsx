@@ -13,11 +13,8 @@ interface CpuQuotaProps {
     setCpuQuotas: (cpuQuotas: { spot: number, onDemand: number }) => void;
 }
 
-
-
 const CpuQuota = ({ setCpuQuotas }: CpuQuotaProps) => {
     const { currentAwsRegion } = useUserSessionStore().getSessionData();
-    // const { currentAwsRegion } = getSessionData();
     const navigate = useNavigate();
 
     const { data, isLoading } = useGetServiceQuotaCpuQuery();

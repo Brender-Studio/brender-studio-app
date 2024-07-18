@@ -31,7 +31,7 @@ export async function generatePresignedUrl({ bucket, key, region, profile, expir
             throw new Error(`Command failed with code ${child.code}. Error: ${errorOutput}`);
         }
 
-        console.log('url from fn', child.stdout.toString().trim());
+        // console.log('url from fn', child.stdout.toString().trim());
 
         return child.stdout.toString().trim();
 

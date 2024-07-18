@@ -19,7 +19,7 @@ const ThumbnailCard = ({ itemName }: ThumbnailCardProps) => {
         setShowModal(true);
     }
 
-    console.log('ThumbnailCard:', itemName)
+    // console.log('ThumbnailCard:', itemName)
     const { data, isLoading } = useThumbnailQuery(itemName)
 
 

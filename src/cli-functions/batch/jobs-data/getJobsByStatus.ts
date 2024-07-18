@@ -1,6 +1,5 @@
 import { Command } from "@tauri-apps/api/shell";
 
-// necesitamos job queue name, status,region, profile
 
 export async function getJobsByStatus(jobQueueName: string, status: string, region: string, profile: string) {
     
@@ -19,13 +18,6 @@ export async function getJobsByStatus(jobQueueName: string, status: string, regi
             "--output",
             "json"
         ]);
-
-        // command.on('close', data => {
-        //     console.log('data', data)
-        // });
-        // command.on('error', error => {
-        //     console.log('error', error)
-        // });
 
         const output = await command.execute();
         // console.log('jobDefinitions output', output)

@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom'
 
 const StackDeployCard = () => {
     const navigate = useNavigate()
-    // const { isCliInstalled } = useUserSessionStore()
     const { getSessionData } = useUserSessionStore();
     const sessionData = getSessionData();
     const { isCliInstalled } = sessionData;

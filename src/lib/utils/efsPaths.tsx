@@ -10,7 +10,7 @@ export const efsMainScriptPath = (values: z.infer<typeof formRenderSchema>) => {
     const folderPathPython = values.folder_path_python;
     const pythonScriptPath = values.python_script_path;
 
-    // Función para obtener el último segmento de una ruta
+
     const getLastSegment = (path: string) => {
         return path.split(/[/\\]/).pop();
     };
@@ -18,18 +18,18 @@ export const efsMainScriptPath = (values: z.infer<typeof formRenderSchema>) => {
     let finalPath = '';
 
     if (!folderPathPython) {
-        // Si folder_path_python está vacío, usar solo el nombre del script
+        // If folder_path_python is empty, take the project name and the script name
         const scriptName = pythonScriptPath ? getLastSegment(pythonScriptPath) : '';
         finalPath = `/mnt/efs/projects/${projectName}/${scriptName}`;
     } else {
-        // Si folder_path_python no está vacío, concatenar el folder principal y el script
+        // If folder_path_python is not empty, take the project name, the folder name and the script name
         const folderName = getLastSegment(folderPathPython);
 
-        // Remover la ruta local de pythonScriptPath
+        // Remove the project name from the path
         const scriptRelativePathArray = pythonScriptPath?.split(/[/\\]/) ?? [];
         const folderNameIndex = scriptRelativePathArray.findIndex((segment: string | undefined) => segment === folderName);
 
-        // Si encontramos el folderName en la ruta del script, tomar los segmentos siguientes
+        // If the folder name is found, take the path from the folder name to the end
         const scriptRelativePath = folderNameIndex !== -1
             ? scriptRelativePathArray.slice(folderNameIndex + 1).join('/')
             : pythonScriptPath;
@@ -43,9 +43,8 @@ export const efsMainScriptPath = (values: z.infer<typeof formRenderSchema>) => {
 
 export const efsBlenderFilePath = (values: z.infer<typeof formRenderSchema>) => {
     const projectName = values.project_name;
-    //   const folderPathBlender = form.watch('folder_path');
     const folderPathBlender = values.folder_path;
-    //   const filePath = form.watch('file_path');
+
     const filePath = values.file_path;
     const fileName = getLastSegment(filePath ?? '');
     const folderName = getLastSegment(folderPathBlender ?? '');

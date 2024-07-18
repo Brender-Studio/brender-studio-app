@@ -1,27 +1,8 @@
 import { Command } from "@tauri-apps/api/shell";
-import {  CommandClose, handleCommandClose, handleCommandError } from "../cli-utils/commandOutput";
+import { CommandClose, handleCommandClose, handleCommandError } from "../cli-utils/commandOutput";
 
 export async function getStackDetails(stackName: string, region: string, profile: string) {
     try {
-
-        // ### OLD COMMAND - describe-stack-resources ###
-
-        // const command = new Command("aws-cli", [
-        //     "cloudformation",
-        //     "describe-stack-resources",
-        //     "--stack-name",
-        //     stackName,
-        //     "--query",
-        //     "StackResources[?ResourceType=='AWS::Batch::JobDefinition' || ResourceType=='AWS::EC2::NatGateway' || ResourceType=='AWS::EC2::Subnet' || ResourceType=='AWS::EC2::SecurityGroup' || ResourceType=='AWS::EC2::VPC' || ResourceType=='AWS::EC2::VPCEndpoint' || ResourceType=='AWS::Batch::ComputeEnvironment' || ResourceType=='AWS::Batch::JobQueue' || ResourceType=='AWS::S3::Bucket' || ResourceType=='AWS::EFS::FileSystem']",
-        //     "--region",
-        //     region,
-        //     "--profile",
-        //     profile,
-        //     "--output",
-        //     "json"
-        // ]);
-
-        // ### NEW COMMAND - list-stack-resources ###
 
         const command = new Command("aws-cli", [
             "cloudformation",

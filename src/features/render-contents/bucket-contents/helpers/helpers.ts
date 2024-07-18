@@ -8,6 +8,5 @@ export const convertSize = (size: number) => {
 }
 
 export const getFileExtension = (filename: string) => {
-    // console.log(filename.slice(((filename.lastIndexOf(".") - 1) >>> 0) + 2))
     return filename.slice(((filename.lastIndexOf(".") - 1) >>> 0) + 2);
 };

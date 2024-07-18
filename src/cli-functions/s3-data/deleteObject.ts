@@ -14,14 +14,14 @@ export async function deleteObject({ bucketName, objectPath, isFolderItem, curre
         command = new Command('aws-cli', ['s3', 'rm', `s3://${bucketName}/${objectPath}`, '--profile', currentProfile]);
     }
 
-    console.log('command:', command);
+    // console.log('command:', command);
 
     if (command) {
         try {
             const result = await command.execute();
-            console.log('result:', result);
+            // console.log('result:', result);
             const resultString = result.stdout.toString();
-            console.log('resultString:', resultString);
+            // console.log('resultString:', resultString);
             return resultString;
         } catch (error) {
             console.error(error);

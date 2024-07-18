@@ -33,11 +33,10 @@ const RequestQuotaDialog = ({ openDialog,
     const [isSubmitting, setIsSubmitting] = useState(false)
 
     const handleRequestQuota = async () => {
-        console.log('Request Quota')
         try {
             setIsSubmitting(true)
-            const res = await requestIncreaseQuota(currentProfile!, currentAwsRegion!, serviceCode, quotaCode, parseInt(inputValue))
-            console.log(res)
+            await requestIncreaseQuota(currentProfile!, currentAwsRegion!, serviceCode, quotaCode, parseInt(inputValue))
+            // console.log(res)
             setIsSubmitting(false)
             setOpenDialog(false)
             toast({

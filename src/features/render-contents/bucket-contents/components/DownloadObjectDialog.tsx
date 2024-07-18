@@ -52,7 +52,7 @@ const DownloadObjectDialog = ({ objectKey, isFolderItem, setState, currentPathna
         setLoading(true);
 
         try {
-            // in /renders : "s3://brender-bucket-s3-3cb5d719-fda6-4f70-944f-4b8eec17c3ed//bucket-box-imgs", duplicated slashes (issue with the bucket path)
+            // in /renders : "s3://brender-bucket-s3-xxx//bucket-box-imgs", duplicated slashes (issue with the bucket path)
             const bucketPath = currentPathname.split('/').slice(2).join('/');
             const fullPath = currentPathname === '/renders' ? bucketName + bucketPath + '/' + objectKey : bucketName + '/' + bucketPath + '/' + objectKey;
             console.log('fullPath:', fullPath);

@@ -6,7 +6,6 @@ import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, Di
 import { useState } from "react"
 import { Input } from "@/components/ui/input"
 import SpinnerButton from "../spinners/SpinnerButton"
-
 import { useQueryClient } from "@tanstack/react-query"
 import { destroyStackSequence } from "@/features/stacks/stack-detail/destroyStackSequence"
 import { useUserSessionStore } from "@/store/useSessionStore"
@@ -40,12 +39,12 @@ const DropdownCardStack = ({ awsLinkConsole, stackName, stackStatus }: DropdownC
     }
 
     const handleDeleteStack = async () => {
-        console.log('Deleting stack:', stackName)
+
         try {
             setIsLoading(true)
-            // TODO: Review the destroyStackFn function response and handle it properly
-            const res = await destroyStackSequence({ stackName, region: currentAwsRegion, profile: currentProfile! });
-            console.log('Stack deleted:', res)
+
+            await destroyStackSequence({ stackName, region: currentAwsRegion, profile: currentProfile! });
+            // console.log('Stack deleted:', res)
 
             await queryClient.refetchQueries({
                 queryKey: stackQueries.stacksQueryKey(currentAwsRegion, currentProfile!),
@@ -78,7 +77,7 @@ const DropdownCardStack = ({ awsLinkConsole, stackName, stackStatus }: DropdownC
     }
 
     const handleStackChange = (value: string) => {
-        console.log('value', value)
+        // console.log('value', value)
         const selectedStack = value;
         // setCurrentStack(selectedStack);
 

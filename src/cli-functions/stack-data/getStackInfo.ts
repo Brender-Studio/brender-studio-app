@@ -1,7 +1,6 @@
 import { Command } from "@tauri-apps/api/shell";
 
-
-// ex: aws cloudformation describe-stacks --stack-name BRENDER-STACK-test-create
+// ex: aws cloudformation describe-stacks --stack-name BRENDER-STACK-TEST --region us-east-1 --profile test --output json
 
 export async function getStackInfo(stackName: string, region: string, profile: string) {
     const command = new Command("aws-cli", [

@@ -9,12 +9,12 @@ export async function checkCliInstallation() {
         const versionMatch = output.stdout.match(/aws-cli\/(\d+(\.\d+)+)/);
         if (versionMatch) {
             const awsCliVersion = versionMatch[1];
-            console.log('AWS CLI Version:', awsCliVersion);
+            // console.log('AWS CLI Version:', awsCliVersion);
 
             // Compare the major and minor version
             const [majorVersion, minorVersion] = awsCliVersion.split('.').map(Number);
             if (majorVersion > 2 || (majorVersion === 2 && minorVersion >= 14)) {
-                console.log('Valid CLI version.');
+                // console.log('Valid CLI version.');
                 return {
                     cliInstalled: true,
                     cliVersion: awsCliVersion

@@ -8,12 +8,12 @@ export async function getJobExecutions(region: string, profile: string, stackNam
 
         // console.log('jobQueues', jobQueues)
 
-        // Array para almacenar las promesas de las consultas para cada cola de trabajos
+        // Array for storing promises of each query
         const promises: Promise<{ jobQueueName: string, jobQueueArn: string, statusCounts: { [status: string]: number } }>[] = [];
 
-        // Iterar sobre cada cola de trabajos
+        // Iterate over each job queue
         for (const jobQueue of jobQueues) {
-            // Crear una promesa para cada consulta
+            // Create a promise for each job queue
             const promise = new Promise<{ jobQueueName: string, jobQueueArn: string, statusCounts: { [status: string]: number } }>(async (resolve) => {
                 const statusCounts: { [status: string]: number } = {
                     "SUBMITTED": 0,
@@ -25,10 +25,10 @@ export async function getJobExecutions(region: string, profile: string, stackNam
                     "FAILED": 0
                 };
 
-                // Array para almacenar las promesas de las consultas para cada estado posible
+                // Array for storing promises of each status
                 const statusPromises: Promise<number>[] = [];
 
-                // Iterar sobre cada estado posible
+                // Iterate over each status
                 for (const status of Object.keys(statusCounts)) {
                     const statusPromise = new Promise<number>(async (resolveStatus, rejectStatus) => {
                         const command = new Command("aws-cli", [
@@ -61,17 +61,16 @@ export async function getJobExecutions(region: string, profile: string, stackNam
                         const stdout = output.stdout?.toString() || '';
                         const jobStatuses = JSON.parse(stdout) || [];
 
-                        // Resolver la promesa con la cantidad de trabajos en el estado actual
                         resolveStatus(jobStatuses.length);
                     });
 
                     statusPromises.push(statusPromise);
                 }
 
-                // Esperar a que todas las promesas de estado se resuelvan
+                // Wait for all status promises to resolve
                 const statusCountsValues = await Promise.all(statusPromises);
 
-                // Asignar los valores de los recuentos de estado
+                // Assign the values to the statusCounts object
                 Object.keys(statusCounts).forEach((status, index) => {
                     statusCounts[status] = statusCountsValues[index];
                 });
@@ -82,7 +81,7 @@ export async function getJobExecutions(region: string, profile: string, stackNam
             promises.push(promise);
         }
 
-        // Esperar a que todas las promesas se resuelvan
+
         const results = await Promise.all(promises);
         // console.log('results', results)
         return results;

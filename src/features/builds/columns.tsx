@@ -63,7 +63,7 @@ export const columns: ColumnDef<CodeBuild>[] = [
         cell: ({ row }) => {
             // format in date and minutes
             const date = new Date(row.original.endTime);
-            // CHECK IF DATE IS VALID , IF NOT RETURN EMPTY STRING '-'
+            // CHECK IF DATE IS VALID , IF NOT RETURN '-'
             if (isNaN(date.getTime())) {
                 return '-';
             }
@@ -79,7 +79,7 @@ export const columns: ColumnDef<CodeBuild>[] = [
             const end = new Date(row.original.endTime);
             const duration = end.getTime() - start.getTime();
             const minutes = Math.floor(duration / 60000);
-            // CHECK IF DATE IS VALID , IF NOT RETURN EMPTY STRING '-'
+            // CHECK IF DATE IS VALID , IF NOT RETURN '-'
             if (isNaN(minutes)) {
                 return '-';
             }
@@ -90,7 +90,6 @@ export const columns: ColumnDef<CodeBuild>[] = [
         id: "logs",
         header: "Build Logs",
         cell: ({ row }) => {
-            // return a link to the deep link
 
             return (
                 <Button

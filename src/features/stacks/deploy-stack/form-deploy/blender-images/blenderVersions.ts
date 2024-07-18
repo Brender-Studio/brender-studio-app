@@ -7,18 +7,6 @@ export const blenderVersions = [
         id: "3.6.0",
         label: "3.6.0 LTS",
     },
-    // {
-    //     id: "4.0.0",
-    //     label: "4.0.0",
-    // },
-    // {
-    //     id: "4.1.0",
-    //     label: "4.1.0",
-    // },
-    // {
-    //     id: "4.1.1",
-    //     label: "4.1.1",
-    // },
     {
         id: "4.2.0",
         label: "4.2.0 LTS",

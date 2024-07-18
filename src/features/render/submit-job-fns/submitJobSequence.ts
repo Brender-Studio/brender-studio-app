@@ -51,9 +51,9 @@ interface CustomEnvVar {
 
 export async function submitJobSequence({ values, bucketName, currentProfile, currentAwsRegion, progressCallback }: SubmitJobSequenceProps) {
 
-    console.log('values', values);
-    console.log('bucketName', bucketName);
-    console.log('currentProfile', currentProfile);
+    // console.log('values', values);
+    // console.log('bucketName', bucketName);
+    // console.log('currentProfile', currentProfile);
 
     const bucketKey = values.project_name;
     const renderJsonCommand = await createRenderJson(values);
@@ -62,8 +62,8 @@ export async function submitJobSequence({ values, bucketName, currentProfile, cu
     const blenderFilePath = await handleBlenderFileUpload(values, bucketKey, bucketName, currentAwsRegion, currentProfile, progressCallback);
     const pythonFilePath = await handlePythonFileUpload(values, bucketKey, bucketName, currentProfile, progressCallback);
 
-    console.log('blenderFilePath', blenderFilePath);
-    console.log('pythonFilePath', pythonFilePath);
+    // console.log('blenderFilePath', blenderFilePath);
+    // console.log('pythonFilePath', pythonFilePath);
 
     const jobSettings = getJobSettings(values);
     validateJobSettings(jobSettings);
@@ -74,17 +74,17 @@ export async function submitJobSequence({ values, bucketName, currentProfile, cu
 
     const { efsBlenderFilePath, efsBlenderOutputFolderPath, efsPythonFilePath } = constructEfsPaths(values, bucketKey, blenderFilePath!, pythonFilePath!);
 
-    console.log('efsBlenderFilePath', efsBlenderFilePath);
-    console.log('efsBlenderOutputFolderPath', efsBlenderOutputFolderPath);
-    console.log('efsPythonFilePath', efsPythonFilePath);
+    // console.log('efsBlenderFilePath', efsBlenderFilePath);
+    // console.log('efsBlenderOutputFolderPath', efsBlenderOutputFolderPath);
+    // console.log('efsPythonFilePath', efsPythonFilePath);
     progressCallback(PROGRESS_STEPS_RENDER.SUBMITING_JOB_2);
     const job2Id = await submitRenderJob(values, bucketKey, job1Id, currentProfile, currentAwsRegion, jobSettings, efsBlenderFilePath, efsBlenderOutputFolderPath, efsPythonFilePath!, renderJsonCommand);
 
     progressCallback(PROGRESS_STEPS_RENDER.SUBMITING_JOB_3);
     const job3Command = await createJob3Command(values, currentAwsRegion, job2Id.jobId, getJobType(values), values.ses?.ses_email!, values.ses?.ses_email!);
-    const job3 = await submitEfsToS3Job(bucketName, bucketKey, currentProfile, currentAwsRegion, jobSettings, job2Id.jobId, job3Command);
+    await submitEfsToS3Job(bucketName, bucketKey, currentProfile, currentAwsRegion, jobSettings, job2Id.jobId, job3Command);
 
-    console.log('job3', job3);
+    // console.log('job3', job3);
     return values;
 }
 
@@ -103,7 +103,7 @@ async function handleBlenderFileUpload(values: z.infer<typeof formRenderSchema>,
         size = await getFileSize(path);
     }
 
-    console.log('size:', size);
+    // console.log('size:', size);
 
     // Configure S3 CLI based on file size
     await setS3cliConfig(currentAwsRegion, currentProfile, size);
@@ -131,7 +131,6 @@ async function handlePythonFileUpload(values: z.infer<typeof formRenderSchema>, 
             await uploadFolder({ bucketName, objectKey: bucketKey, folderPath: values.folder_path_python, currentProfile });
             progressCallback(PROGRESS_STEPS_RENDER.UPLOADING_FILES);
             return values.python_script_path;
-            // return values.folder_path_python;
         } else if (values.python_script_path) {
             await uploadObject({ bucketName, objectPath: bucketKey, filePath: values.python_script_path, currentProfile });
             progressCallback(PROGRESS_STEPS_RENDER.UPLOADING_FILES);
@@ -182,16 +181,15 @@ function constructEfsPaths(values: z.infer<typeof formRenderSchema>, bucketKey: 
     return { efsBlenderFilePath, efsBlenderOutputFolderPath, efsPythonFilePath };
 }
 
-// TODO: REVIEW THIS FUNCTION _values
 function constructEfsPath(_values: z.infer<typeof formRenderSchema>, bucketKey: string, filePath: string, isFolder: boolean) {
     if (isFolder) {
-        console.log('filepath:', filePath);
+        // console.log('filepath:', filePath);
         const folderName = getLastSegmentOfFolderPath(_values.folder_path ?? '');
-        console.log('folderName:', folderName);
-        // const subPath = getSubPathFromFolderPath(filePath, folderName);
+        // console.log('folderName:', folderName);
+
         const subPath = getSubPathFromFolderPath(_values.folder_path ?? '', folderName, filePath);
-        console.log('subPath:', subPath);
-        console.log('all path:', `/mnt/efs/projects/${bucketKey}/${subPath}`);
+        // console.log('subPath:', subPath);
+        // console.log('all path:', `/mnt/efs/projects/${bucketKey}/${subPath}`);
         return `/mnt/efs/projects/${bucketKey}/${subPath}`;
     } else {
         const lastSegment = getLastSegmentOfFilePath(filePath);
@@ -210,15 +208,14 @@ async function submitRenderJob(values: z.infer<typeof formRenderSchema>, bucketK
 
 async function submitCustomPythonJob(values: z.infer<typeof formRenderSchema>, job1Id: string, currentProfile: string, awsRegion: string, jobSettings: JobSettings, efsPythonFilePath: string, efsBlenderOutputFolderPath: string, efsBlenderFilePath: string) {
     const { use_eevee, use_gpus, bucket_name, bucket_key } = values.python_env_vars || {};
-    // custom env vars
-    // Valida si values.custom_env_vars está definido y no está vacío
+  
     const customEnvVars = values.custom_env_vars && values.custom_env_vars.length > 0
-    ? values.custom_env_vars
-        .filter((envVar): envVar is CustomEnvVar => envVar.name !== undefined && envVar.value !== undefined)
-        .map((envVar: CustomEnvVar) => ({ name: envVar.name, value: envVar.value }))
-    : [];
+        ? values.custom_env_vars
+            .filter((envVar): envVar is CustomEnvVar => envVar.name !== undefined && envVar.value !== undefined)
+            .map((envVar: CustomEnvVar) => ({ name: envVar.name, value: envVar.value }))
+        : [];
 
-    console.log('customEnvVars', customEnvVars);
+    // console.log('customEnvVars', customEnvVars);
 
     return customPythonJob({
         currentProfile, awsRegion,
@@ -282,10 +279,8 @@ async function submitEfsToS3Job(bucketName: string, bucketKey: string, currentPr
     });
 }
 
-// "custom_render_python", "frame", "animation"
 
 function getJobType(values: z.infer<typeof formRenderSchema>) {
-    // return values.type === 'animation' ? 'Animation' : 'Still';
     switch (values.type) {
         case 'custom_render_python':
             return 'Custom Python';

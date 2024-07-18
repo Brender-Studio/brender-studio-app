@@ -1,14 +1,12 @@
 import { Command } from "@tauri-apps/api/shell";
 
-// we need template name , json path template, region and profile
+// we need json path template, region and profile
 
-// example:  aws ses create-template --cli-input-json file://render_completed.json --region us-west-2 --profile brender-studio
+// example: aws ses create-template --cli-input-json file://render_completed.json --region us-west-2 --profile brender-studio
 
-// args fn: templateName, templatePath, region, profile
+export async function uploadTemplate(templatePath: string, region: string, profile: string) {
 
-export async function uploadTemplate(templateName: string, templatePath: string, region: string, profile: string) {
-
-    console.log('Uploading template...', templateName)
+    // console.log('Uploading template...', templateName)
     
     try {
         const uploadTemplateCommand = new Command('aws-cli', [

@@ -25,7 +25,6 @@ const Section = ({ title, content, backBtn, justify, tooltip_description ,hover_
 
     return (
         <div className="w-full">
-            {/* "flex gap-2 items-center pb-4 w-full" */}
             <div className={`flex justify-${justify} gap-2 items-center w-full`}
             >
                 {

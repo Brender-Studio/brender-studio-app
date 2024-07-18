@@ -32,13 +32,13 @@ export async function startBuild(
     spotBidPercentage: SpotBidPercentage
 ): Promise<StartBuildResult> {
 
-    console.log('Region:', region);
-    console.log('Profile:', profile);
-    console.log('Stack name:', stackName);
-    console.log('Has NAT Gateway:', isPrivate);
-    console.log('Blender versions:', blenderVersions);
-    console.log('Max vCPUs:', maxvCpus);
-    console.log('Spot bid percentage:', spotBidPercentage);
+    // console.log('Region:', region);
+    // console.log('Profile:', profile);
+    // console.log('Stack name:', stackName);
+    // console.log('Has NAT Gateway:', isPrivate);
+    // console.log('Blender versions:', blenderVersions);
+    // console.log('Max vCPUs:', maxvCpus);
+    // console.log('Spot bid percentage:', spotBidPercentage);
 
     // Encapsulate blenderVersios into a string with the format "3.6.0,4.0.0,5.0.0"
 
@@ -46,7 +46,7 @@ export async function startBuild(
 
     const projectBuildName = deployConfig.codeBuild.projectName;
 
-    console.log('Project build name:', projectBuildName);
+    // console.log('Project build name:', projectBuildName);
 
     const awsCliCredentials = await getCliCreds(profile);
 
@@ -55,7 +55,7 @@ export async function startBuild(
     }
 
     const awsAccountId = await getUserAwsId(profile);
-    console.log('AWS Account ID:', awsAccountId)
+    // console.log('AWS Account ID:', awsAccountId)
 
     const cdkAction = 'deploy';
 
@@ -78,11 +78,11 @@ export async function startBuild(
             `name=SPOT_BID_PERCENTAGE,value='${JSON.stringify(spotBidPercentage)}',type=PLAINTEXT`
         ]);
 
-        console.log('Start build command:', startBuildCommand)
+        // console.log('Start build command:', startBuildCommand)
 
         const startBuildOutput = await startBuildCommand.execute();
 
-        console.log('Start build output:', startBuildOutput)
+        // console.log('Start build output:', startBuildOutput)
 
         const startBuildStderr = startBuildOutput.stderr?.toString() || '';
 
@@ -103,7 +103,6 @@ export async function startBuild(
         if (error instanceof Error) {
             console.error(error.message);
         }
-        // return false;
         throw new Error(`${(error as Error).message}`);
     }
 }

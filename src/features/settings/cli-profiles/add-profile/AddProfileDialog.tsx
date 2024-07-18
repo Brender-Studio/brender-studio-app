@@ -29,9 +29,6 @@ const AddProfileDialog = () => {
 
     const [openDialog, setOpenDialog] = useState(false)
 
-    // const openAwsCliDocs = () => {
-    //     open('https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html')
-    // }
 
     const form = useForm<z.infer<typeof cliProfileSchema>>({
         resolver: zodResolver(cliProfileSchema),
@@ -49,8 +46,6 @@ const AddProfileDialog = () => {
             const res = await createProfile(values.profileName, values.accessKey, values.secretKey)
             console.log(res)
             if (res) {
-
-                // review and test this!
                 setSessionData({
                     ...sessionData,
                     currentProfile: values.profileName,
@@ -58,12 +53,6 @@ const AddProfileDialog = () => {
                     currentStack: null
                 })
 
-                // queryClient.removeQueries({
-                //     queryKey: ['profiles']
-                // })
-                // queryClient.resetQueries({
-                //     queryKey: ['profiles']
-                // })
                 queryClient.refetchQueries({
                     queryKey: ['profiles']
                 })

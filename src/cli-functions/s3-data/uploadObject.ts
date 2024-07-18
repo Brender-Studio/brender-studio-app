@@ -5,17 +5,17 @@ export async function uploadObject({ bucketName, objectPath, filePath, currentPr
     { bucketName: string, objectPath: string, filePath: string, currentProfile: string }
 ) {
 
-    console.log('Uploading object:', objectPath)
+    // console.log('Uploading object:', objectPath)
 
     const command = new Command('aws-cli', ['s3', 'cp', filePath, `s3://${bucketName}/${objectPath}/`, '--profile', currentProfile]);
 
-    console.log('command:', command);
+    // console.log('command:', command);
 
     try {
         const result = await command.execute();
-        console.log('result:', result);
+        // console.log('result:', result);
         const resultString = result.stdout.toString();
-        console.log('resultString:', resultString);
+        // console.log('resultString:', resultString);
         return resultString;
     } catch (error) {
         console.error(error);

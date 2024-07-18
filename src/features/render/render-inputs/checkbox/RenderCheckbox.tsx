@@ -48,7 +48,6 @@ const RenderCheckbox = ({ form, fieldName, defaultValue, label, isCustom }: Rend
             name={fieldName}
             render={({ field }) => (
                 <FormItem className="flex justify-start h-full">
-                    {/* <Label>{label}</Label> */}
                     <FormControl>
                         <div className="flex gap-2 my-2">
                             <Checkbox

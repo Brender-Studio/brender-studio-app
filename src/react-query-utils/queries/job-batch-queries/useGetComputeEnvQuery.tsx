@@ -15,9 +15,7 @@ const useGetComputeEnvQuery = () => {
     const computeEnvQuery = useQuery({
         queryKey: computeEnvQueryKey,
         queryFn: () => getComputeEnvs(currentAwsRegion, currentProfile!, currentStack!),
-        retry: 1,
         enabled: !!currentAwsRegion && !!currentProfile && !!currentStack,
-        //   refetchInterval: 30000 // 30 seconds
     });
 
     return {

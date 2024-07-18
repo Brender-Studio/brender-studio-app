@@ -1,5 +1,4 @@
 import RenderJobSelect from "./inputs/RenderJobSelect";
-// import RenderJobInput from "./inputs/RenderJobInput";
 import { useEffect, useState } from "react";
 import { toast } from "@/components/ui/use-toast";
 import { filterJobDefinitions, filterJobQueues } from "./helpers/jobFilterUtils";
@@ -53,37 +52,21 @@ const RenderJobFields = ({ form, currentPathname }: RenderJobFieldsProps) => {
     const renderJobSelectField = (fieldName: string, label: string, options: OptionsVars[], defaultValue: string) => (
         <RenderJobSelect
             form={form}
-            fieldName={fieldName as any} // Review this type
+            fieldName={fieldName as any} 
             label={label}
             options={options}
             defaultValue={defaultValue}
         />
     );
 
-
-    // const renderInputField = (fieldName: string, label: string, type: string, placeholder: string, defaultValue: string, minValue: number, maxValue?: number) => (
-    //     <RenderJobInput
-    //         form={form}
-    //         fieldName={fieldName}
-    //         label={label}
-    //         type={type}
-    //         placeholder={placeholder}
-    //         defaultValue={defaultValue}
-    //         minValue={minValue}
-    //         maxValue={maxValue}
-    //     />
-    // );
-
     const filteredJobQueues = filterJobQueues(JobQueues, currentPathname);
     const filteredJobDefinitions = filterJobDefinitions(JobDefinitions);
     const jobDefinitionOptions = getJobDefinitionOptions(filteredJobDefinitions);
     const jobQueueOptions = getJobQueueOptions(filteredJobQueues);
-    // const instanceTypeOptions = getInstanceTypeOptions(currentPathname);
-    // console.log('JobDefinitions: ', JobDefinitions)
 
     /// remount component when stack changes
     useEffect(() => {
-        console.log('Stack changed, remounting component')
+        // console.log('Stack changed, remounting component')
     }, [currentStack, currentAwsRegion, currentProfile])
 
     const keyForRemount = currentStack || 'defaultKey';
@@ -139,7 +122,7 @@ const RenderJobFields = ({ form, currentPathname }: RenderJobFieldsProps) => {
                                             jobQueueOptions,
                                             filteredJobQueues?.[0]?.jobQueueName || '')
                                         }
-                                        {/*  timeout use select with predefined time in secons (show minutes realtion) */}
+                                    
                                         {
                                             renderJobSelectField(`job_settings.timeout`,
                                                 'Timeout',
@@ -157,14 +140,7 @@ const RenderJobFields = ({ form, currentPathname }: RenderJobFieldsProps) => {
                                                 ]
                                                 , '3600')
                                         }
-                                        {/* {renderInputField(`job_settings.timeout`,
-                                            'Timeout (seconds)',
-                                            'number',
-                                            'Timeout',
-                                            '900',
-                                            0)
-                                        } */}
-                                        {/* job attempts is select with 5 */}
+                                        
                                         {renderJobSelectField(`job_settings.job_attempts`,
                                             'Job Attempts',
                                             [

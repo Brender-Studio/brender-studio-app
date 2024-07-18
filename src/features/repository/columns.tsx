@@ -30,11 +30,6 @@ export const columns: ColumnDef<EcrImage>[] = [
             />
         ),
     },
-    // {
-    //     id: "repositoryName",
-    //     header: "Repository",
-    //     cell: ({ row }) => row.original.repositoryName,
-    // },
     {
         id: "imageTags",
         header: "Tag",

@@ -42,11 +42,11 @@ export async function emptyEfs({
             "json"
         ]);
 
-        console.log('command', command)
+        // console.log('command', command)
 
         const commandOutput = await command.execute();
 
-        console.log('commandOutput', commandOutput)
+        // console.log('commandOutput', commandOutput)
         const stderr = commandOutput.stderr?.toString() || '';
 
         if (commandOutput.code !== 0) {
@@ -56,9 +56,9 @@ export async function emptyEfs({
         }
 
         const stdout = commandOutput.stdout?.toString() || '';
-        console.log('stdout', stdout)
+        // console.log('stdout', stdout)
         const job = JSON.parse(stdout) || [];
-        console.log('job', job)
+        // console.log('job', job)
 
         return job; 
 

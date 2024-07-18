@@ -1,6 +1,3 @@
-// import { cyclesDefaultValues } from "./default-values/cyclesDefaultValues";
-// import { eeveeDefaultValues } from "./default-values/eeveeDefaultValues";
-
 import { Sceneform } from "@/features/render/project-settings/ProjectSettings.types";
 import { formRenderSchema } from "@/schemas/formRenderSchema";
 import { UseFormReturn } from "react-hook-form";
@@ -11,10 +8,7 @@ export const setFormRenderSceneValues = (currentScene: Sceneform[], form: UseFor
         const sceneData = currentScene[0];
         const { camera, layer, engine, active_frame, resolution, aspect_ratio, output, use_denoise, use_compositor, use_sequencer, use_stamp, cycles_config, frame_range } = sceneData;
 
-        console.log('camera', camera.active)
         const setValue = (key: string, value: any) => form.setValue(key as any, value);
-
-        console.log('Engine', engine);
 
         setValue('scene_name', sceneData?.scene_name || '');
         setValue('camera_name', camera.active || '');
@@ -48,7 +42,7 @@ export const setFormRenderSceneValues = (currentScene: Sceneform[], form: UseFor
         if (engine === 'CYCLES') {
 
             const cyclesConfig: { denoise_config?: any, light_paths?: any, samples?: any } = sceneData.cycles_config || {};
-            console.log('cyclesConfig', cyclesConfig);
+            // console.log('cyclesConfig', cyclesConfig);
 
             setValue('cycles_config', {
                 denoise_config: cyclesConfig.denoise_config,

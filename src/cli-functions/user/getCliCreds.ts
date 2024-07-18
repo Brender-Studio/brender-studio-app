@@ -4,7 +4,7 @@ export async function getCliCreds(profile: string) {
     console.log(`Getting CLI creds for profile ${profile}...`);
     
     try {
-        // Obtener el aws_access_key_id
+        // Get the aws_access_key_id 
         const accessKeyIdCommand = new Command('aws-cli', ["configure", "get", "aws_access_key_id", "--profile", profile]);
         const accessKeyIdOutput = await accessKeyIdCommand.execute();
         const accessKeyIdStderr = accessKeyIdOutput.stderr?.toString() || '';
@@ -17,7 +17,7 @@ export async function getCliCreds(profile: string) {
 
         const accessKeyId = accessKeyIdOutput.stdout?.toString().trim() || '';
 
-        // Obtener el aws_secret_access_key
+        // Get the aws_secret_access_key
         const secretAccessKeyCommand = new Command('aws-cli', ["configure", "get", "aws_secret_access_key", "--profile", profile]);
         const secretAccessKeyOutput = await secretAccessKeyCommand.execute();
         const secretAccessKeyStderr = secretAccessKeyOutput.stderr?.toString() || '';

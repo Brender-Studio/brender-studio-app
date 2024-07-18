@@ -10,10 +10,10 @@ interface S3toEfsProps {
     jobActionType: string;
     vcpus: string;
     memory: string;
-    attempts?: number; // todo: add to the interface
-    priority?: number; // todo: add to the interface
+    attempts?: number;
+    priority?: number;
     jobTimeout: string;
-    numGPUs: number; // todo: add to the interface
+    numGPUs: number;
 }
 
 export async function s3toEfs(
@@ -32,28 +32,6 @@ export async function s3toEfs(
     }: S3toEfsProps
 ) {
     try {
-
-        // const command = new Command("aws-cli", [
-        //     "batch",
-        //     "submit-job",
-        //     "--job-name",
-        //     "s3toEfs",
-        //     "--job-queue",
-        //     jobQueue,
-        //     "--job-definition",
-        //     jobDefinition,
-        //     "--timeout",
-        //     `attemptDurationSeconds=${jobTimeout}`,
-        //     "--container-overrides",
-        //     `resourceRequirements=[{type=MEMORY,value=${memory}},{type=VCPU,value=${vcpus}},{type=GPU,value=${numGPUs}}],environment=[{name=BUCKET_NAME,value=${bucketName}},{name=BUCKET_KEY,value=${bucketKey}},{name=JOB_ACTION_TYPE,value=${jobActionType}}]`,
-        //     "--region",
-        //     awsRegion,
-        //     "--profile",
-        //     currentProfile,
-        //     "--output",
-        //     "json"
-        // ]);
-
         
         const commandArgs = [
             "batch",

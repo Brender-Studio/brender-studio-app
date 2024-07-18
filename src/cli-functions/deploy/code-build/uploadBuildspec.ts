@@ -42,14 +42,13 @@ export async function uploadBuildspec(region: string, profile: string) {
 
         const uploadOutput = await uploadBuildspecCommand.execute();
 
-        // get commit id from output
         // Parse JSON to extract commit ID
         const uploadOutputJson = JSON.parse(uploadOutput.stdout?.toString() || '{}');
         const codeCommitCommitId = uploadOutputJson.commitId;
 
         console.log('Code Commit commit ID:', codeCommitCommitId);
 
-        console.log('Upload output:', uploadOutput)
+        // console.log('Upload output:', uploadOutput)
 
         const uploadStderr = uploadOutput.stderr?.toString() || '';
 

@@ -35,8 +35,6 @@ export interface SelectChartProps {
 
 
 
-// REFACTORING...
-
 // For CLI functions
 export interface CostAndUsageResponse {
     ResultsByTime: ResultByTime[];

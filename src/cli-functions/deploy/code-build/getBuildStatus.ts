@@ -5,15 +5,14 @@ import { Command } from "@tauri-apps/api/shell";
 export async function getBuildStatus(region: string, profile: string, codeBuildNotifications: string[]) {
 
     // extract the build ids from the notifications array
+
     // console.log('codeBuildNotifications:', codeBuildNotifications)
+
     const ids = codeBuildNotifications.map((notification) => {
         const split = notification.split(' ');
         return split[split.length - 1];
     });
 
-    // console.log('ids:', ids)
-
-    
 
     try {
         const awsCliCommand = new Command('aws-cli', [
@@ -34,7 +33,6 @@ export async function getBuildStatus(region: string, profile: string, codeBuildN
 
         // console.log('Output:', output);
 
-        
         const stdout = cleanOutput(output.stdout);
 
         const stderr = cleanOutput(output.stderr);

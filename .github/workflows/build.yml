@@ -56,7 +56,7 @@ jobs:
         uses: actions/setup-node@v4
         # NOTE: enterprise developers may hard code a version
         with:
-          node-version: latest
+          node-version: '20.10.0'
           # node-version-file: '.nvmrc'
 
       - name: Setup Rust

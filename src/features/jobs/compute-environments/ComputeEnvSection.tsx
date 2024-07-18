@@ -4,7 +4,6 @@ import { columns } from "./columns";
 import { useUserSessionStore } from "@/store/useSessionStore";
 
 const ComputeEnvSection = () => {
-    //   const { currentAwsRegion, currentProfile, currentStack } = useUserSessionStore()
     const { getSessionData } = useUserSessionStore();
     const sessionData = getSessionData();
     const { currentAwsRegion, currentProfile, currentStack } = sessionData;

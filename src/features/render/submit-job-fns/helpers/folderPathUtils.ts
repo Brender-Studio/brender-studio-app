@@ -1,37 +1,28 @@
 export function getLastSegmentOfFolderPath(folderPath: string) {
-    // Separar la ruta por los separadores de directorio (para Windows y Unix)
+    // Split the path by directory separators (for Windows and Unix)
     const segments = folderPath.split(/[\\/]/);
-    // Obtener el último segmento de la ruta
+    // Get the last segment of the path
     const lastSegment = segments[segments.length - 1];
     return lastSegment;
 }
 
 export const getLastSegmentOfFilePath  = (filePath: string) => {
-    // Separar la ruta por los separadores de directorio (para Windows y Unix)
+    // Split the path by directory separators (for Windows and Unix)
     const segments = filePath.split(/[\\/]/);
-    // Obtener el último segmento de la ruta
+    // Get the last segment of the path
     const lastSegment = segments[segments.length - 1];
     return lastSegment;
 }
 
-// export function getSubPathFromFolderPath(filePath: string, folderName: string) {
-//     // Reemplazar todas las barras invertidas ("\") por barras inclinadas hacia adelante ("/")
-//     const normalizedFilePath = filePath.replace(/\\/g, '/');
-//     // Eliminar la parte de la ruta que precede a la carpeta
-//     const subPath = normalizedFilePath.split(folderName)[1];
-//     // Eliminar el separador inicial, si existe
-//     return subPath.startsWith('/') ? subPath.slice(1) : subPath;
-// }
-
 export function getSubPathFromFolderPath(folderPath: string, folderName: string, filePath: string) {
-    // Normalizar la ruta
+    // Normalize the paths to use forward slashes
     const normalizedFolderPath = folderPath.replace(/\\/g, '/');
     const normalizedFilePath = filePath.replace(/\\/g, '/');
-    // Encontrar la posición de la carpeta
+    // Find the index of the folder name in the normalized folder path
     const folderIndex = normalizedFolderPath.indexOf(folderName);
-    // Obtener la subruta completa desde la carpeta principal
-    const subPath = normalizedFilePath.substring(folderIndex + folderName.length + 1); // folderName.length + 1 para eliminar el directorio raíz
-    // Eliminar el separador inicial, si existe
+    // Get the subpath by removing the folder name and the preceding directory separator
+    const subPath = normalizedFilePath.substring(folderIndex + folderName.length + 1); // folderName.length + 1 to remove root folder
+    // Delete the leading directory separator if present
     return subPath.startsWith('/') ? subPath.slice(1) : subPath;
 }
 

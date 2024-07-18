@@ -8,7 +8,6 @@ const ListInstances = () => {
     const { getSessionData } = useUserSessionStore();
     const { currentAwsRegion, currentProfile, currentStack } = getSessionData();
 
-
     const { data, isLoading } = useGetEc2InstancesQuery();
 
 

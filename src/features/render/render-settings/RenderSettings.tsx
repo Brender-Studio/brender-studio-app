@@ -21,7 +21,7 @@ const RenderSettings = ({ form, sectionType }: RenderSettingsProps) => {
 
     useEffect(() => {
         // set form value type (sectionType)
-        console.log('changing type to', sectionType)
+        // console.log('changing type to', sectionType)
         form.setValue('type', sectionType)
     }, [sectionType])
 
@@ -43,8 +43,6 @@ const RenderSettings = ({ form, sectionType }: RenderSettingsProps) => {
                                 <div className="flex items-center gap-2">
                                     <p className="text-xs text-muted-foreground">Customize</p>
                                     <Switch
-                                        // {...field}
-                                        // checked={field.value}
                                         disabled={Object.keys(currentScene).length === 0}
                                         checked={isCustom}
                                         onCheckedChange={(checked: boolean) => {

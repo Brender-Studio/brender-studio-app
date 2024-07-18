@@ -10,18 +10,6 @@ export const mapJobDefinitionName = (originalName: string) => {
 };
 
 
-
-// export const mapJobQueueName = (originalName: string) => {
-//     // Customize this function based on your naming requirements
-//     if (originalName.includes('OnDemand')) {
-//         return 'Job Queue On-Demand';
-//     } else if (originalName.includes('Spot')) {
-//         return 'Job Queue Spot';
-//     } else {
-//         return originalName;
-//     }
-// };
-
 export const mapJobQueueName = (originalName: string) => {
     // Customize this function based on your naming requirements
     if (originalName.includes('OnDemand')) {

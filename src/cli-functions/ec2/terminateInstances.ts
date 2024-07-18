@@ -5,7 +5,7 @@ export async function terminateInstances(region: string, profile: string, instan
     try {
         const instanceIds = instances.map((instance) => [instance]).flat();
 
-        console.log('instanceIds', instanceIds)
+        // console.log('instanceIds', instanceIds)
 
         const command = new Command("aws-cli", [
             "ec2",
@@ -20,7 +20,7 @@ export async function terminateInstances(region: string, profile: string, instan
             "json"
         ]);
 
-        console.log('command', command);
+        // console.log('command', command);
 
         const output = await command.execute();
         const stdout = output.stdout?.toString() || '';

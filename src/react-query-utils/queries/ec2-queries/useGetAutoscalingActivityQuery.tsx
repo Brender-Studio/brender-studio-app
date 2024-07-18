@@ -13,9 +13,7 @@ const useGetAutoscalingActivityQuery = ( autoscalingGroupName: string) => {
     const autoscalingActivityQuery = useQuery({
         queryKey: autoscalingActivityQueryKey,
         queryFn: () => getAutoscalingActivityLogs(currentAwsRegion, currentProfile!, autoscalingGroupName),
-        retry: 1,
         enabled: !!currentAwsRegion && !!currentProfile,
-        // refetchInterval: 30000 // 30 seconds
     });
 
     return {

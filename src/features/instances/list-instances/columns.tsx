@@ -41,8 +41,6 @@ export const columns: ColumnDef<Ec2Instances>[] = [
         id: "id",
         header: "Instance ID",
         cell: ({ row }) => {
-            // construir url aws console de ec2 con el id de la instancia
-            // ontener la region de aws para construir la url
             const openUrl = (id: string) => {
                 const awsRegion = row.original.availabilityZone.slice(0, -1);
                 const url = `https://${awsRegion}.console.aws.amazon.com/ec2/home?region=${awsRegion}#InstanceDetails:instanceId=${id}`;
@@ -143,7 +141,6 @@ export const columns: ColumnDef<Ec2Instances>[] = [
             return date.toLocaleString();
         }
     },
-    // platform
     {
         id: "platform",
         header: "Platform",
@@ -153,12 +150,7 @@ export const columns: ColumnDef<Ec2Instances>[] = [
         id: "pricing",
         header: "Pricing Info",
         cell: ({ row }) => {
-
-            // we need to rediect to external web called vantage to shoy ec2 details
-            // ex: https://instances.vantage.sh/aws/ec2/g5.16xlarge?region=us-east-1&os=linux&cost_duration=hourly&reserved_term=Standard.noUpfront
-
             const region = row.original.availabilityZone.slice(0, -1);
-            console.log(region)
 
             const openUrl = (instanceType: string) => {
                 const url = `https://instances.vantage.sh/aws/ec2/${instanceType}?region=${region}&os=linux&cost_duration=hourly&reserved_term=Standard.noUpfront`;

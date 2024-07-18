@@ -7,16 +7,13 @@ import { Globe } from 'lucide-react';
 
 
 const RegionSelect = () => {
-  // const { currentAwsRegion, setCurrentAwsRegion,  cleanUpCurrentStack } = useUserSessionStore()
   const { getSessionData, setSessionData } = useUserSessionStore();
   const sessionData = getSessionData();
   const { currentAwsRegion } = sessionData;
 
   const handleRegionChange = (value: string) => {
-    console.log('value', value)
     const selectedRegion = value;
-    // setCurrentAwsRegion(selectedRegion);
-    // cleanUpCurrentStack();
+
     setSessionData({
       ...sessionData,
       currentAwsRegion: selectedRegion, currentStack: null

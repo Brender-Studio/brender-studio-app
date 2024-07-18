@@ -23,11 +23,6 @@ export function DataTableStackDetail<TData, TValue>({
 
     return (
         <>
-            {/* <div className="py-4 flex items-center justify-between">
-                <p className="font-semibold text-lg">
-                    {titleResourceSection}
-                </p>
-            </div> */}
             <Accordion type="single" collapsible >
                 <AccordionItem value={titleResourceSection}>
                     <AccordionTrigger>

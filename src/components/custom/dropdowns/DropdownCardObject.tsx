@@ -44,7 +44,7 @@ const DropdownCardObject = ({ isFolderItem, objectKey, bucketName, currentPathna
         let pathSuffix = currentPathname === '/renders' ? '' : '/' + splitPathname.slice(2).join('/');
         pathSuffix = pathSuffix.startsWith('/') ? pathSuffix.substring(1) : pathSuffix;
 
-        // Verificar si pathSuffix está vacío o es solo "/"
+        // Verify if the pathSuffix is empty or just "/" to avoid adding an extra "/" in the URL
         if (pathSuffix === '' || pathSuffix === '/') {
             console.log('pathSuffix is empty or just "/"');
             return `https://${currentAwsRegion}.console.aws.amazon.com/s3/${pathPrefix}/${bucketName}?region=${currentAwsRegion}&bucketType=general&prefix=${objectPath}`;

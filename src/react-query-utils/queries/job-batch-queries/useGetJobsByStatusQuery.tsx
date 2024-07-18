@@ -16,9 +16,7 @@ const useGetJobsByStatusQuery = (jobQueueName: string, jobStatus: string) => {
     const jobByStatusQuery = useQuery({
         queryKey: jobByStatusQueryKey,
         queryFn: () => getJobsByStatus(jobQueueName, jobStatus, currentAwsRegion, currentProfile!),
-        retry: 1,
         enabled: !!currentAwsRegion && !!currentProfile && !!currentStack,
-        //   refetchInterval: 30000 // 30 seconds
     });
 
     // console.log('jobByStatusQuery', jobByStatusQuery.data)

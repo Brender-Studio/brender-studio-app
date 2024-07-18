@@ -1,6 +1,6 @@
 import { Command } from "@tauri-apps/api/shell";
 
-// ex:  aws ses verify-email-identity --email-address jernono2022@gmail.com --profile jer-info-dev --region us-west-2
+// ex: aws ses verify-email-identity --email-address test@gmail.com --profile test --region us-east-1
 
 export async function verifyEmail(email: string, region: string, profile: string) {
     const command = new Command("aws-cli", [
@@ -16,7 +16,7 @@ export async function verifyEmail(email: string, region: string, profile: string
 
     try {
         const output = await command.execute();
-        const stdout = output.stdout?.toString() || '';
+        // const stdout = output.stdout?.toString() || '';
         const stderr = output.stderr?.toString() || '';
 
         if (output.code !== 0) {
@@ -25,7 +25,7 @@ export async function verifyEmail(email: string, region: string, profile: string
             throw new Error(stderr);
         }
 
-        console.log(stdout);
+        // console.log(stdout);
     } catch (error) {
         console.error(error);
         throw new Error(String(error || 'Failed to verify email'));

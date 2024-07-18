@@ -2,7 +2,7 @@ import { Command } from "@tauri-apps/api/shell";
 
 
 export async function getMonthlyTotalCost(currentProfile: string, currentAwsRegion: string, currentStack: string, startDate: string, endDate: string) {
-    console.log(currentStack)
+    // console.log(currentStack)
     try {
         const command = new Command("aws-cli", [
             "ce",
@@ -23,7 +23,7 @@ export async function getMonthlyTotalCost(currentProfile: string, currentAwsRegi
             currentProfile,
         ]);
 
-        console.log("Running command Table Explorer: ", command)
+        // console.log("Running command Table Explorer: ", command)
 
         const result = await command.execute();
 
@@ -32,7 +32,7 @@ export async function getMonthlyTotalCost(currentProfile: string, currentAwsRegi
         }
 
         const dataTotalCost = JSON.parse(result.stdout);
-        console.log('Data Total Cost: ', dataTotalCost);
+        // console.log('Data Total Cost: ', dataTotalCost);
         return dataTotalCost
 
     } catch (error) {
@@ -40,52 +40,3 @@ export async function getMonthlyTotalCost(currentProfile: string, currentAwsRegi
         throw error;
     }
 }
-
-// import { Command } from "@tauri-apps/api/shell";
-
-
-// export async function getMonthlyTotalCost(
-//     currentProfile: string,
-//     currentAwsRegion: string,
-//     currentStack: string,
-//     startDate: string,
-//     endDate: string
-// ): Promise<CostAndUsageResponse> {
-    
-//     try {
-//         const command = new Command("aws-cli", [
-//             "ce",
-//             "get-cost-and-usage",
-//             "--time-period",
-//             `Start="${startDate}",End="${endDate}"`,
-//             "--granularity",
-//             "MONTHLY",
-//             "--metrics",
-//             "BlendedCost",
-//             "--group-by",
-//             "Type=DIMENSION,Key=SERVICE",
-//             "--filter",
-//             `{"Tags": {"Key": "StackName", "Values": ["${currentStack}"]}}`,
-//             "--region",
-//             currentAwsRegion,
-//             "--profile",
-//             currentProfile,
-//         ]);
-
-//         console.log("Running command Table Explorer: ", command);
-
-//         const result = await command.execute();
-
-//         if (!result.stdout) {
-//             throw new Error('Empty output received while fetching monthly cost data');
-//         }
-
-//         const dataTotalCost: CostAndUsageResponse = JSON.parse(result.stdout);
-//         console.log('Data Total Cost: ', dataTotalCost);
-//         return dataTotalCost;
-
-//     } catch (error) {
-//         console.error(error instanceof Error ? error.message : error);
-//         throw error;
-//     }
-// }

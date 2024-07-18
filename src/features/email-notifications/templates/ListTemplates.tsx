@@ -6,7 +6,6 @@ import useGetSesTemplatesQuery from '@/react-query-utils/queries/ses-queries/use
 const ListTemplates = () => {
     const { getSessionData } = useUserSessionStore();
     const { currentProfile, currentAwsRegion } = getSessionData();
-    // call here query to get templates
 
     const { data, isLoading } = useGetSesTemplatesQuery()
 

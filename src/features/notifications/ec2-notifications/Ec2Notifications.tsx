@@ -26,7 +26,7 @@ const Ec2Notifications = () => {
 
     }
 
-    // Filtrar solo las instancias cuyo estado sea "running"
+    // Filter only running instances from the list
     const runningInstances = Array.isArray(runningEc2Instances) ? runningEc2Instances.filter((instance: Ec2Instances) => instance.instanceStatus.toUpperCase() === 'RUNNING') : [];
 
     return (

@@ -12,7 +12,6 @@ const AddPathButton = ({ setSelectedPath, selectedPath }: AddPathButtonProps) =>
 
 
     const openDialog = async () => {
-        // Dialog for selecting files
         const selected = await open({
             directory: false,
             multiple: false,

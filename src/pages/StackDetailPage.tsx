@@ -4,10 +4,10 @@ import { useLocation } from "react-router-dom"
 
 const StackDetailPage = () => {
   const currentPath = useLocation().pathname
-  console.log(currentPath)
+  // console.log(currentPath)
 
   const stackId = currentPath.split("/")[2].toLocaleUpperCase()
-  console.log(stackId)
+  // console.log(stackId)
 
   return (
     <Section

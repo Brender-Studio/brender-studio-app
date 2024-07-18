@@ -1,13 +1,8 @@
 import { Command } from "@tauri-apps/api/shell";
 
-
-// Esta funcion recibira un array de jobIds y los terminara de aws batch
-
 export async function terminateJobs(jobIds: string[], region: string, profile: string) {
 
-    // solo acepta un job id por comando
-
-    console.log('jobIds from fn', jobIds)
+    // console.log('jobIds from fn', jobIds)
 
     try {
         for (let i = 0; i < jobIds.length; i++) {
@@ -26,10 +21,10 @@ export async function terminateJobs(jobIds: string[], region: string, profile: s
                 "json"
             ]);
 
-            console.log('command', command)
+            // console.log('command', command)
 
             const output = await command.execute();
-            console.log('terminateJobs output', output)
+            // console.log('terminateJobs output', output)
 
             const stderr = output.stderr?.toString() || '';
 

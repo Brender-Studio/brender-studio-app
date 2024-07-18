@@ -12,8 +12,8 @@ function useSession() {
         const fetchData = async () => {
             try {
                 const { cliInstalled, cliVersion } = await checkCliInstallation();
-                console.log("CLI installed:", cliInstalled);
-                console.log("CLI version:", cliVersion);
+                // console.log("CLI installed:", cliInstalled);
+                // console.log("CLI version:", cliVersion);
                 const fetchedProfiles = await getAllAWSProfiles();
                 const profilesArray = Array.isArray(fetchedProfiles) ? fetchedProfiles : fetchedProfiles ? [fetchedProfiles] : [];
 
@@ -42,18 +42,6 @@ function useSession() {
                     isCliInstalled: cliInstalled,
                     cliVersion: cliVersion
                 };
-
-                // create simulation fake session data with no values for testing
-                // const sessionData = {
-                //     currentProfile: null,
-                //     profiles: [],
-                //     currentAwsRegion: "us-east-1",
-                //     currentStack: null,
-                //     isCliInstalled: cliInstalled
-                // };
-
-
-                // console.log("Session data:", sessionData)
 
                 setSessionData(sessionData);
             } catch (error) {

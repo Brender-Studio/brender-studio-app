@@ -67,8 +67,6 @@ export const columns: ColumnDef<Ses>[] = [
             const attributes = row.original.attributes;
             const email = Object.keys(attributes)[0];
             const status = attributes[email].VerificationStatus;
-
-            // status : success, pending, failed
             const statusColor = status === "Success" ? "success" : status === "Pending" ? "secondary" : "destructive";
 
             return (

@@ -24,25 +24,25 @@ async function listS3Objects(bucket: string, prefix: string, region: string, pro
     }
 
     const output = child.stdout.toString().trim();
-    console.log('output', output)
+    // console.log('output', output)
     return JSON.parse(output);
 }
 
 export async function getPlayblastUrl(bucket: string, profile: string, region: string, path: string) {
     try {
-        // Listar los objetos en el bucket con el "path" proporcionado
+        // List objects in the bucket with the given path
         const objects = await listS3Objects(bucket, path, region, profile);
         // console.log('objects', objects)
         
-        // Filtrar los objetos que comienzan con 'bs_playblast' sin el prefijo del path
+        // Filter the objects to find the one that starts with 'bs_playblast'
         const playblastObject = objects.find((key: string | string[]) => key.includes('bs_playblast'));
         // console.log('playblastObject', playblastObject)
         
         if (!playblastObject) {
-            throw new Error('No se encontró ningún objeto que comience con bs_playblast');
+            throw new Error('No playblast object found');
         }
 
-        // Obtener la URL presignada del objeto encontrado
+        // Generate a presigned URL for the playblast object
         const command = new Command('aws-cli', [
             's3', 'presign', `s3://${bucket}/${playblastObject}`,
             '--expires-in', '3600',

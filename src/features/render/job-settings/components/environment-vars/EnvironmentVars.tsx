@@ -38,15 +38,6 @@ const EnvironmentVars = ({ form }: EnvironmentVarsProps) => {
         append({ name: "", value: "" });
     };
 
-    // const addCustomEnvVar = async () => {
-    //    append({ name: "", value: "" });
-    //    const isValid = await form.trigger();
-    //      if (!isValid) {
-    //           remove(fields.length - 1);
-    //         }
-
-    // };
-
 
     const deleteCustomEnvVar = (index: number) => {
         remove(index);
@@ -103,7 +94,6 @@ const EnvironmentVars = ({ form }: EnvironmentVarsProps) => {
                                 />
                             </TableCell>
                             <TableCell>
-                                {/* Botón para eliminar la variable de entorno personalizada */}
                                 <Button variant='destructive' className="w-full" onClick={() => deleteCustomEnvVar(index)}>Delete</Button>
                             </TableCell>
                         </TableRow>

@@ -13,11 +13,11 @@ interface RenderJobProps {
     jobId: string;
     vcpus: string;
     memory: string;
-    attempts: string; // todo: add to the interface
-    priority?: number; // todo: add to the interface
+    attempts: string;
+    priority?: number;
     jobTimeout: string;
-    numGPUs: number; // todo: add to the interface
-    jobArraySize: number; // todo: add to the interface
+    numGPUs: number;
+    jobArraySize: number;
 }
 
 export async function renderJob(
@@ -42,7 +42,7 @@ export async function renderJob(
 ) {
     try {
 
-        console.log('numGPUs', numGPUs)
+        // console.log('numGPUs', numGPUs)
 
         const commandArgs = [
             "batch",
@@ -75,7 +75,7 @@ export async function renderJob(
         ];
 
 
-        // Verifica si jobArraySize es mayor que cero y agrega la opción --array-properties al comando si es así
+        // Verify if jobArraySize is set and greater than 0 to add it to the command arguments
         if (jobArraySize && jobArraySize > 0) {
             commandArgs.push("--array-properties", `size=${jobArraySize}`);
         }

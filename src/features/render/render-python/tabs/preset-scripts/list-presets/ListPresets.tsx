@@ -15,10 +15,7 @@ const ListPresets = ({ form }: ListPresetsProps) => {
     const [selected, setSelected] = useState(predefinedScripts[0].code_path)
 
     const handleSelect = (script: string) => {
-        // setSelected(script)
-        console.log('Selected script: ', script)
-        // form.setValue('python_script_path', script)
-        // resolve path also here
+        
         handleResolveResource(script).then((realPath) => {
             console.log('Real path:', realPath)
             form.setValue('python_script_path', realPath!)
@@ -38,7 +35,6 @@ const ListPresets = ({ form }: ListPresetsProps) => {
 
     // useffect for seting first script
     useEffect(() => {
-        // setSelected(predefinedScripts[0].code_path)
         form.setValue('is_folder_python', false)
         form.setValue('folder_path_python', '')
 
@@ -77,7 +73,6 @@ const ListPresets = ({ form }: ListPresetsProps) => {
             <div className="max-h-[60vh] overflow-y-auto space-y-2 pr-2">
                 {predefinedScripts && predefinedScripts.map((script) => (
                     <div key={script.name}
-                        // className="p-4 border  rounded hover:bg-accent hover:border-white"
                         className={selected === script.code_path ? 'hover:cursor-pointer p-4 border rounded bg-card border-brand' : 'bg-card hover:cursor-pointer p-4 border  rounded hover:bg-accent'}
                         onClick={() => handleSelect(script.code_path)}
                     >

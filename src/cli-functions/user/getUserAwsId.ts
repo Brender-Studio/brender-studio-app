@@ -1,7 +1,6 @@
 import { Command } from "@tauri-apps/api/shell";
 
 export async function getUserAwsId(profile: string) {
-    console.log(`Getting AWS Account ID...`);
 
     try {
         const command = new Command('aws-cli', [

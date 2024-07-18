@@ -6,7 +6,6 @@ interface JobDetails {
     dependsOn?: string;
 }
 
-// Función para obtener los detalles de un trabajo dado su ID
 async function getJobDetails(jobId: string, region: string, profile: string): Promise<JobDetails> {
     const command = new Command("aws-cli", [
         "batch",
@@ -38,42 +37,40 @@ async function getJobDetails(jobId: string, region: string, profile: string): Pr
     return jobDetails;
 }
 
-// Función recursiva para obtener los detalles de un trabajo y sus dependencias
+// Function to get the details of a job and its dependencies recursively
 async function getJobAndDependencies(jobId: string, region: string, profile: string): Promise<JobDetails[]> {
     const jobDetails: JobDetails = await getJobDetails(jobId, region, profile);
 
     // console.log('jobDetails', jobDetails)
 
-    // Si el trabajo tiene dependencias, obtenemos los detalles de las dependencias de forma recursiva
+    // If the job has dependencies, we need to get the details of those dependencies
     if (jobDetails.dependsOn) {
         let dependencies: string[] = [];
         if (Array.isArray(jobDetails.dependsOn)) {
-            // Si dependsOn es un array, extraemos los IDs de los trabajos
+            // If dependsOn is an array, we get the job IDs
             dependencies = jobDetails.dependsOn.map(dep => dep.jobId);
         } else {
-            // Si dependsOn es una cadena, la dividimos en IDs de trabajos
+            // If dependsOn is a string, we split it by comma and trim the values
             dependencies = jobDetails.dependsOn.split(',');
         }
         
-        // Obtenemos los detalles de las dependencias de forma recursiva
         const dependenciesDetailsPromises = dependencies.map(dep => getJobAndDependencies(dep.trim(), region, profile));
         const dependenciesDetailsArrays = await Promise.all(dependenciesDetailsPromises);
         const dependenciesDetails = dependenciesDetailsArrays.flat();
         return [jobDetails, ...dependenciesDetails];
     }
 
-    // Si el trabajo no tiene dependencias, simplemente devolvemos sus detalles
     return [jobDetails];
 }
 
-// Función para calcular el progreso en función del estado de los trabajos
+// Function to calculate the progress based on the status of the jobs
 function calculateProgress(jobs: JobDetails[]): number {
     const totalJobs = jobs.length;
     const completedJobs = jobs.filter(job => job.status === 'SUCCEEDED' || job.status === 'FAILED').length;
     return (completedJobs / totalJobs) * 100;
 }
 
-// Función principal que recibe el ID del job3 y devuelve el progreso de los trabajos
+// Function to get the progress of a job and its dependencies
 export async function getProgressFromJob3(job3Id: string, region: string, profile: string): Promise<number> {
     try {
         const jobs = await getJobAndDependencies(job3Id, region, profile);

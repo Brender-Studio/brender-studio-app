@@ -43,32 +43,28 @@ const EfsSection = () => {
             {
                 currentStack ? (
                     <>
-                        {/* <Card className="p-6"> */}
-                            <DataTableEfs
-                                columns={columns}
-                                data={efsData || []}
-                                linkAwsConsole={`https://${currentAwsRegion}.console.aws.amazon.com/efs/home?region=${currentAwsRegion}#/file-systems`}
-                                awsRegion={currentAwsRegion!}
-                                awsProfile={currentProfile!}
-                                currentStack={currentStack!}
-                                isQueryLoading={isLoading}
-                            />
 
-                            <EfsPieChart
-                                isQueryLoading={isLoading}
-                                data={dataPie || []}
-                                value={transformedData[0]?.Value || 0}
-                            />
+                        <DataTableEfs
+                            columns={columns}
+                            data={efsData || []}
+                            linkAwsConsole={`https://${currentAwsRegion}.console.aws.amazon.com/efs/home?region=${currentAwsRegion}#/file-systems`}
+                            awsRegion={currentAwsRegion!}
+                            awsProfile={currentProfile!}
+                            currentStack={currentStack!}
+                            isQueryLoading={isLoading}
+                        />
 
-                        {/* </Card> */}
+                        <EfsPieChart
+                            isQueryLoading={isLoading}
+                            data={dataPie || []}
+                            value={transformedData[0]?.Value || 0}
+                        />
 
-                        {/* <Card className="p-6 mt-2"> */}
-                            <DataTableMeteredSize
-                                isQueryLoading={isLoading}
-                                data={efsData || []}
-                                columns={meteredCols}
-                            />
-                        {/* </Card> */}
+                        <DataTableMeteredSize
+                            isQueryLoading={isLoading}
+                            data={efsData || []}
+                            columns={meteredCols}
+                        />
                     </>
                 ) : (
                     <NoStackSelected />
