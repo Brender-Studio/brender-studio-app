@@ -5,7 +5,7 @@ import { Heart } from 'lucide-react'
 const SupportButton = () => {
 
     const handleSupport = () => {
-        const url = 'https://www.brenderstudio.com'
+        const url = 'https://www.brenderstudio.com/donate'
         open(url)
     }
 

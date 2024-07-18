@@ -12,7 +12,6 @@ interface TooltipInfoProps {
 
 const TooltipInfo = ({ description, iconWarning, title, classTitle, footer, align }: TooltipInfoProps) => {
     return (
-        // <TooltipProvider>
             <Tooltip>
                 <TooltipTrigger asChild>
                     {iconWarning ? (
@@ -35,7 +34,6 @@ const TooltipInfo = ({ description, iconWarning, title, classTitle, footer, alig
                     }
                 </TooltipContent>
             </Tooltip>
-        // </TooltipProvider>
     )
 }
 

@@ -15,7 +15,6 @@ const WarnAlert = ({ title, variant, description, className, contentDescription,
     return (
         <div className={className}>
             <Alert variant={variant ? variant : 'default'} title={title} >
-                {/* <AlertTriangle size={16} /> */}
                 {icon ? icon : <AlertTriangle size={16} />}
                 <AlertTitle>
                     {title}

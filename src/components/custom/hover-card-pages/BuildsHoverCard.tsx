@@ -6,7 +6,6 @@ const BuildsHoverCard = () => {
             <div>
                 <h3 className="font-semibold text-sm">What is CodeBuild?</h3>
                 <p className="text-xs text-muted-foreground">
-                    {/* Explain codebuild for non tecnical users */}
                     CodeBuild is a tool that automates the creation and setup of your render farms. It runs on remote AWS servers.
                 </p>
             </div>

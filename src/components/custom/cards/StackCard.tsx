@@ -69,7 +69,6 @@ const StackCard = ({ stackName, stackStatus, stackRegion, stackId }: CardStackPr
                     {
                         stackStatus === 'CREATE_IN_PROGRESS' || stackStatus === 'UPDATE_IN_PROGRESS' || stackStatus === 'DELETE_IN_PROGRESS' || stackStatus === 'ROLLBACK_IN_PROGRESS' ? <ProgressBar /> : null
                     }
-                    {/* <ProgressBar /> */}
                     <div className="flex justify-between items-center gap-2">
                         <p className="truncate" title={stackName}>
                             {stackName.toLocaleUpperCase()}
