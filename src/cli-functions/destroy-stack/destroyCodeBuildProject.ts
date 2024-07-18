@@ -1,8 +1,6 @@
 import { Command } from "@tauri-apps/api/shell";
 import { deployConfig } from "../deploy/deploy-config/deployConfig";
 
-
-
 export async function destroyCodeBuild (region: string, profile: string) {
 
     try {
@@ -15,10 +13,11 @@ export async function destroyCodeBuild (region: string, profile: string) {
             "--profile", profile
         ]);
 
-        console.log('Destroy project command:', destroyProjectCommand);
+        // console.log('Destroy project command:', destroyProjectCommand);
 
         const destroyProjectOutput = await destroyProjectCommand.execute();
-        console.log('Destroy project output:', destroyProjectOutput);
+        // console.log('Destroy project output:', destroyProjectOutput);
+        
         const destroyProjectStderr = destroyProjectOutput.stderr?.toString() || '';
 
         if (destroyProjectOutput.code !== 0) {

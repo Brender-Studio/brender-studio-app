@@ -21,10 +21,10 @@ export async function doesStackExist(stackName: string, region: string, profile:
         // console.log('stdout', stdout)
 
         if (output.code === 0) {
-            // El stack existe
+            // Stack exists
             return true;
         } else if (output.code === 255) {
-            // El stack no existe
+            // Stack does not exist
             return false;
         } else {
             throw new Error(`Command failed with code ${output.code}`);

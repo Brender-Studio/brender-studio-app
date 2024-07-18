@@ -1,24 +1,6 @@
 import { Command } from "@tauri-apps/api/shell";
 
 
-// C:\Users\dev-admin>aws ses list-templates --region us-east-1
-// {
-//     "TemplatesMetadata": [
-//         {
-//             "Name": "RenderFailedTemplate",
-//             "CreatedTimestamp": "2024-05-06T11:43:41.086000+00:00"
-//         },
-//         {
-//             "Name": "RenderCompletedTemplate",
-//             "CreatedTimestamp": "2024-05-06T11:43:38.486000+00:00"
-//         }
-//     ]
-// }
-
-
-// fn args: region: string, profile: string
-
-
 export async function getTemplates(region: string, profile: string) {
     const command = new Command("aws-cli", [
         "ses",

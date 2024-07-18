@@ -12,10 +12,11 @@ export async function destroyStackFn(stackName: string, region: string, profile:
             "--region", region,
             "--profile", profile
         ]);
-        console.log('Destroy stack command:', destroyStackCommand);
+        // console.log('Destroy stack command:', destroyStackCommand);
 
         const destroyStackOutput = await destroyStackCommand.execute();
-        console.log('Destroy stack output:', destroyStackOutput);
+        // console.log('Destroy stack output:', destroyStackOutput);
+        
         const destroyStackStderr = destroyStackOutput.stderr?.toString() || '';
 
         if (destroyStackOutput.code !== 0) {

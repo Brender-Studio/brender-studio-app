@@ -20,7 +20,7 @@ export async function deleteEcrImages(region: string, profile: string, images: s
             "json"
         ]);
 
-        console.log('command', command);
+        // console.log('command', command);
 
         const output = await command.execute();
         const stdout = output.stdout?.toString() || '';

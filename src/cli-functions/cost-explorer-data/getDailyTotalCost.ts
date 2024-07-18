@@ -10,7 +10,7 @@ export async function getDailyTotalCost(
     endDate: string
   ): Promise<CostAndUsageResponse> {
 
-    console.log(currentStack)
+    // console.log(currentStack)
     try {
         const command = new Command("aws-cli", [
             "ce",
@@ -31,7 +31,7 @@ export async function getDailyTotalCost(
             currentAwsRegion,
         ]);
 
-        console.log('Running Command Charts', command)
+        // console.log('Running Command Charts', command)
 
         const result = await command.execute();
 
@@ -40,7 +40,7 @@ export async function getDailyTotalCost(
         }
 
         const costData = JSON.parse(result.stdout);
-        console.log('CostData: ', costData);
+        // console.log('CostData: ', costData);
 
         return costData;
 

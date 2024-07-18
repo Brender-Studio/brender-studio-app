@@ -17,7 +17,7 @@ export async function createCodeBuild(region: string, profile: string) {
             throw new Error(`No AWS Account ID found.`);
         }
 
-        console.log('AWS Account ID:', awsAccountId)
+        // console.log('AWS Account ID:', awsAccountId)
 
         const createProjectCommand = new Command('aws-cli', [
             "codebuild",
@@ -26,11 +26,9 @@ export async function createCodeBuild(region: string, profile: string) {
             "--source", `type=CODECOMMIT,location=https://git-codecommit.${region}.amazonaws.com/v1/repos/${deployConfig.codecommit.repositoryName}`,
             "--artifacts", `type=NO_ARTIFACTS`,
             "--environment", deployConfig.codeBuild.environment,
-            // "--service-role", deployConfig.codeBuild.roleArn,
             "--service-role", `arn:aws:iam::${awsAccountId}:role/AWSCodeBuildServiceRole-${region}`,
             "--region", region,
             "--profile", profile,
-            // buildspec path
         ]);
 
         const projectOutput = await createProjectCommand.execute();
@@ -48,7 +46,6 @@ export async function createCodeBuild(region: string, profile: string) {
         if (error instanceof Error) {
             console.error(error.message);
         }
-        // return false;
         throw new Error(`${(error as Error).message}`);
     }
 }

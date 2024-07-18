@@ -16,14 +16,6 @@ export async function getCodeBuildIds(region: string, profile: string) {
 
     // console.log('Project Output:', projectOutput);
 
-    // const projectStderr = projectOutput.stderr?.toString() || '';
-
-    // if (projectOutput.code !== 0) {
-    //   // console.error(`Failed to get project with code ${projectOutput.code}`);
-    //   // console.error(`stderr: ${projectStderr}`);
-    //   throw new Error(projectStderr);
-    // }
-
     const parsedOutput = JSON.parse(projectOutput.stdout || '{}');
 
     const ids = parsedOutput.ids || [];

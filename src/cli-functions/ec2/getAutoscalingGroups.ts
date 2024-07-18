@@ -45,7 +45,7 @@ export async function getAutoscalingGroups(
         const stdout = output.stdout?.toString() || '';
         const json: AutoscalingGroup[] = JSON.parse(stdout);
 
-        console.log('JSON Response from autoscaling cli fn: ', json);
+        // console.log('JSON Response from autoscaling cli fn: ', json);
 
         const mappedData = json.map((group: AutoscalingGroup): AutoscalingGroupMapped => {
             return {

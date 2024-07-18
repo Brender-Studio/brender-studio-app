@@ -29,7 +29,7 @@ export async function emptyBucket({ bucket, region, profile }: EmptyBucketParams
             throw new Error(`Command failed with code ${child.code}. Error: ${errorOutput}`);
         }
 
-        console.log('Bucket emptied:', bucket);
+        // console.log('Bucket emptied:', bucket);
 
         return true;
 

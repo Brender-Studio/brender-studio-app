@@ -7,7 +7,7 @@ import { cdkInlinePolicy } from "./roles/cdkInlinePolicy";
 import { trustPolicy } from "./roles/trustPolicy";
 
 export async function createCodeBuildServiceRole(region: string, profile: string) {
-    console.log(`Creating CodeBuild service role in region ${region} and profile ${profile}...`);
+    // console.log(`Creating CodeBuild service role in region ${region} and profile ${profile}...`);
     const roleName = deployConfig.iam.baseServiceRoleName + `-${region}`;
 
 
@@ -78,7 +78,7 @@ export async function createCodeBuildServiceRole(region: string, profile: string
     };
 
     try {
-        // 1. Crear el rol
+        // 1. Create role
         const createRoleCommand = new Command('aws-cli', [
             "iam",
             "create-role",
@@ -96,9 +96,8 @@ export async function createCodeBuildServiceRole(region: string, profile: string
             console.error(`stderr: ${createRoleStderr}`);
             throw new Error(createRoleStderr);
         }
-        console.log('Role created.');
 
-        // 2. Adjuntar la política al rol
+        // 2. Attach inline policy to role
         const attachPolicyCommand = new Command('aws-cli', [
             "iam",
             "put-role-policy",
@@ -117,9 +116,9 @@ export async function createCodeBuildServiceRole(region: string, profile: string
             console.error(`stderr: ${attachPolicyStderr}`);
             throw new Error(attachPolicyStderr);
         }
-        console.log('Policy attached.');
+        // console.log('Policy attached.');
 
-        // 3. Adjuntar la política SSM al rol
+        // 3. Attach SSM policy to role
 
         const attachSsmPolicyCommand = new Command('aws-cli', [
             "iam",
@@ -140,9 +139,9 @@ export async function createCodeBuildServiceRole(region: string, profile: string
             throw new Error(attachSsmPolicyStderr);
         }
 
-        console.log('SSM Policy attached.');
+        // console.log('SSM Policy attached.');
 
-        // 4. Adjuntar la política CDK al rol
+        // 4. Attach CDK policy to role
 
         const attachCdkPolicyCommand = new Command('aws-cli', [
             "iam",
@@ -163,9 +162,9 @@ export async function createCodeBuildServiceRole(region: string, profile: string
             throw new Error(attachCdkPolicyStderr);
         }
 
-        console.log('CDK Policy attached.');
+        // console.log('CDK Policy attached.');
 
-        // 5. Adjuntar la política CDK Bootstrap al rol
+        // 5. Attach CDK Bootstrap policy to role
 
         const attachCdkBootstrapPolicyCommand = new Command('aws-cli', [
             "iam",
@@ -186,14 +185,13 @@ export async function createCodeBuildServiceRole(region: string, profile: string
             throw new Error(attachCdkBootstrapPolicyStderr);
         }
 
-        console.log('CDK Bootstrap Policy attached.');
+        // console.log('CDK Bootstrap Policy attached.');
 
         return true;
     } catch (error) {
         if (error instanceof Error) {
             console.error(error.message);
         }
-        // return false;
         throw new Error(`${(error as Error).message}`);
     }
 }

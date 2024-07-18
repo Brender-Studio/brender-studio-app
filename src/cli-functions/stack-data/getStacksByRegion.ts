@@ -12,7 +12,19 @@ interface StackSummary {
 }
 
 export async function getStacksByRegion(region: string, profile: string) {
-    const command = new Command("aws-cli", ["cloudformation", "list-stacks", "--stack-status-filter", "CREATE_COMPLETE", "CREATE_IN_PROGRESS", "DELETE_IN_PROGRESS", "UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS", "UPDATE_IN_PROGRESS", "ROLLBACK_COMPLETE", "--region", region, "--profile", profile]);
+    const command = new Command("aws-cli", [
+        "cloudformation",
+        "list-stacks",
+        "--stack-status-filter",
+        "CREATE_COMPLETE",
+        "CREATE_IN_PROGRESS",
+        "DELETE_IN_PROGRESS",
+        "UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS",
+        "UPDATE_IN_PROGRESS",
+        "ROLLBACK_COMPLETE",
+        "--region", region,
+        "--profile", profile
+    ]);
 
     try {
         const output = await command.execute();

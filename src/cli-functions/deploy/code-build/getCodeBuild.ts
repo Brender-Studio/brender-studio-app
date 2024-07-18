@@ -37,7 +37,6 @@ export async function getCodeBuild(region: string, profile: string) {
     if (error instanceof Error) {
       console.error(error.message);
     }
-    // return false;
     throw new Error(`${(error as Error).message}`);
   }
 }

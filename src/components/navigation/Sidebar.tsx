@@ -33,7 +33,7 @@ const Sidebar = ({ isCollapsed }: SidebarProps) => {
 
   const handleGetVersion = async () => {
     const version = await getVersion()
-    console.log(version)
+    // console.log(version)
     setAppVersion(version)
   }
 

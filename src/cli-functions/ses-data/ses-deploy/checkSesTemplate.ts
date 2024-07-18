@@ -1,15 +1,5 @@
 import { Command } from "@tauri-apps/api/shell";
 
-// example: aws ses list-templates --query "TemplatesMetadata[?Name=='RenderCompletedTemplate']"
-// [
-//     {
-//         "Name": "RenderCompletedTemplate",
-//         "CreatedTimestamp": "2024-04-29T09:31:06.018000+00:00"
-//     }
-// ]
-
-// returns [] if no templates found
-
 export async function checkSesTemplate(region: string, profile: string, templateName: string) {
     try {
         const listTemplatesCommand = new Command('aws-cli', [

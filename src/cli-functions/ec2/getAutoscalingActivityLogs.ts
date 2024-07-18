@@ -43,11 +43,10 @@ export async function getAutoscalingActivityLogs(
         const stdout = output.stdout?.toString() || '';
         const json: { Activities: AWSActivityLog[] } = JSON.parse(stdout);
 
-        console.log('JSON Response from autoscaling activity logs cli fn: ', json);
+        // console.log('JSON Response from autoscaling activity logs cli fn: ', json);
 
         const mappedData: MappedActivity[] = json.Activities.map((activity: AWSActivityLog) => {
             return {
-                // id: activity.ActivityId,
                 status: activity.StatusCode,
                 description: activity.Description,
                 cause: activity.Cause,

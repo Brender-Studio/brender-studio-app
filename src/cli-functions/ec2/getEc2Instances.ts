@@ -61,8 +61,6 @@ export async function getEc2Instances(
                 if (instance.Tags) {
                     const spotTag = instance.Tags.find(tag => tag.Key === "aws:autoscaling:groupName");
 
-                    // spot tag exa: "AWSBatch-ComputeEnvSpotCPU-3340ba86-2e48-4672-ae5c-746d4f7e4985-asg-dbee394a-fbc2-3cef-936e-88ea32fe5164"
-
                     if (spotTag && spotTag.Value.includes("Spot")) {
                         instanceType = 'Spot';
                     }

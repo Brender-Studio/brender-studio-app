@@ -20,7 +20,7 @@ export async function getBucketContents(bucket: string, profile: string,  prefix
 
         const child = await command.execute();
 
-        console.log('child', child.code, child.stdout.toString(), errorOutput);
+        // console.log('child', child.code, child.stdout.toString(), errorOutput);
 
         if (child.code !== 0) {
             throw new Error(`Command failed with code ${child.code}. Error: ${errorOutput}`);
@@ -30,7 +30,7 @@ export async function getBucketContents(bucket: string, profile: string,  prefix
         const lines = str.trim().split('\n');
         const processedLines = lines.map(line => line.trim().split(/\s+/));
 
-        console.log('processedLines', processedLines)
+        // console.log('processedLines', processedLines)
 
         const contents = processedLines.map((elements: string[]) => {
 

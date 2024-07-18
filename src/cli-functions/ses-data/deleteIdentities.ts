@@ -1,6 +1,6 @@
 import { Command } from "@tauri-apps/api/shell";
 
-// ex:  aws ses delete-identity --identity jernono2022@gmail.com  --profile jer-info-dev --region us-west-2
+// ex: aws ses delete-identity --identity test@gmail.com  --profile test --region us-east-1
 
 // identities from args are an array of strings, we need to loop through them and delete them one by one
 

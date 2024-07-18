@@ -13,10 +13,11 @@ export async function destroyCodeCommit(region: string, profile: string) {
             "--region", region,
             "--profile", profile
         ]);
-        console.log('Destroy repository command:', destroyRepoCommand);
+        // console.log('Destroy repository command:', destroyRepoCommand);
 
         const destroyRepoOutput = await destroyRepoCommand.execute();
-        console.log('Destroy repository output:', destroyRepoOutput);
+        // console.log('Destroy repository output:', destroyRepoOutput);
+        
         const destroyRepoStderr = destroyRepoOutput.stderr?.toString() || '';
 
         if (destroyRepoOutput.code !== 0) {

@@ -54,7 +54,7 @@ export async function customPythonJob({
             numGPUs > 0 ? `{type=GPU,value=${numGPUs}}` : '',
         ].filter(Boolean).join(',');
 
-        // Variables de entorno predeterminadas
+        // Defaul environment variables
         const defaultEnvironmentVariables = [
             `{name=JOB_ACTION_TYPE,value=${jobActionType}}`,
             `{name=EFS_BLENDER_FILE_PATH,value=${efsBlenderFilePath}}`,
@@ -73,7 +73,7 @@ export async function customPythonJob({
 
         const environmentVariables = defaultEnvironmentVariables.concat(customEnvironmentVariables).join(',');
 
-        // Construir los argumentos del comando
+        // Build the command arguments
         const commandArgs = [
             'batch',
             'submit-job',
@@ -103,11 +103,10 @@ export async function customPythonJob({
             commandArgs.push('--array-properties', `size=${jobArraySize}`);
         }
 
-        // Ejecutar el comando
+        // Execute the command
         const command = new Command('aws-cli', commandArgs);
         const output = await command.execute();
 
-        // Manejar la salida del comando
         const stderr = output.stderr?.toString() || '';
 
         if (output.code !== 0) {

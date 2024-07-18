@@ -12,8 +12,8 @@ function useSession() {
         const fetchData = async () => {
             try {
                 const { cliInstalled, cliVersion } = await checkCliInstallation();
-                console.log("CLI installed:", cliInstalled);
-                console.log("CLI version:", cliVersion);
+                // console.log("CLI installed:", cliInstalled);
+                // console.log("CLI version:", cliVersion);
                 const fetchedProfiles = await getAllAWSProfiles();
                 const profilesArray = Array.isArray(fetchedProfiles) ? fetchedProfiles : fetchedProfiles ? [fetchedProfiles] : [];
 

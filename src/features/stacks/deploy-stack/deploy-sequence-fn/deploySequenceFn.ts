@@ -64,7 +64,7 @@ export async function deploySequenceFn({ formData, progressCallback }: DeploySeq
         if (!sesRenderCompletedTemplateExists) {
             // todo: create or update ses template
             console.log('sesRenderCompletedTemplate does not exist, creating it...');
-            const res = await uploadTemplate(templateName, jsonPathTemplate, formData.region, formData.profile);
+            const res = await uploadTemplate(jsonPathTemplate, formData.region, formData.profile);
             console.log('Template uploaded:', res)
             progressCallback(PROGRESS_STEPS.CREATING_SES_TEMPLATE);
         } else {
@@ -90,7 +90,7 @@ export async function deploySequenceFn({ formData, progressCallback }: DeploySeq
         console.log('jsonPathFailedTemplate:', jsonPathFailedTemplate);
 
         if (!sesRenderFailedTemplateExists) {
-            const res = await uploadTemplate(sesRenderFailedTemplate, jsonPathFailedTemplate, formData.region, formData.profile);
+            const res = await uploadTemplate(jsonPathFailedTemplate, formData.region, formData.profile);
             console.log('Template uploaded:', res)
             progressCallback(PROGRESS_STEPS.CREATING_SES_TEMPLATE);
         } else {

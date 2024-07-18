@@ -1,5 +1,4 @@
 import RenderJobSelect from "./inputs/RenderJobSelect";
-// import RenderJobInput from "./inputs/RenderJobInput";
 import { useEffect, useState } from "react";
 import { toast } from "@/components/ui/use-toast";
 import { filterJobDefinitions, filterJobQueues } from "./helpers/jobFilterUtils";
@@ -60,30 +59,14 @@ const RenderJobFields = ({ form, currentPathname }: RenderJobFieldsProps) => {
         />
     );
 
-
-    // const renderInputField = (fieldName: string, label: string, type: string, placeholder: string, defaultValue: string, minValue: number, maxValue?: number) => (
-    //     <RenderJobInput
-    //         form={form}
-    //         fieldName={fieldName}
-    //         label={label}
-    //         type={type}
-    //         placeholder={placeholder}
-    //         defaultValue={defaultValue}
-    //         minValue={minValue}
-    //         maxValue={maxValue}
-    //     />
-    // );
-
     const filteredJobQueues = filterJobQueues(JobQueues, currentPathname);
     const filteredJobDefinitions = filterJobDefinitions(JobDefinitions);
     const jobDefinitionOptions = getJobDefinitionOptions(filteredJobDefinitions);
     const jobQueueOptions = getJobQueueOptions(filteredJobQueues);
-    // const instanceTypeOptions = getInstanceTypeOptions(currentPathname);
-    // console.log('JobDefinitions: ', JobDefinitions)
 
     /// remount component when stack changes
     useEffect(() => {
-        console.log('Stack changed, remounting component')
+        // console.log('Stack changed, remounting component')
     }, [currentStack, currentAwsRegion, currentProfile])
 
     const keyForRemount = currentStack || 'defaultKey';
