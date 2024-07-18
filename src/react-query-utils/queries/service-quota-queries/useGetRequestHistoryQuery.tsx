@@ -9,14 +9,12 @@ export const useGetRequestHistoryQuery = () => {
     const sessionData = getSessionData();
     const { currentAwsRegion, currentProfile } = sessionData;
 
-    console.log('currentAwsRegion', currentAwsRegion, 'currentProfile', currentProfile)
     const requestHistoryQueryKey = serviceQuotaQueries.serviceQuotaHistoryQueryKey(currentProfile!, currentAwsRegion);
 
     const requestHistoryQuery = useQuery({
         queryKey: requestHistoryQueryKey,
         queryFn: () => getRequestHistory(currentProfile!, currentAwsRegion),
         enabled: !!currentAwsRegion && !!currentProfile,
-        // refetchInterval: 30000 // 30 seconds
     });
 
     return {

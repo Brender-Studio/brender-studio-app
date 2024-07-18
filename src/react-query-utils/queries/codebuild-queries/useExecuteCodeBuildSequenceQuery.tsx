@@ -26,20 +26,16 @@ export const useExecuteCodeBuildSequenceQuery = ({ progressCallback }: UseCodeBu
     const deployStack = async (values: z.infer<typeof deployStackSchema>) => {
         try {
             setIsLoading(true);
-            console.log('Form values:', values);
 
-            // Your existing logic here...
             const { success, build, stackName } = await deploySequenceFn({ formData: values, progressCallback });
 
-
             if ( success === true ) {
-                // Redirect to the stacks page
                 navigate('/stacks');
                 // get object build json
                 const buildRes = typeof build === 'string' ? JSON.parse(build) : null;
 
                 const { id, buildStatus, arn, startTime } = buildRes?.build || {};
-                console.log('Build ID:', id)
+                // console.log('Build ID:', id)
 
                 const stack = stackName;
 
@@ -80,10 +76,6 @@ export const useExecuteCodeBuildSequenceQuery = ({ progressCallback }: UseCodeBu
         await queryClient.refetchQueries({
             queryKey: codeBuildQueries.codeBuildProjectsQueryKey(currentProfile!, currentAwsRegion),
         })
-        // await queryClient.refetchQueries({
-        //     queryKey: codeBuildQueries.codeBuildStatusQueryKey(currentProfile!, currentAwsRegion)
-
-        // })
 
         await queryClient.resetQueries({
             queryKey: codeBuildNotificationsQueries.notificationCodeBuildProjectsQueryKey(currentProfile!, currentAwsRegion),

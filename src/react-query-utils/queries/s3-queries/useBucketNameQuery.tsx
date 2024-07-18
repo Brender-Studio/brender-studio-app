@@ -14,11 +14,9 @@ const useBucketNameQuery = () => {
         queryKey: stackQueries.bucketNameQueryKey(currentStack!, currentAwsRegion, currentProfile!),
         queryFn: () => getStackDetails(currentStack!, currentAwsRegion, currentProfile!),
         enabled: !!currentStack && !!currentAwsRegion && !!currentProfile,
-        retry: 1,
     });
 
-    // Retornar el bucket name 
-    // return stackQuery.data?.find((resource: S3Resource) => resource.ResourceType === S3_RESOURCE_TYPE)?.PhysicalResourceId || null;
+
     return {
         ...stackBucketNameQuery,
         bucketName: stackBucketNameQuery.data?.find((resource: S3Resource) => resource.ResourceType === S3_RESOURCE_TYPE)?.PhysicalResourceId || null

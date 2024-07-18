@@ -15,9 +15,7 @@ const useGetAutoscalingGroupsQuery = () => {
     const autoscalingGroupsQuery = useQuery({
         queryKey: autoscalingGroupsQueryKey,
         queryFn: () => getAutoscalingGroups(currentAwsRegion, currentProfile!, currentStack!),
-        retry: 1,
         enabled: !!currentAwsRegion && !!currentProfile,
-        // refetchInterval: 30000 // 30 seconds
     });
 
     return {

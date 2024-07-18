@@ -12,7 +12,6 @@ const useRefreshQuery = (queryKey: queryKey) => {
         setIsRefreshing(true);
         setTimeout(() => {
             queryClient.refetchQueries({
-                // queryKey: queryKeyGenerator(currentProfile, currentAwsRegion),
                 queryKey: queryKey,
             });
             setIsRefreshing(false);

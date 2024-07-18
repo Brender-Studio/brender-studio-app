@@ -40,7 +40,7 @@ const useGetDailyTotalCost = (): UseDailyTotalCostResult => {
     let services: string[] | undefined;
 
     if (dailyCostQuery.isSuccess && dailyCostQuery.data?.ResultsByTime) {
-        console.log('Results data: ', dailyCostQuery.data?.ResultsByTime);
+        // console.log('Results data: ', dailyCostQuery.data?.ResultsByTime);
         processedDataCharts = processDataChart(dailyCostQuery.data?.ResultsByTime);
 
         if (processedDataCharts && Object.keys(processedDataCharts).length > 0) {

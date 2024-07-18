@@ -13,7 +13,6 @@ const useGetJobArrayProperties = (jobId: string) => {
     const jobArrayPropertiesQuery = useQuery({
         queryKey: jobArrayPropertiesQueryKey,
         queryFn: () => describeJobs(jobId, currentAwsRegion, currentProfile!),
-        retry: 1,
         enabled: !!currentAwsRegion && !!currentProfile && !!currentStack,
         refetchInterval: 30000 // 30 seconds
     });
