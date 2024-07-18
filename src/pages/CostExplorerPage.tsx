@@ -7,7 +7,6 @@ const CostExplorerPage = () => {
   return (
     <Section
       title="Cost Explorer"
-      // tooltip_description="This section displays the cost explorer. You can view the cost explorer details and analyze the cost. Brender Studio uses Cost Explorer to analyze the cost per stack."
       justify="start"
       backBtn={false}
       content={<CostExplorerSection />}

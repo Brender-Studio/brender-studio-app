@@ -23,7 +23,6 @@ export const awsRegionsByContinentGpu = {
         { region: "ap-northeast-1", g5: true, g6: false },
         { region: "ap-northeast-2", g5: true, g6: false },
         { region: "ap-southeast-2", g5: true, g6: false },
-        // { region: "ap-southeast-3", g5: true, g6: false }
     ],
     "South America": [
         { region: "sa-east-1", g5: true, g6: false }
