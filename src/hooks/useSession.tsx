@@ -43,18 +43,6 @@ function useSession() {
                     cliVersion: cliVersion
                 };
 
-                // create simulation fake session data with no values for testing
-                // const sessionData = {
-                //     currentProfile: null,
-                //     profiles: [],
-                //     currentAwsRegion: "us-east-1",
-                //     currentStack: null,
-                //     isCliInstalled: cliInstalled
-                // };
-
-
-                // console.log("Session data:", sessionData)
-
                 setSessionData(sessionData);
             } catch (error) {
                 console.error("Error fetching profiles:", error);
