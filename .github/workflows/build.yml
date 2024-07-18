@@ -75,13 +75,9 @@ jobs:
           xargs sudo apt install -y < environment/apt_packages.txt
 
       - name: Install dependencies
-        env:
-          NODE_OPTIONS: "--no-network-family-autoselection"
         run: npm ci
     
       - name: Run tests
-        env:
-          NODE_OPTIONS: "--no-network-family-autoselection"
         run: npm test
     
       - name: Build frontend
