@@ -1,6 +1,6 @@
 import { DateRange } from "react-day-picker";
 
-// Validar rango de fecha
+// Validate if the date range is valid
 export const isValidDateRange = (dateRange?: DateRange): boolean => {
     if (!dateRange || !dateRange.from || !dateRange.to) {
         return false;
@@ -9,7 +9,7 @@ export const isValidDateRange = (dateRange?: DateRange): boolean => {
 };
 
 
-// Función para aplicar un rango de fechas seleccionado
+// Function to apply the date range selected
 export const onApplyDateRange = (
     tempDateRange: DateRange | undefined,
     setSelectedDateRange: (dateRange: DateRange | undefined) => void

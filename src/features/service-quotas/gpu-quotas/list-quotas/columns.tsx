@@ -10,10 +10,8 @@ export type ServiceQuota = {
     QuotaName: string;
     QuotaCode: string;
     Value: number;
-    // Unit: string;
     Adjustable: boolean;
     GlobalQuota: boolean;
-    // RequestQuotaDialog: string;
     UsageMetric: {
         MetricNamespace: string;
         MetricName: string;
@@ -33,8 +31,6 @@ export const columns: ColumnDef<ServiceQuota>[] = [
         header: "Quota Name",
         cell: ({ row }) => {
             const openUrl = (id: string) => {
-                // extract region from arn and quota code
-                // example url: https://us-east-1.console.aws.amazon.com/servicequotas/home/services/ec2/quotas/L-3819A6DF
                 const region = id.split(':')[3];
                 const quotaCode = row.original.QuotaCode;
 
@@ -87,7 +83,6 @@ export const columns: ColumnDef<ServiceQuota>[] = [
             );
         }
     },
-
     {
         id: "RequestQuotaDialog",
         header: "Request Quota",

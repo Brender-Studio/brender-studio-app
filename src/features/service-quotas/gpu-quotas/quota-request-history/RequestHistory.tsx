@@ -5,8 +5,6 @@ import useGetRequestHistoryQuery from "@/react-query-utils/queries/service-quota
 
 const RequestHistory = () => {
   const { currentAwsRegion, currentProfile } = useUserSessionStore().getSessionData();
-  // const sessionData = getSessionData();
-  // const { currentAwsRegion, currentProfile } = sessionData;
 
   const { data, isLoading } = useGetRequestHistoryQuery()
 

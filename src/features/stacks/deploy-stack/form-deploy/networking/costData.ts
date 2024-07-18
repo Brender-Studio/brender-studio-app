@@ -18,7 +18,6 @@ export const networkingOptions = [
         description: 'Create a VPC with private subnets, NAT Gateway & 2 EIPs.',
         pros: [
             'Enhanced security with private subnets.',
-            // 'Reduced exposure to the internet.',
         ],
         cons: [
             'Additional cost for NAT Gateway & EIPs.',

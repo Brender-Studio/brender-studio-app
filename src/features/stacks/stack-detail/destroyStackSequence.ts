@@ -1,8 +1,6 @@
 import { destroyCodeBuild } from "@/cli-functions/destroy-stack/destroyCodeBuildProject";
 import { destroyCodeCommit } from "@/cli-functions/destroy-stack/destroyCodeCommit";
 import { destroyStackFn } from "@/cli-functions/destroy-stack/destroyStackFn";
-// import { deployConfig } from "@/cli-functions/deploy/deploy-config/deployConfig";
-// import { deleteTemplate } from "@/cli-functions/ses-data/ses-deploy/deleteTemplate";
 
 export async function destroyStackSequence({ stackName, region, profile }: { stackName: string; region: string; profile: string }): Promise<boolean> {
     try {

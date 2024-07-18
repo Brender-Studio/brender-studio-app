@@ -4,12 +4,9 @@ import useGetAutoscalingGroupsQuery from "@/react-query-utils/queries/ec2-querie
 import { useUserSessionStore } from "@/store/useSessionStore"
 
 const ListAutoscaling = () => {
-
     const { getSessionData } = useUserSessionStore();
     const sessionData = getSessionData();
     const { currentAwsRegion, currentProfile, currentStack } = sessionData;
-
-    // const { currentAwsRegion, currentProfile, currentStack } = useUserSessionStore().getSessionData();
 
     const { data, isLoading } = useGetAutoscalingGroupsQuery();
 

@@ -28,7 +28,6 @@ export const columns: ColumnDef<EfsMeteredSizeData>[] = [
         id: "ValueInStandard",
         header: "Size in Standard",
         cell: ({ row }) => {
-            // 12.00 KiB (100%)
             const transformBytes = formatSize(row.original.SizeInBytes.ValueInStandard);
 
             return <p>{transformBytes} ({row.original.SizeInBytes.ValueInStandard / row.original.SizeInBytes.Value * 100}%)</p>
@@ -39,7 +38,6 @@ export const columns: ColumnDef<EfsMeteredSizeData>[] = [
         id: "ValueInIA",
         header: "Size in IA",
         cell: ({ row }) => {
-            // 12.00 KiB (100%)
             const transformBytes = formatSize(row.original.SizeInBytes.ValueInIA);
 
             return <p>{transformBytes} ({row.original.SizeInBytes.ValueInIA / row.original.SizeInBytes.Value * 100}%)</p>
@@ -49,7 +47,6 @@ export const columns: ColumnDef<EfsMeteredSizeData>[] = [
         id: "ValueInArchive",
         header: "Size in Archive",
         cell: ({ row }) => {
-            // 12.00 KiB (100%)
             const transformBytes = formatSize(row.original.SizeInBytes.ValueInArchive);
 
             return <p>{transformBytes} ({row.original.SizeInBytes.ValueInArchive / row.original.SizeInBytes.Value * 100}%)</p>

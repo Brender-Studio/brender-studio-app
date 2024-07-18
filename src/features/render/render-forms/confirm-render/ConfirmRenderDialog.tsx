@@ -77,10 +77,6 @@ const ConfirmRenderDialog = ({ openDialog, setOpenDialog, form, title, descripti
         return null;
     }
 
-    // const mappedJobQueue = form?.getValues()?.job_settings?.job_queue ? mapJobQueueName(form.getValues().job_settings?.job_queue) : '';
-    // const mappedJobDefinition = form?.getValues()?.job_settings?.job_definition ? mapJobDefinitionName(form.getValues().job_settings?.job_definition) : '';
-
-
     async function callJobSubmitFn(values: z.infer<typeof formRenderSchema>) {
         return new Promise<void>((resolve) => {
             setTimeout(async () => {
@@ -129,7 +125,6 @@ const ConfirmRenderDialog = ({ openDialog, setOpenDialog, form, title, descripti
         }
     }
 
-    // console log de form values
     // console.log('form.getValues()', form.getValues());
     const hasErrors = Object.keys(form.formState.errors).length > 0;
 
@@ -183,7 +178,6 @@ const ConfirmRenderDialog = ({ openDialog, setOpenDialog, form, title, descripti
                                             Render Settings
                                         </p>
                                         <Card className="p-4">
-                                            {/* Add  camera, scene, layer, output format*/}
                                             <p className="text-sm font-semibold">Camera: <span className="font-normal text-muted-foreground">{form.getValues().camera_name}</span></p>
                                             <p className="text-sm font-semibold">Scene: <span className="font-normal text-muted-foreground">{form.getValues().scene_name}</span></p>
                                             <p className="text-sm font-semibold">Layer: <span className="font-normal text-muted-foreground">{form.getValues().layer_name}</span></p>
@@ -262,7 +256,6 @@ const ConfirmRenderDialog = ({ openDialog, setOpenDialog, form, title, descripti
                     </DialogHeader>
                     <DialogFooter>
                         <Button variant="secondary"
-                            // onClick={() => setOpenDialog(false)}
                             disabled={isSubmitting}
                             onClick={() => {
                                 if (!isSubmitting) {

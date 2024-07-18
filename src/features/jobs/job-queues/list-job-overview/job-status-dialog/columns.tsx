@@ -9,7 +9,6 @@ export type JobStatusByQueue = {
     jobId: string
     createdAt: string
     startedAt: string
-    // stoppedAt: string
     status: string
     statusReason: string
     arrayProperties: {
@@ -44,8 +43,7 @@ export const columns: ColumnDef<JobStatusByQueue>[] = [
         cell: ({ row }) => {
             // EXTRACT REGION FROM ARN
             const region = row.original.jobArn.split(':')[3];
-            console.log('region', region)
-            // https://us-east-1.console.aws.amazon.com/batch/home?region=us-east-1#jobs/ec2/detail/41784672-c3ad-439e-8543-4bd6c9cb265a
+
             const openUrl = (id: string) => {
                 const url = `https://${region}.console.aws.amazon.com/batch/home?region=${region}#jobs/ec2/detail/${id}`;
                 open(url);
@@ -55,7 +53,6 @@ export const columns: ColumnDef<JobStatusByQueue>[] = [
                 <div
                     onClick={() => openUrl(row.original.jobId)}
                     className="text-blue-500 hover:underline cursor-pointer font-semibold"
-                    // style={{wordBreak: 'break-all'}}
                 >
                     <span title={row.original.jobName} >
                         {row.original.jobName}

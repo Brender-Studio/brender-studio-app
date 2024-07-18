@@ -1,43 +1,43 @@
 export const cpuContainerOptions = [
     {
         name: 'Basic',
-        vcpus: '2', // Extraído de m4.large
-        memory: '8000', // Redondeado
+        vcpus: '2', 
+        memory: '8000',
     },
     {
         name: 'Standard',
-        vcpus: '4', // Extraído de m4.xlarge
-        memory: '16000', // Redondeado
+        vcpus: '4', 
+        memory: '16000',
     },
     {
         name: 'Advanced',
-        vcpus: '8', // Extraído de m4.2xlarge
-        memory: '32000', // Redondeado
+        vcpus: '8', 
+        memory: '32000',
     },
     {
         name: 'Powerful',
-        vcpus: '16', // Extraído de m4.4xlarge
-        memory: '64000', // Redondeado
+        vcpus: '16', 
+        memory: '64000',
     },
     {
         name: 'Intense',
-        vcpus: '40', // Extraído de m4.10xlarge
-        memory: '160000', // Redondeado
+        vcpus: '40', 
+        memory: '160000',
     },
     {
         name: 'High Performance',
-        vcpus: '64', // Extraído de m4.16xlarge
-        memory: '256000', // Redondeado
+        vcpus: '64', 
+        memory: '256000',
     },
     {
         name: 'Extreme',
-        vcpus: '72', // Extraído de c5.18xlarge
-        memory: '144000', // Redondeado
+        vcpus: '72', 
+        memory: '144000',
     },
     {
         name: 'Ultra Fast',
-        vcpus: '96', // Extraído de c5.24xlarge
-        memory: '192000', // Redondeado
+        vcpus: '96', 
+        memory: '192000',
     },
 ];
 

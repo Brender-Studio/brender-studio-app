@@ -6,7 +6,6 @@ export type AutoscalingActivityLog = {
     cause: string;
     startTime: string;
     endTime: string;
-    // statusMessage: string;
 };
 
 export const columns: ColumnDef<AutoscalingActivityLog>[] = [

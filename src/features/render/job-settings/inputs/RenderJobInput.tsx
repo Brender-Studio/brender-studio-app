@@ -74,14 +74,10 @@ const RenderJobInput = ({ form, fieldName, label, type, placeholder, defaultValu
                     </Label>
                     <FormControl>
                         <Input
-                            // step="0.001"
                             type={type}
                             placeholder={placeholder}
                             value={String(form.watch(fieldName) || defaultValue)}
-                            // value={field.value}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => form.setValue(fieldName, e.target.value)}
-                        // min={minValue}
-                        // max={maxValue}
                         />
                     </FormControl>
                 </FormItem>

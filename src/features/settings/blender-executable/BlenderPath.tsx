@@ -11,7 +11,7 @@ const BlenderPath = () => {
     const [selectedPath, setSelectedPath] = useState(localStoragePath);
     const currentPlatform = usePlatform();
 
-    console.log('Current platform: ', currentPlatform)
+    // console.log('Current platform: ', currentPlatform)
 
 
     return (

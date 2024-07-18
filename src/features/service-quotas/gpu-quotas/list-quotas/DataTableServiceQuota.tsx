@@ -42,8 +42,6 @@ export function DataTableServiceQuota<TData, TValue>({
         <>
             <div className="pb-4 flex items-center justify-between">
                 <DataTableHeader
-                    // title="Service Quotas for G5 EC2 Instances"
-                    // description={`Maximum number of resources that you can create in your AWS account. They are also referred to as limits.`}
                     title={title}
                     description={description}
                 />

@@ -18,12 +18,10 @@ const GpuQuota = ({ setGpuQuotas }: GpuQuotaProps) => {
     const { currentAwsRegion } = getSessionData();
     const navigate = useNavigate();
 
-    // "Running On-Demand G and VT instances"
-    // "Running Spot G and VT instances"
 
     const { data, isLoading } = useGetServiceQuotaGpuQuery();
 
-    console.log('data: ', data)
+    // console.log('data: ', data)
 
     useEffect(() => {
         if (data) {

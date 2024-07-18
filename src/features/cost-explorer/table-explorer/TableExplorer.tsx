@@ -5,8 +5,6 @@ import { useToast } from "@/components/ui/use-toast";
 import DataTableHeader from "@/components/custom/structure/DataTableHeader";
 
 
-
-
 const TableExplorer = () => {
     const { isLoading, isError, error, formattedData } = useGetMonthlyTotalCost();
     const { toast } = useToast();

@@ -3,7 +3,6 @@ import BarChartComp from "./BarChart";
 import { NoResults } from "@/features/cost-explorer/charts/helpers/LoadingAndError";
 
 
-
 const BarChartsSection = ({ barData, services }: BarChartsSectionProps) => {
 
 

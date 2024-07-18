@@ -11,7 +11,7 @@ const ProgressBarJobs = ({ job3Id }: ProgressBarJobsProps) => {
 
     const { data: progress = 5, isLoading } = useJobProgress(job3Id);
 
-    console.log('progress', progress, isLoading)
+    // console.log('progress', progress, isLoading)
 
     return (
 

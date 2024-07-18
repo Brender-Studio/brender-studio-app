@@ -15,7 +15,6 @@ export type ComputeEnv = {
     };
     state: string;
     status: string;
-    // statusReason: string;
     type: string;
 };
 
@@ -25,7 +24,6 @@ export const columns: ColumnDef<ComputeEnv>[] = [
         header: "CE Name",
         cell: ({ row }) => {
             const openUrl = (id: string) => {
-                // extrer region from arn
                 const region = id.split(':')[3];
                 console.log('region', region)
                 const url = `https://${region}.console.aws.amazon.com/batch/home?region=${region}#compute-environments/detail/${id}`;
@@ -45,7 +43,6 @@ export const columns: ColumnDef<ComputeEnv>[] = [
             );
         }
     },
-    // Instance types
     {
         id: "instanceTypes",
         header: "Instance Types",
@@ -57,7 +54,6 @@ export const columns: ColumnDef<ComputeEnv>[] = [
             );
         }
     },
-    // ec2 type
     {
         id: "computeResourcesType",
         header: "Type",
@@ -69,7 +65,6 @@ export const columns: ColumnDef<ComputeEnv>[] = [
             );
         }
     },
-    // ALLOCAtion strategy
     {
         id: "allocationStrategy",
         header: "Allocation Strategy",
@@ -81,7 +76,6 @@ export const columns: ColumnDef<ComputeEnv>[] = [
             );
         }
     },
-    // bidPercentage
     {
         id: "bidPercentage",
         header: "Bid Percentage",
@@ -104,7 +98,6 @@ export const columns: ColumnDef<ComputeEnv>[] = [
             );
         }
     },
-    // min and max vCpus
     {
         id: "computeResources",
         header: "VCPUs",

@@ -1,6 +1,5 @@
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormMessage } from "@/components/ui/form"
-
 import { Button } from "@/components/ui/button"
 import { MailPlus } from "lucide-react"
 import { useState } from "react"
@@ -21,8 +20,6 @@ import { sesQueries } from "@/react-query-utils/query-key-store/queryKeyStore"
 const AddIdentityDialog = () => {
     const { getSessionData } = useUserSessionStore();
     const { currentProfile, currentAwsRegion } = getSessionData();
-
-    console.log(currentProfile, currentAwsRegion)
     const [openDialog, setOpenDialog] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
 

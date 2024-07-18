@@ -29,11 +29,11 @@ const TerminateJobsDialog = ({ openDialog, setOpenDialog, title, description, jo
 
         try {
             setIsTerminating(true)
-            console.log('jobIds from fn', jobIds)
+            // console.log('jobIds from fn', jobIds)
 
             const response = await terminateJobs(jobIds, awsRegion, awsProfile)
-            console.log('response', response)
-            // invalidar queries de react-query
+            // console.log('response', response)
+          
             const jobByStatusQueryKey = jobQueries.jobByStatusQueryKey(awsRegion!, awsProfile!, currentStack!, jobStatus, jobQueueName);
             queryClient.refetchQueries({
                 queryKey: jobByStatusQueryKey

@@ -9,7 +9,7 @@ const ListIndentities = () => {
 
     const { data, isLoading } = useGetSesIdentitiesQuery()
 
-    console.log('data', data)
+    // console.log('data', data)
     return (
         <div>
             <DataTableSes

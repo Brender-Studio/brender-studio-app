@@ -52,7 +52,7 @@ const RenderJobFields = ({ form, currentPathname }: RenderJobFieldsProps) => {
     const renderJobSelectField = (fieldName: string, label: string, options: OptionsVars[], defaultValue: string) => (
         <RenderJobSelect
             form={form}
-            fieldName={fieldName as any} // Review this type
+            fieldName={fieldName as any} 
             label={label}
             options={options}
             defaultValue={defaultValue}
@@ -122,7 +122,7 @@ const RenderJobFields = ({ form, currentPathname }: RenderJobFieldsProps) => {
                                             jobQueueOptions,
                                             filteredJobQueues?.[0]?.jobQueueName || '')
                                         }
-                                        {/*  timeout use select with predefined time in secons (show minutes realtion) */}
+                                    
                                         {
                                             renderJobSelectField(`job_settings.timeout`,
                                                 'Timeout',
@@ -140,14 +140,7 @@ const RenderJobFields = ({ form, currentPathname }: RenderJobFieldsProps) => {
                                                 ]
                                                 , '3600')
                                         }
-                                        {/* {renderInputField(`job_settings.timeout`,
-                                            'Timeout (seconds)',
-                                            'number',
-                                            'Timeout',
-                                            '900',
-                                            0)
-                                        } */}
-                                        {/* job attempts is select with 5 */}
+                                        
                                         {renderJobSelectField(`job_settings.job_attempts`,
                                             'Job Attempts',
                                             [

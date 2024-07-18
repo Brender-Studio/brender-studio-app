@@ -1,18 +1,6 @@
 import { Scene } from "../ProjectSettings.types";
 
 export const addPlaceholderIfNotExists = (scene: Scene): Scene => {
-    // // Check if the scene has eevee_config object, if not, add a placeholder
-    // if (!scene.eevee_config) {
-    //     scene.eevee_config = {
-    //         taa_samples: 64,
-    //         shadows: {
-    //             cube_size: '512',
-    //             cascade_size: '512',
-    //             high_bitdepth: false,
-    //             soft_shadows: false,
-    //         },
-    //     };
-    // }
 
     // Check if the scene has cycles_config object, if not, add a placeholder
     if (!scene.cycles_config) {

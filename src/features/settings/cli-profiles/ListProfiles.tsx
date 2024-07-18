@@ -49,7 +49,6 @@ const ListProfiles = () => {
                                             <label htmlFor={profile} className="text-muted-foreground text-sm pr-2">{profile}</label>
                                         </div>
                                     </div>
-                                    {/* <Separator /> */}
                                 </React.Fragment>
                             ))
                         ) : (

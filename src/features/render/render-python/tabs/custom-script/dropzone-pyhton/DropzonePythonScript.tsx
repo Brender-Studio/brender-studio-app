@@ -36,10 +36,10 @@ const DropzonePythonScript = ({ form }: DropzonePythonScriptProps) => {
         const directoryPath = Array.isArray(result) ? result[0] : result;
         const files = await readDirectory(directoryPath);
         const pythonScripts = getPythonScripts(files as File[]);
-        console.log("Python scripts: ", pythonScripts);
+        // console.log("Python scripts: ", pythonScripts);
 
-        console.log("Folder path: ", directoryPath);
-        console.log("Files: ", files);
+        // console.log("Folder path: ", directoryPath);
+        // console.log("Files: ", files);
 
         form.setValue("folder_path_python", directoryPath);
 
@@ -62,12 +62,12 @@ const DropzonePythonScript = ({ form }: DropzonePythonScriptProps) => {
         }
 
       } else {
-        console.log("File path: ", result);
+        // console.log("File path: ", result);
         form.setValue("python_script_path", result.toString());
         // TODO: REVIEW THIS
-        const filePath = Array.isArray(result) ? result[0] : result;
-        const fileName = filePath?.split(/(\\|\/)/g).pop();
-        console.log("File name: ", fileName);
+        // const filePath = Array.isArray(result) ? result[0] : result;
+        // const fileName = filePath?.split(/(\\|\/)/g).pop();
+        // console.log("File name: ", fileName);
         setSelectedPathsPython({ ...selectedPathsPython, filePath: Array.isArray(result) ? result[0] : result })
 
       }
@@ -159,7 +159,7 @@ const DropzonePythonScript = ({ form }: DropzonePythonScriptProps) => {
                     Folder path: {form.watch("folder_path_python")}
                   </p>
                 )}
-                {/* // debemos mostrar condicionalmente un componente select si hay archivos python en la carpeta */}
+                
                 {form.watch("folder_path_python") && form.watch("python_script_path") && (
                   <div className="mt-4">
                     <FormField
@@ -195,7 +195,6 @@ const DropzonePythonScript = ({ form }: DropzonePythonScriptProps) => {
                   className="hover:cursor-pointer min-h-60 hover:bg-accent  text-muted-foreground p-6 flex flex-col text-center justify-center items-center gap-2">
                   <FileJson size={32} />
                   <p className="text-xs text-muted-foreground">
-                    {/* colocar nombre del script python si existe en el form */}
                     {getFileNameFromPath(form.watch("python_script_path") ?? "") || "No file selected"}
                   </p>
                 </Card >

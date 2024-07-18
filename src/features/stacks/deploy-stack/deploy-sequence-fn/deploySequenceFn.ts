@@ -56,13 +56,12 @@ export async function deploySequenceFn({ formData, progressCallback }: DeploySeq
 
         // we need template name , json path template, region and profile
         const templateName = deployConfig.ses.renderCompletedTemplate
-        console.log('Uploading template...', templateName)
+        // console.log('Uploading template...', templateName)
         const jsonPathTemplate = await resolveResource("resources/ses-templates/render_completed.json");
-        console.log('jsonPathTemplate:', jsonPathTemplate);
+        // console.log('jsonPathTemplate:', jsonPathTemplate);
 
 
         if (!sesRenderCompletedTemplateExists) {
-            // todo: create or update ses template
             console.log('sesRenderCompletedTemplate does not exist, creating it...');
             const res = await uploadTemplate(jsonPathTemplate, formData.region, formData.profile);
             console.log('Template uploaded:', res)
@@ -87,7 +86,7 @@ export async function deploySequenceFn({ formData, progressCallback }: DeploySeq
 
 
         const jsonPathFailedTemplate = await resolveResource("resources/ses-templates/render_failed.json");
-        console.log('jsonPathFailedTemplate:', jsonPathFailedTemplate);
+        // console.log('jsonPathFailedTemplate:', jsonPathFailedTemplate);
 
         if (!sesRenderFailedTemplateExists) {
             const res = await uploadTemplate(jsonPathFailedTemplate, formData.region, formData.profile);
@@ -109,7 +108,6 @@ export async function deploySequenceFn({ formData, progressCallback }: DeploySeq
             console.log('Code Build Role exists:', codeBuildRoleExists);
         } catch (error) {
             console.error('Error checking Code Build Role:', error);
-            // throw new Error(`${(error as Error)}`);
         }
 
         if (!codeBuildRoleExists) {
@@ -136,7 +134,6 @@ export async function deploySequenceFn({ formData, progressCallback }: DeploySeq
             console.log('Code Commit exists:', codeCommitExists);
         } catch (error) {
             console.error('Error checking Code Commit:', error);
-            // throw new Error(`${(error as Error).message}`);
         }
 
         if (!codeCommitExists) {
@@ -190,13 +187,12 @@ export async function deploySequenceFn({ formData, progressCallback }: DeploySeq
         console.log('Starting Code Build...');
         progressCallback(PROGRESS_STEPS.STARTING_CODE_BUILD);
         const startBuildTask = await startBuild(formData.region, formData.profile, formData.stackName, formData.isPrivate, blenderVersionsString, formData.maxvCpus, formData.spotBidPercentage);
-        console.log('Code Build started:', startBuildTask);
+        // console.log('Code Build started:', startBuildTask);
 
         return { success: true, build: startBuildTask, stackName: formData.stackName };
 
     } catch (error) {
         console.error('Error during deploySequenceFn:', error);
-        // return { success: false, error: (error as Error).message || error };
         throw new Error(`${(error as Error)}`);
 
     }

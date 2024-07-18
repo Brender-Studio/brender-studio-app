@@ -18,10 +18,8 @@ const ObjectCard = ({ item, currentPathname, bucketName }: ObjectCardProps) => {
     // console.log('item:', item)
     
     const handleRedirect = (item: { name: string, type: string }) => {
-        console.log('ObjectCard:', item)
-        console.log('currentPathname:', currentPathname)
         if (item.type === 'folder') {
-            console.log('Redirecting to:', `${currentPathname}/${item.name}`)
+            // console.log('Redirecting to:', `${currentPathname}/${item.name}`)
             navigate(`${currentPathname}/${item.name}`)
         }
     }
@@ -62,8 +60,7 @@ const ObjectCard = ({ item, currentPathname, bucketName }: ObjectCardProps) => {
                         </div>
                     </div>
                 </CardHeader>
-                {/* <CardContent>
-                </CardContent> */}
+                
                 {item.type === 'file' && (
                     <CardFooter>
                         <span className="absolute bottom-5">

@@ -68,7 +68,6 @@ const ConfirmDeployDialog = ({ openDialog, setOpenDialog, form, title, descripti
     const onSubmit = async (values: z.infer<typeof deployStackSchema>) => {
         try {
             await deployStack(values);
-            console.log('Deploying stack', values)
             toast({
                 title: 'Success',
                 description: 'The stack is being deployed. Check the status in the Builds page.',
@@ -95,7 +94,6 @@ const ConfirmDeployDialog = ({ openDialog, setOpenDialog, form, title, descripti
     const hasErrors = Object.keys(form.formState.errors).length > 0;
 
 
-    // console.log(form.getValues())
     return (
         <div className="flex justify-center">
             <Dialog open={openDialog}
@@ -187,7 +185,6 @@ const ConfirmDeployDialog = ({ openDialog, setOpenDialog, form, title, descripti
                         <Button
                             variant="secondary"
                             size='sm'
-                            // onClick={() => setOpenDialog(false)}
                             onClick={() => {
                                 if (!isLoading) {
                                     setOpenDialog(false);

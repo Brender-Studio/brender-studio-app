@@ -42,11 +42,6 @@ export const columns: ColumnDef<StackResource>[] = [
         header: "Logical Resource Id",
         cell: ({ row }) => row.original.LogicalResourceId,
     },
-    // {
-    //     id: "PhysicalResourceId",
-    //     header: "Physical Resource Id",
-    //     cell: ({ row }) => row.original.PhysicalResourceId,
-    // },
     {
         id: "ResourceStatus",
         header: "Resource Status",
@@ -74,12 +69,6 @@ export const columns: ColumnDef<StackResource>[] = [
             );
         }
     },
-
-    // {
-    //     id: "DriftInformation",
-    //     header: "Drift Information",
-    //     cell: ({ row }) => row.original.DriftInformation ? row.original.DriftInformation.StackResourceDriftStatus : "N/A",
-    // },
     {
         id: "LastUpdatedTimestamp",
         header: "Last Updated",

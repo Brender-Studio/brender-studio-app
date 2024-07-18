@@ -23,7 +23,6 @@ const JobQueuesSection = () => {
             <DataTableJobsOverview
                 isQueryLoading={isLoading}
                 data={data || []}
-                // review and enhance the columns type
                 columns={columns as ColumnDef<ColumnsProps, unknown>[]}
                 awsProfile={currentProfile!}
                 awsRegion={currentAwsRegion}

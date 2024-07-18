@@ -23,11 +23,9 @@ interface RenderSelectProps {
 }
 
 const RenderSelect = ({ defaultValue, fieldName, form, label, options, isCustom, setCurrentScene, allScenes }: RenderSelectProps) => {
-    // componente reutilizable select , que recibe como props fieldName, form, options, defaultValue, label y value
     const { currentScene } = useFormStore()
     const currentPathname = useLocation().pathname
 
-    // onchange input value
     const onValueChange = (value: string | number) => {
         // if fieldname is scene_name then setCurrentScene where scene_name is equal to value from allScenes
         if (fieldName === "scene_name") {
@@ -53,7 +51,7 @@ const RenderSelect = ({ defaultValue, fieldName, form, label, options, isCustom,
         if (fieldName === "engine") {
             console.log('engine select', value)
             if (value === 'BLENDER_EEVEE') {
-                console.log('eevee config here')
+                // console.log('eevee config here')
                 // form.setValue('eevee_config', {
                 //     taa_samples: currentScene[0]?.eevee_config.taa_samples || 0,
                 //     shadows: {
@@ -107,7 +105,6 @@ const RenderSelect = ({ defaultValue, fieldName, form, label, options, isCustom,
                 <FormItem>
                     <Label>{label}</Label>
                     <Select
-                        // onValueChange={field.onChange} 
                         onValueChange={onValueChange}
                         defaultValue={defaultValue as any}
                         value={field.value as any}

@@ -16,7 +16,6 @@ interface AddPathMacosProps {
 
 const AddPathMacos = ({ selectedPath, setSelectedPath }: AddPathMacosProps) => {
     const [openDialog, setOpenDialog] = useState(false)
-    // const [selectedPath, setSelectedPath] = useState('')
     const { isHovering } = useFiledropHover()
     const localStoragePath = localStorage.getItem('blenderExecutablePath');
 
@@ -24,10 +23,9 @@ const AddPathMacos = ({ selectedPath, setSelectedPath }: AddPathMacosProps) => {
     useEffect(() => {
         const fileDropListener = async (event: FileDropEvent) => {
             try {
-                // if (event.payload.length === 0) return;
-                console.log('Event: ', event)
+                // console.log('Event: ', event)
                 const path = event.payload[0]
-                console.log('Path: ', path)
+                // console.log('Path: ', path)
                 setSelectedPath(path);
             } catch (error) {
                 console.error(error)

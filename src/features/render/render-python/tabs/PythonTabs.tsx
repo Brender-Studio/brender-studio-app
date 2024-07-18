@@ -5,7 +5,6 @@ import PythonGuideDialog from '../python-guide/PythonGuideDialog'
 import { UseFormReturn } from 'react-hook-form';
 import { z } from 'zod';
 import { formRenderSchema } from '@/schemas/formRenderSchema';
-// import LabelSeparator from '@/components/custom/structure/LabelSeparator'
 
 interface PythonTabsProps {
     form: UseFormReturn<z.infer<typeof formRenderSchema>>;
@@ -28,7 +27,6 @@ const PythonTabs = ({ form }: PythonTabsProps) => {
 
     return (
         <>
-            {/* <LabelSeparator label='Blender BPY' /> */}
             <div className='relative py-6'>
                 <PythonGuideDialog />
                 <CustomTabs tabs={tabs} />

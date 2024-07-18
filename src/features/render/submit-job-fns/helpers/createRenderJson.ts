@@ -14,14 +14,6 @@ interface ColorOutput {
     color_depth: '8' | '16';
     color_mode: 'BW' | 'RGB' | 'RGBA';
 }
-// output: {
-//     output_format: 'BMP' | 'IRIS' | 'PNG' | 'JPEG' | 'JPEG2000' | 'TARGA' | 'TARGA_RAW' | 'CINEON' | 'DPX' | 'OPEN_EXR_MULTILAYER' | 'OPEN_EXR' | 'HDR' | 'TIFF' | 'WEBP';
-//     compression: number;
-//     color: {
-//         color_mode: 'BW' | 'RGB' | 'RGBA';
-//         color_depth: '8' | '16';
-//     };
-// };
 
 interface Output {
     color: ColorOutput;
@@ -39,13 +31,6 @@ interface RenderInfo {
     resolution: Resolution;
     output: Output;
 }
-
-// interface FrameRange {
-//     start: number;
-//     end: number;
-//     step: number;
-//     fps: number;
-// }
 
 interface DenoiseConfig {
     algorithm: string;
@@ -103,7 +88,7 @@ interface RenderConfig {
     fps: number;
     render_info: RenderInfo & {
         cycles_config?: CyclesConfig;
-        // eevee_config?: EeveeConfig; // Descomentado si se necesita en el futuro
+        // eevee_config?: EeveeConfig;
     };
 }
 
@@ -112,8 +97,6 @@ interface RenderJsonOutput {
 }
 
 export async function createRenderJson(values: z.infer<typeof formRenderSchema>): Promise<RenderJsonOutput> {
-
-    // TODO: REVSAR SI AFECTA EL ORDEN DE cycles_config y eevee_config dentro de render_info
 
     let renderConfig: RenderJsonOutput = {
         render_config: {
@@ -124,7 +107,6 @@ export async function createRenderJson(values: z.infer<typeof formRenderSchema>)
             engine: values.engine === "CYCLES" || values.engine === "BLENDER_EEVEE" || values.engine === "BLENDER_EEVEE_NEXT" 
             ? (values.engine === "BLENDER_EEVEE_NEXT" ? "BLENDER_EEVEE" : values.engine)
             : "CYCLES",
-            // engine: values.engine === "CYCLES" || values.engine === "BLENDER_EEVEE" ? values.engine : "CYCLES",
             use_gpu: values.use_gpu ?? false,
             use_compositor: values.use_compositor ?? false,
             use_sequencer: values.use_sequencer ?? false,
@@ -163,43 +145,11 @@ export async function createRenderJson(values: z.infer<typeof formRenderSchema>)
     if (values.engine === "CYCLES") {
         renderConfig.render_config.render_info.cycles_config = getCyclesConfig(values);
     } else if (values.engine === "BLENDER_EEVEE") {
-        // renderConfig.render_config.render_info.eevee_config = getEeveeConfig(values);
-        // REVIEW: Se comenta la línea anterior y se agrega la siguiente para que no se envíe la configuración de eevee
+
     }
 
     return renderConfig;
 }
-
-// function getCyclesConfig(values: any) {
-//     return {
-//         denoise_config: {
-//             algorithm: values?.cycles_config?.denoise_config?.algorithm,
-//             denoise_pass: values?.cycles_config?.denoise_config?.denoise_pass,
-//             denoise_prefilter: values?.cycles_config?.denoise_config?.denoise_prefilter,
-//             noise_threshold: values?.cycles_config?.denoise_config?.noise_threshold
-//         },
-//         light_paths: {
-//             caustics: {
-//                 filter_glossy: values?.cycles_config?.light_paths?.caustics?.filter_glossy,
-//                 reflective: values?.cycles_config?.light_paths?.caustics?.reflective,
-//                 refractive: values?.cycles_config?.light_paths?.caustics?.refractive
-//             },
-//             clamping: {
-//                 indirect: values?.cycles_config?.light_paths?.clamping?.indirect,
-//                 direct: values?.cycles_config?.light_paths?.clamping?.direct
-//             },
-//             max_bounces: {
-//                 diffuse_bounces: values?.cycles_config?.light_paths?.max_bounces?.diffuse_bounces,
-//                 glossy_bounces: values?.cycles_config?.light_paths?.max_bounces?.glossy_bounces,
-//                 total: values?.cycles_config?.light_paths?.max_bounces?.total,
-//                 transmission_bounces: values?.cycles_config?.light_paths?.max_bounces?.transmission_bounces,
-//                 transparent_max_bounces: values?.cycles_config?.light_paths?.max_bounces?.transparent_max_bounces,
-//                 volume_bounces: values?.cycles_config?.light_paths?.max_bounces?.volume_bounces
-//             }
-//         },
-//         samples: values?.cycles_config?.samples
-//     };
-// }
 
 function getCyclesConfig(values: z.infer<typeof formRenderSchema>): CyclesConfig {
     return {
@@ -231,15 +181,3 @@ function getCyclesConfig(values: z.infer<typeof formRenderSchema>): CyclesConfig
         samples: values.cycles_config?.samples ?? 0
     };
 }
-
-// function getEeveeConfig(values: any) {
-//     return {
-//         taa_samples: values.eevee_config.taa_samples,
-//         shadows: {
-//             cube_size: values.eevee_config.shadows.cube_size,
-//             cascade_size: values.eevee_config.shadows.cascade_size,
-//             high_bitdepth: values.eevee_config.shadows.high_bitdepth,
-//             soft_shadows: values.eevee_config.shadows.soft_shadows
-//         }
-//     };
-// }

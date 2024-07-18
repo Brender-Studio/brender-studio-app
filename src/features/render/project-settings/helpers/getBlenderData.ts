@@ -30,7 +30,7 @@ export const getBlenderData = async (
 
         // modify all scenes, if scene does not have eeevee_config object, add it, if it does not have cycles_config object, add it with default values
         const modifiedData = modifyAllScenes(data);
-        console.log('modifiedData', modifiedData);
+        // console.log('modifiedData', modifiedData);
 
         setAllScenes(modifiedData);
         const scene = await getCurrentSceneFromAllScenes(modifiedData, setCurrentScene);

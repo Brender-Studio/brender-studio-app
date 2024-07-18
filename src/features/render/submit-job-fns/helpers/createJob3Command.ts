@@ -2,31 +2,6 @@ import { deployConfig } from "@/cli-functions/deploy/deploy-config/deployConfig"
 import { formRenderSchema } from "@/schemas/formRenderSchema";
 import { z } from "zod";
 
-// debemos crear algo asi:
-
-// {
-//     "ses": {
-//         "ses_active": true,
-//         "render_details": {
-//             "project_name": "Project_5",
-//             "resolution": "1920x1080",
-//             "scene_name": "Scene",
-//             "layer_name": "Layer1",
-//             "camera_name": "Camera1",
-//             "samples": "200",
-//             "engine": "CYCLES",
-//             "render_type": "Still"
-//         },
-//         "ses_config": {
-//             "region": "us-east-1",
-//             "source_email": "rejdev24@gmail.com",
-//             "destination_email": "rejdev24@gmail.com",
-//             "render_ok_template_name": "RenderCompletedTemplate",
-//             "batch_job_2_id": "45557eab-576d-41ff-a2ba-2c357ab5037e"
-//         }
-//     }
-// }
-
 export async function createJob3Command(values: z.infer<typeof formRenderSchema>, currentAwsRegion: string, renderJobId: string, renderType: string, sourceEmail: string, destinationEmail: string) {
 
     const renderDetails = {
@@ -35,7 +10,7 @@ export async function createJob3Command(values: z.infer<typeof formRenderSchema>
         scene_name: values.scene_name,
         layer_name: values.layer_name,
         camera_name: values.camera_name,
-        samples: values.engine === "CYCLES" && values?.cycles_config?.samples, // changed
+        samples: values.engine === "CYCLES" && values?.cycles_config?.samples, 
         engine: values.engine,
         render_type: renderType,
         active_frame: values.active_frame,
@@ -48,19 +23,9 @@ export async function createJob3Command(values: z.infer<typeof formRenderSchema>
         source_email: sourceEmail,
         destination_email: destinationEmail,
         render_ok_template_name: deployConfig.ses.renderCompletedTemplate,
-        // render_ok_template_name: 'RenderCompletedTemplateDemo',
         render_error_template_name: deployConfig.ses.renderFailedTemplate,
         batch_job_2_id: renderJobId
     }
-
-    // "animation_preview_full_resolution": true,
-    // "fps": 24,
-    // "resolution_x": 1920,
-    // "resolution_y": 1080,
-    // "output_quality": "HIGH",
-    // "encoding_speed": "GOOD",
-    // "autosplit": true,
-    // "ffmpeg_format": "MPEG4"
 
     const animationPreview = {
         animation_preview_full_resolution: true,
