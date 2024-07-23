@@ -23,7 +23,7 @@ export async function getMonthlyTotalCost(currentProfile: string, currentAwsRegi
             currentProfile,
         ]);
 
-        // console.log("Running command Table Explorer: ", command)
+        // console.log("Running command Monthly Cost Explorer: ", command)
 
         const result = await command.execute();
 

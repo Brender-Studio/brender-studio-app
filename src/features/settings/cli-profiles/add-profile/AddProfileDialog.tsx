@@ -37,6 +37,8 @@ const AddProfileDialog = () => {
             accessKey: "",
             secretKey: "",
         },
+        mode: "onChange",
+        shouldFocusError: true,
     })
 
     async function onSubmit(values: z.infer<typeof cliProfileSchema>) {
@@ -108,7 +110,8 @@ const AddProfileDialog = () => {
                                         <Input
                                             autoComplete='off'
                                             placeholder="Enter a profile name"
-                                            {...field} />
+                                            {...field} 
+                                            />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
