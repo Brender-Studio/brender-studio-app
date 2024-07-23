@@ -44,7 +44,7 @@ const ObjectCard = ({ item, currentPathname, bucketName }: ObjectCardProps) => {
                             ) : (
                                 <>
                                     <Folder fill="currentColor" size={18} />
-                                    <p className="font-semibold overflow-hidden truncate text-ellipsis">
+                                    <p className="font-semibold overflow-hidden truncate text-ellipsis" title={item.name}>
                                         {item.name}
                                     </p>
                                 </>
