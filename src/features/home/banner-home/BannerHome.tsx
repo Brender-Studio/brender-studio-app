@@ -1,4 +1,4 @@
-import banner from '../../../assets/banner/kevin-jick-kevinjick-cyberpunkstreet-establishing-final-1.jpg';
+import banner from '../../../assets/banner/banner-temp.jpg';
 
 const BannerHome = () => {
 
