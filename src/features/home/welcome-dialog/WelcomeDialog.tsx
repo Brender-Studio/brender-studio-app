@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { useEffect, useState } from "react"
-import splash from "@/assets/banner/banner-temp.jpg"
+import splash from "@/assets/splash-xuliban.jpg"
 import { open } from "@tauri-apps/api/shell"
 import { useLocation } from "react-router-dom"
 
@@ -24,7 +24,7 @@ const WelcomeDialog = () => {
     }
 
     const handleOpenArtistSplash = () => {
-        const url = "https://www.artstation.com/suryamurugesan"
+        const url = "https://www.artstation.com/xuliban-productions1"
         open(url)
     }
 
@@ -50,7 +50,7 @@ const WelcomeDialog = () => {
                             className="text-muted-foreground shadow-lg text-xs absolute bottom-2 right-2 z-[60] hover:underline hover:cursor-pointer"
                             onClick={handleOpenArtistSplash}
                         >
-                           Art by @suryamurugesan
+                           Art by Xuliban
                         </span>
                     </p>
                 </div>
