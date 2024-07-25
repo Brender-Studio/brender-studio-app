@@ -19,14 +19,14 @@ const EnvVarsPy = () => {
             </Section>
 
             <Section title="Accessing environment variables in Python script">
-                <ul className="list-disc pl-6 text-sm text-muted-foreground">
+                <ul className="space-y-2 list-disc pl-6 text-sm text-muted-foreground">
                     <li><code>print(os.environ.get('PROJECT_NAME'))</code></li>
                     <li><code>print(os.environ.get('BLENDER_OUTPUT_FOLDER_PATH'))</code></li>
                 </ul>
             </Section>
 
             <Section title="Output">
-                <ul className="list-disc pl-6 text-sm text-muted-foreground">
+                <ul className="space-y-2 list-disc pl-6 text-sm text-muted-foreground">
                     <li><code>MyProject</code></li>
                     <li><code>/mnt/efs/projects/MyProject/output</code></li>
                 </ul>
