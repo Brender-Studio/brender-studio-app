@@ -1,4 +1,4 @@
-import banner from '../../../assets/banner/banner-temp.jpg';
+import banner from '../../../assets/banner/dani-rovira-vila-dani-scifi-scene.jpg';
 
 const BannerHome = () => {
 
