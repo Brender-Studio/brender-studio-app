@@ -60,7 +60,7 @@ const PythonGuideDialog = () => {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button type="button" className="absolute top-3 right-0 z-[9]" size='icon' variant='ghost'>
+                <Button type="button" className="" size='icon' variant='outline'>
                     <Book size={16} />
                 </Button>
             </DialogTrigger>
