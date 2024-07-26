@@ -22,7 +22,7 @@ With Brender Studio, you can focus on creating, not waiting.
 ## Key Features
 
 - Support for Cycles and Eevee render engines
-- Compatible with Blender 3.0, 3.3, 3.6, 4.0+
+- Compatible with Blender 3.3, 3.6, 4.2+
 - Available for Windows, MacOS, and Linux
 - Customizable scene settings
 - Batch rendering
