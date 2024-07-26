@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button'
-import { Book, CreditCard, Github, Globe, Grip, Heart, Settings, Terminal, Youtube } from "lucide-react"
+import { Book, Code2, CreditCard, Github, Globe, Grip, Heart, Settings, Terminal, Youtube } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import DiscordIcon from '../icons/DiscordIcon'
 import { useNavigate } from 'react-router-dom';
@@ -18,7 +18,8 @@ const menuData = [
         items: [
             { icon: CreditCard, text: "Getting Started", url: "https://brenderstudio.com/docs/guides/getting-started" },
             { icon: Book, text: "Documentation", url: "https://brenderstudio.com/docs" },
-            { icon: Globe, text: "Website", url: "https://brenderstudio.com" }
+            { icon: Globe, text: "Website", url: "https://brenderstudio.com" },
+            { icon: Code2, text: "Community Scripts", url: "https://github.com/Brender-Studio/brender-snippets"}
         ]
     },
     {
