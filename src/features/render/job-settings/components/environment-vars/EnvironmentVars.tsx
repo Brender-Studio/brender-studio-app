@@ -50,7 +50,7 @@ const EnvironmentVars = ({ form }: EnvironmentVarsProps) => {
                     <TableRow>
                         <TableHead>Key</TableHead>
                         <TableHead>Value</TableHead>
-                        <TableHead>Actions</TableHead>
+                        <TableHead>Env Type</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -74,7 +74,7 @@ const EnvironmentVars = ({ form }: EnvironmentVarsProps) => {
                             </TableCell>
                             <TableCell>
                                 <p className="text-muted-foreground">
-                                    Default
+                                    Brender Studio
                                 </p>
                             </TableCell>
                         </TableRow>
