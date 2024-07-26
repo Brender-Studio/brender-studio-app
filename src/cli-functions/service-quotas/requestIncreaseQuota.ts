@@ -21,7 +21,7 @@ export async function requestIncreaseQuota(profile: string, region: string, serv
             "json"
         ]);
 
-        console.log('command', command)
+        // console.log('command', command)
 
         let errorOutput = '';
 
@@ -31,14 +31,13 @@ export async function requestIncreaseQuota(profile: string, region: string, serv
 
         const child = await command.execute();
 
-        // console.log('child', child.code, child.stdout.toString(), errorOutput);
 
         if (child.code !== 0) {
-            throw new Error(`Command failed with code ${child.code}. Error: ${errorOutput}`);
+            throw new Error(`Command failed with code ${child.code}. Error: ${child.stderr}`);
         }
 
         const str = child.stdout.toString();
-        console.log('str', str);
+
         const response = JSON.parse(str);
 
         return response;
