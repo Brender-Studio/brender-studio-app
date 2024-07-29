@@ -1,20 +1,20 @@
 import { resolveResource } from "@tauri-apps/api/path";
 import { getDataBlenderScene } from "@/cli-functions/blender/getDataBlenderScene";
 import { modifyAllScenes } from "./modifyAllScenes";
-// import { getCurrentSceneFromAllScenes } from "./getCurrentSceneFromAllScenes";
-import {  Scene } from "../ProjectSettings.types";
+import { getCurrentSceneFromAllScenes } from "./getCurrentSceneFromAllScenes";
+import { Scene } from "../ProjectSettings.types";
 
 interface BlenderData {
     setIsDataLoading: (value: boolean) => void;
     setAllScenes: (scenes: Scene[]) => void;
     blenderExecPath: string;
     selectedPaths: { filePath: string };
-    // setCurrentScene: (scene: Scene[]) => void;
+    setCurrentScene: (scene: Scene[]) => void;
     setErrorBlenderData: (value: string) => void;
 }
 
 export const getBlenderData = async (
-    { setIsDataLoading, setAllScenes, blenderExecPath, selectedPaths, setErrorBlenderData }: BlenderData
+    { setIsDataLoading, setAllScenes, blenderExecPath, setCurrentScene, selectedPaths, setErrorBlenderData }: BlenderData
 ) => {
     try {
         setIsDataLoading(true);
@@ -33,8 +33,8 @@ export const getBlenderData = async (
         // console.log('modifiedData', modifiedData);
 
         setAllScenes(modifiedData);
-        // const scene = await getCurrentSceneFromAllScenes(modifiedData, setCurrentScene);
-        // console.log('scene', scene);
+        const scene = await getCurrentSceneFromAllScenes(modifiedData, setCurrentScene);
+        console.log('scene', scene);
         return modifiedData;
     } catch (error) {
         console.error('Error in getBlenderData:', error);
