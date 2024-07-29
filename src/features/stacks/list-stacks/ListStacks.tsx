@@ -55,7 +55,7 @@ const ListStacks = () => {
             codeBuildNotifications?.forEach((notification) => {
                 data.forEach((stack: Stack) => {
                     if (notification.stackName === stack.StackName) {
-                        console.log('Match found:', notification.stackName, stack.StackName);
+                        // console.log('Match found:', notification.stackName, stack.StackName);
                        
                         removeCodeBuildNotification(notification);
                     }

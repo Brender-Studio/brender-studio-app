@@ -76,7 +76,7 @@ export async function s3toEfs(
 
     } catch (error) {
         if (error instanceof Error) {
-            console.log('error', error.message)
+            // console.log('error', error.message)
             throw error;
         }
     }

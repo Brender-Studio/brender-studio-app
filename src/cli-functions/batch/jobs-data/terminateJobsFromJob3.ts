@@ -83,7 +83,7 @@ export async function terminateJobsFromJob3(job3Id: string, region: string, prof
 
         for (const job of jobsToTerminate) {
             await terminateJob(job.jobId, region, profile);
-            console.log(`Terminating job ${job.jobId}`);
+            // console.log(`Terminating job ${job.jobId}`);
         }
 
         // console.log("Jobs have been terminated successfully.");

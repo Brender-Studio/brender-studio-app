@@ -25,7 +25,6 @@ export const columns: ColumnDef<ComputeEnv>[] = [
         cell: ({ row }) => {
             const openUrl = (id: string) => {
                 const region = id.split(':')[3];
-                console.log('region', region)
                 const url = `https://${region}.console.aws.amazon.com/batch/home?region=${region}#compute-environments/detail/${id}`;
                 open(url);
             };

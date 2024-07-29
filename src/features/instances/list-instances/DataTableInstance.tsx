@@ -60,17 +60,15 @@ export function DataTableInstance<TData extends RowData, TValue>({
         (row) => row.original
     )
 
-    console.log(selectedRows)
 
     const itemsToDelete = selectedRows.map((row) => row.id)
     const itemsToShow = selectedRows.map((row) => row.id)
 
     const handleDelete = async () => {
-        console.log("Deleting", itemsToDelete)
         try {
             setIsLoading(true)
             const res = await terminateInstances(awsRegion, awsProfile, itemsToDelete)
-            console.log(res)
+            // console.log(res)
 
             if (res) {
                 const ec2InstancesQueryKey = ec2Queries.instancesQueryKey(awsRegion!, awsProfile!, currentStack!);

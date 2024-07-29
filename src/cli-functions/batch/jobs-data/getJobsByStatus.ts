@@ -40,7 +40,7 @@ export async function getJobsByStatus(jobQueueName: string, status: string, regi
 
     } catch (error) {
         if (error instanceof Error) {
-            console.log('error', error.message)
+            // console.log('error', error.message)
             throw error;
         }
     }

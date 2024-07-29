@@ -15,9 +15,7 @@ export const columns: ColumnDef<AutoscalingGroupMapped>[] = [
                 const availabilityZones = row.original.availabilityZones;
                 const zonesArray = Array.isArray(availabilityZones) ? availabilityZones : availabilityZones.split(',').map((zone: string) => zone.trim());
                 const awsRegion = zonesArray[0].slice(0, -1);
-                console.log('awsRegion: ', awsRegion);
                 const url = `https://${awsRegion}.console.aws.amazon.com/ec2/home?region=${awsRegion}#AutoScalingGroupDetails:id=${id};view=details`;
-                console.log('url: ', url);
                 open(url);
             };
 

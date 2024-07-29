@@ -25,7 +25,7 @@ interface FileBlendSelectProps {
 
 const FileBlendSelect = ({ form, fieldName, isCustom, label, options, setSelectedPaths, selectedPaths }: FileBlendSelectProps) => {
 
-    console.log('options from select', options)
+    // console.log('options from select', options)
 
     const onValueChange = (value: string) => {
         form.setValue(fieldName, value)

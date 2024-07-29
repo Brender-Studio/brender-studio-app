@@ -13,7 +13,7 @@ export async function syncBucketContents(localPath: string, bucketName: string, 
         }
         const command = new Command('aws-cli', ["s3", syncCommand, `s3://${bucketName}`, localPath, "--profile", profile]);
 
-        console.log('command', command);
+        // console.log('command', command);
         let errorOutput = '';
 
         command.stderr.on('data', data => {
@@ -22,7 +22,7 @@ export async function syncBucketContents(localPath: string, bucketName: string, 
 
         command.stdout.on('data', data => {
             const message = data.toString();
-            console.log('Files Downloaded:', message);
+            // console.log('Files Downloaded:', message);
             updateLogCallback(message);
         });
 

@@ -11,7 +11,6 @@ const ListProfiles = () => {
     const { currentProfile, profiles } = sessionData;
 
     const onProfileChange = (profile: string) => {
-        console.log(profile)
         setSessionData({
             ...sessionData,
             currentProfile: profile,

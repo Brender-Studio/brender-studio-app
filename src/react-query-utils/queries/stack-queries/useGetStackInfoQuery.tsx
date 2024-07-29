@@ -10,7 +10,7 @@ const useGetStackInfoQuery = () => {
 
     // Get the stack ID from the URL
     const stackId = useLocation().pathname.split('/')[2]
-    console.log('Stack ID:', stackId)
+    // console.log('Stack ID:', stackId)
 
     const stackInfoQuery = useQuery({
         queryKey: stackQueries.stackInfoQueryKey(stackId, currentAwsRegion, currentProfile!),

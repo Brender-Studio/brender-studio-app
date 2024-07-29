@@ -40,7 +40,7 @@ const ProjectSettings = ({ form }: ProjectSettingsProps) => {
                 blenderExecPath: blenderExecPath || "",
                 selectedPaths,
                 setAllScenes,
-                setCurrentScene,
+                // setCurrentScene,
                 setErrorBlenderData
             })
 

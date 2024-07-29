@@ -23,8 +23,8 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
               window.location.reload();
               window.location.href = '/'; 
             }}
-            onError={(error, info) => {
-              console.log('info', info)
+            onError={(error) => {
+              // console.log('info', info)
               console.error("Error capturado por ErrorBoundary:", error);
             }}
           >

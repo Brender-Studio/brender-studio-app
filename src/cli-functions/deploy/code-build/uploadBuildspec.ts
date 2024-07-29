@@ -22,10 +22,10 @@ export async function uploadBuildspec(region: string, profile: string) {
 
 
     const buildspecContent = await readTextFile(buildspecPath);
-    console.log('Buildspec content:', buildspecContent);
+    // console.log('Buildspec content:', buildspecContent);
  
     const base64Buildspec = btoa(buildspecContent);
-    console.log('Base64 buildspec:', base64Buildspec);
+    // console.log('Base64 buildspec:', base64Buildspec);
 
     try {
 
@@ -43,10 +43,10 @@ export async function uploadBuildspec(region: string, profile: string) {
         const uploadOutput = await uploadBuildspecCommand.execute();
 
         // Parse JSON to extract commit ID
-        const uploadOutputJson = JSON.parse(uploadOutput.stdout?.toString() || '{}');
-        const codeCommitCommitId = uploadOutputJson.commitId;
+        // const uploadOutputJson = JSON.parse(uploadOutput.stdout?.toString() || '{}');
+        // const codeCommitCommitId = uploadOutputJson.commitId;
 
-        console.log('Code Commit commit ID:', codeCommitCommitId);
+        // console.log('Code Commit commit ID:', codeCommitCommitId);
 
         // console.log('Upload output:', uploadOutput)
 

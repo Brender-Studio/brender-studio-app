@@ -33,7 +33,7 @@ const CardOptions = ({ form, name, vcpus, memory, gpus, gpuQuotas, cpuQuotas }: 
             form.setValue('job_settings.memory', memory);
             form.setValue('job_settings.number_gpus', gpus || '0');
         } else {
-            console.log('No quota available for this instance type.');
+            console.error('No quota available for this instance type.');
         }
     };
 

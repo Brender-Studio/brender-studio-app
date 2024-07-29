@@ -7,7 +7,7 @@ export async function uploadFolder({ bucketName, objectKey, folderPath, currentP
     { bucketName: string, objectKey: string, folderPath: string, currentProfile: string }
 ) {
 
-    console.log('Uploading folder:', folderPath)
+    // console.log('Uploading folder:', folderPath)
 
     // extract last folder name from folder path for linux,windows and mac
     const folderName = folderPath.split(/(\\|\/)/g).pop();

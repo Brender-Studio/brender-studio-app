@@ -43,7 +43,6 @@ const CodebuildNotifications: React.FC = () => {
             <DropdownMenu
                 onOpenChange={(open) => {
                     if (open) {
-                        console.log('Opening dropdown')
                         refetchBuildStatus();
                     }
                 }}

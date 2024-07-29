@@ -56,7 +56,6 @@ const FormDeployStack = () => {
     async function checkStackName(stackName: string) {
         try {
             const res = await doesStackExist('BRENDER-STACK-' + stackName, currentAwsRegion, currentProfile!);
-            console.log('Stack exists:', res);
             if (res) {
                 form.setError('stackName', {
                     type: 'manual',
@@ -66,7 +65,6 @@ const FormDeployStack = () => {
 
             } else {
                 form.clearErrors('stackName');
-                console.log('Stack name is available')
             }
         } catch (error) {
             console.error(error);
@@ -79,8 +77,6 @@ const FormDeployStack = () => {
     }, [currentProfile, currentAwsRegion]);
 
     const handleStackNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log('form errors', form.formState.errors);
-        console.log('form values', form.getValues());
         form.setValue('stackName', e.target.value.toUpperCase(), { shouldValidate: true, })
     }
 

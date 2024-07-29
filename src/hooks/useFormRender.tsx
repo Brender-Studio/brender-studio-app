@@ -51,7 +51,7 @@ const useFormRender = () => {
 
     useEffect(() => {
         if (currentScene && currentScene.length > 0) {
-            console.log('currentScene', currentScene)
+            // console.log('currentScene', currentScene)
             setFormRenderSceneValues(currentScene, form);
 
             Object.entries(validations).forEach(([field, { getValue, validate, errorMessage }]) => {
@@ -67,7 +67,7 @@ const useFormRender = () => {
 
     useEffect(() => {
         return () => {
-            console.log('unmounting form')
+            // console.log('unmounting form')
             clearAllFormStates();
             form.clearErrors()
         };

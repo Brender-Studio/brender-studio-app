@@ -1,7 +1,7 @@
 import { Command } from "@tauri-apps/api/shell";
 
 export async function getCliCreds(profile: string) {
-    console.log(`Getting CLI creds for profile ${profile}...`);
+    // console.log(`Getting CLI creds for profile ${profile}...`);
     
     try {
         // Get the aws_access_key_id 

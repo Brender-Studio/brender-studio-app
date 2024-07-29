@@ -21,7 +21,7 @@ export async function getCodeBuildIds(region: string, profile: string) {
     const ids = parsedOutput.ids || [];
 
     if (ids.length === 0) {
-      console.log(`No builds found in CodeBuild.`);
+      // console.log(`No builds found in CodeBuild.`);
       return false;
     }
 

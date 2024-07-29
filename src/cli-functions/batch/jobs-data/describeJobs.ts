@@ -37,7 +37,7 @@ export async function describeJobs(jobId: string, region: string, profile: strin
     
         } catch (error) {
             if (error instanceof Error) {
-                console.log('error', error.message)
+                // console.log('error', error.message)
                 throw error;
             }
         }

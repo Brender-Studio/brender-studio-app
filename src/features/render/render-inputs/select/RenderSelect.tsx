@@ -30,14 +30,14 @@ const RenderSelect = ({ defaultValue, fieldName, form, label, options, isCustom,
         // if fieldname is scene_name then setCurrentScene where scene_name is equal to value from allScenes
         if (fieldName === "scene_name") {
             const scene = allScenes.filter((scene) => scene.scene_name === value)
-            console.log('scene select field', scene)
+            // console.log('scene select field', scene)
             setCurrentScene(scene)
         }
 
         // detect if fieldName is camera_name and if "" then setformstateerror
 
         if(fieldName === "camera_name") {
-            console.log('camera name', value)
+            // console.log('camera name', value)
             if (value === "") {
                 form.setError('camera_name', {
                     type: 'manual',
@@ -49,7 +49,7 @@ const RenderSelect = ({ defaultValue, fieldName, form, label, options, isCustom,
 
         // if engine is selected then set engine value to form
         if (fieldName === "engine") {
-            console.log('engine select', value)
+            // console.log('engine select', value)
             if (value === 'BLENDER_EEVEE') {
                 // console.log('eevee config here')
                 // form.setValue('eevee_config', {
@@ -62,7 +62,7 @@ const RenderSelect = ({ defaultValue, fieldName, form, label, options, isCustom,
                 //     },
                 // })
             } else if (value === 'CYCLES') {
-                console.log('cycles config here')
+                // console.log('cycles config here')
                 form.setValue('cycles_config', {
                     denoise_config: {
                         algorithm: currentScene[0]?.cycles_config.denoise_config.algorithm || 'OPENIMAGEDENOISE',

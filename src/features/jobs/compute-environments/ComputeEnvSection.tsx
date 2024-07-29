@@ -10,7 +10,7 @@ const ComputeEnvSection = () => {
 
     const { data, isLoading } = useGetComputeEnvQuery();
 
-    console.log('data from useGetComputeEnvQuery', data)
+    // console.log('data from useGetComputeEnvQuery', data)
 
     return (
         <>

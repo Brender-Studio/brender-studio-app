@@ -33,7 +33,7 @@ const DeleteObjectDialog = ({ isFolderItem, objectKey, currentPathname, bucketNa
 
 
     const handleDelete = async () => {
-        console.log('Deleting:', objectKey);
+        // console.log('Deleting:', objectKey);
         try {
             setState((prevState) => ({ ...prevState, isLoading: true }));
 

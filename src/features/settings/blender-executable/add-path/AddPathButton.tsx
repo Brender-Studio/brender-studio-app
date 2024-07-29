@@ -18,7 +18,7 @@ const AddPathButton = ({ setSelectedPath, selectedPath }: AddPathButtonProps) =>
         });
 
         if (selected === null) {
-            console.log('No path selected');
+            console.error('No path selected');
         } else {
             // console.log(selected);
             setSelectedPath(selected as string);

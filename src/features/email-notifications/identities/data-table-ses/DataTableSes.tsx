@@ -63,7 +63,6 @@ export function DataTableSes<TData, TValue>({
     const itemsToShow = selectedRows.map((row: SesIdentityRow) => row.identity)
 
     const handleDelete = async () => {
-        console.log("Deleting", itemsToDelete)
         try {
             setIsLoading(true)
             await deleteIdentities(itemsToDelete, awsRegion, awsProfile)

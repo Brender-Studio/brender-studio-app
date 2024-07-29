@@ -41,7 +41,7 @@ const RenderJobFields = ({ form, currentPathname }: RenderJobFieldsProps) => {
 
 
     if (isError) {
-        console.log('JobDefinitions error: ', error)
+        // console.log('JobDefinitions error: ', error)
         toast({
             title: 'Error',
             description: error.message,

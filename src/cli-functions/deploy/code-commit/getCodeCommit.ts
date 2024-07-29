@@ -14,7 +14,7 @@ export async function getCodeCommit(region: string, profile: string) {
         ]);
 
         const repositoryOutput = await getRepositoryCommand.execute();
-        console.log('Repository Output:', repositoryOutput);
+        // console.log('Repository Output:', repositoryOutput);
         const repositoryStderr = repositoryOutput.stderr?.toString() || '';
 
         if (repositoryOutput.code !== 0) {

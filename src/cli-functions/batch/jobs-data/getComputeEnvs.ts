@@ -34,7 +34,7 @@ export async function getComputeEnvs(region: string, profile: string, stackName:
 
     } catch (error) {
         if (error instanceof Error) {
-            console.log('error', error.message)
+            // console.log('error', error.message)
             throw error;
         }
     }

@@ -42,11 +42,9 @@ const AddProfileDialog = () => {
     })
 
     async function onSubmit(values: z.infer<typeof cliProfileSchema>) {
-        console.log(values)
         try {
             setIsLoading(true)
             const res = await createProfile(values.profileName, values.accessKey, values.secretKey)
-            console.log(res)
             if (res) {
                 setSessionData({
                     ...sessionData,

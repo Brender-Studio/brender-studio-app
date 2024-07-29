@@ -30,7 +30,6 @@ export const columns: ColumnDef<JobDefinition>[] = [
             const openUrl = (id: string) => {
                 // Extract region from arn
                 const region = id.split(':')[3];
-                console.log('region', region)
                 const url = `https://${region}.console.aws.amazon.com/batch/home?region=${region}#job-definition/ec2/detail/${id}`;
                 open(url);
             };

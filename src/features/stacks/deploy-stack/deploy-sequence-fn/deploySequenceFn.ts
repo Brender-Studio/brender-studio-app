@@ -48,37 +48,37 @@ export async function deploySequenceFn({ formData, progressCallback }: DeploySeq
 
         progressCallback(PROGRESS_STEPS.CHECKING_SES_TEMPLATES);
         try {
-            console.log('Checking if sesRenderCompletedTemplate exists...');
+            // console.log('Checking if sesRenderCompletedTemplate exists...');
             sesRenderCompletedTemplateExists = await checkSesTemplate(formData.region, formData.profile, sesRenderOkTemplate);
         } catch (error) {
             throw new Error('Error checking sesRenderCompletedTemplate');
         }
 
         // we need template name , json path template, region and profile
-        const templateName = deployConfig.ses.renderCompletedTemplate
+        // const templateName = deployConfig.ses.renderCompletedTemplate
         // console.log('Uploading template...', templateName)
         const jsonPathTemplate = await resolveResource("resources/ses-templates/render_completed.json");
         // console.log('jsonPathTemplate:', jsonPathTemplate);
 
 
         if (!sesRenderCompletedTemplateExists) {
-            console.log('sesRenderCompletedTemplate does not exist, creating it...');
-            const res = await uploadTemplate(jsonPathTemplate, formData.region, formData.profile);
-            console.log('Template uploaded:', res)
+            // console.log('sesRenderCompletedTemplate does not exist, creating it...');
+            await uploadTemplate(jsonPathTemplate, formData.region, formData.profile);
+            // console.log('Template uploaded:', res)
             progressCallback(PROGRESS_STEPS.CREATING_SES_TEMPLATE);
         } else {
-            console.log('sesRenderCompletedTemplate exists, updating it...');
-            const res = await updateTemplate(templateName, jsonPathTemplate, formData.region, formData.profile);
-            console.log('Template updated:', res)
+            // console.log('sesRenderCompletedTemplate exists, updating it...');
+            await updateTemplate(jsonPathTemplate, formData.region, formData.profile);
+            // console.log('Template updated:', res)
             progressCallback(PROGRESS_STEPS.CREATING_SES_TEMPLATE);
         }
 
         let sesRenderFailedTemplateExists = false;
 
         const sesRenderFailedTemplate = deployConfig.ses.renderFailedTemplate;
-        
+
         try {
-            console.log('Checking if sesRenderFailedTemplate exists...');
+            // console.log('Checking if sesRenderFailedTemplate exists...');
             sesRenderFailedTemplateExists = await checkSesTemplate(formData.region, formData.profile, sesRenderFailedTemplate);
         } catch (error) {
             throw new Error('Error checking sesRenderFailedTemplate');
@@ -89,12 +89,12 @@ export async function deploySequenceFn({ formData, progressCallback }: DeploySeq
         // console.log('jsonPathFailedTemplate:', jsonPathFailedTemplate);
 
         if (!sesRenderFailedTemplateExists) {
-            const res = await uploadTemplate(jsonPathFailedTemplate, formData.region, formData.profile);
-            console.log('Template uploaded:', res)
+            await uploadTemplate(jsonPathFailedTemplate, formData.region, formData.profile);
+            // console.log('Template uploaded:', res)
             progressCallback(PROGRESS_STEPS.CREATING_SES_TEMPLATE);
         } else {
-            const res = await updateTemplate(sesRenderFailedTemplate, jsonPathFailedTemplate, formData.region, formData.profile);
-            console.log('Template updated:', res)
+            await updateTemplate(jsonPathFailedTemplate, formData.region, formData.profile);
+            // console.log('Template updated:', res)
             progressCallback(PROGRESS_STEPS.CREATING_SES_TEMPLATE);
         }
 
@@ -105,7 +105,7 @@ export async function deploySequenceFn({ formData, progressCallback }: DeploySeq
         let codeBuildRoleExists = false;
         try {
             codeBuildRoleExists = await getCodeBuildRole(formData.region, formData.profile);
-            console.log('Code Build Role exists:', codeBuildRoleExists);
+            // console.log('Code Build Role exists:', codeBuildRoleExists);
         } catch (error) {
             console.error('Error checking Code Build Role:', error);
         }
@@ -113,15 +113,15 @@ export async function deploySequenceFn({ formData, progressCallback }: DeploySeq
         if (!codeBuildRoleExists) {
             try {
                 progressCallback(PROGRESS_STEPS.CREATING_CODE_BUILD_ROLE);
-                console.log('Creating Code Build Role...');
+                // console.log('Creating Code Build Role...');
                 await createCodeBuildServiceRole(formData.region, formData.profile);
-                console.log('Code Build Role created');
+                // console.log('Code Build Role created');
             } catch (error) {
                 console.error('Error creating Code Build Role:', error);
                 throw new Error('Error creating Code Build Role');
             }
         } else {
-            console.log('Code Build Role already exists');
+            // console.log('Code Build Role already exists');
             progressCallback(PROGRESS_STEPS.CREATING_CODE_BUILD_ROLE);
         }
 
@@ -131,7 +131,7 @@ export async function deploySequenceFn({ formData, progressCallback }: DeploySeq
         let codeCommitExists = false;
         try {
             codeCommitExists = await getCodeCommit(formData.region, formData.profile);
-            console.log('Code Commit exists:', codeCommitExists);
+            // console.log('Code Commit exists:', codeCommitExists);
         } catch (error) {
             console.error('Error checking Code Commit:', error);
         }
@@ -139,12 +139,12 @@ export async function deploySequenceFn({ formData, progressCallback }: DeploySeq
         if (!codeCommitExists) {
             try {
                 progressCallback(PROGRESS_STEPS.CREATING_CODE_COMMIT);
-                console.log('Creating Code Commit...');
+                // console.log('Creating Code Commit...');
                 await createCodeCommit(formData.region, formData.profile);
-                console.log('Code Commit created');
+                // console.log('Code Commit created');
                 progressCallback(PROGRESS_STEPS.UPLOADING_BUILDSPEC_YML);
                 await uploadBuildspec(formData.region, formData.profile);
-                console.log('Buildspec.yml uploaded');
+                // console.log('Buildspec.yml uploaded');
             } catch (error) {
                 console.error('Error creating Code Commit:', error);
                 throw new Error(`${(error as Error).message}`);
@@ -152,7 +152,7 @@ export async function deploySequenceFn({ formData, progressCallback }: DeploySeq
         } else {
             progressCallback(PROGRESS_STEPS.CREATING_CODE_COMMIT);
             progressCallback(PROGRESS_STEPS.UPLOADING_BUILDSPEC_YML);
-            console.log('Code Commit already exists');
+            // console.log('Code Commit already exists');
         }
 
         // 3. Check if Code Build Project exists, if not, execute createCodeBuild(region) to create the Code Build project in the region
@@ -161,7 +161,7 @@ export async function deploySequenceFn({ formData, progressCallback }: DeploySeq
         let codeBuildExists = false;
         try {
             codeBuildExists = await getCodeBuild(formData.region, formData.profile);
-            console.log('Code Build exists:', codeBuildExists);
+            // console.log('Code Build exists:', codeBuildExists);
         } catch (error) {
             console.error('Error checking Code Build:', error);
             throw new Error(`${(error as Error).message}`);
@@ -170,21 +170,21 @@ export async function deploySequenceFn({ formData, progressCallback }: DeploySeq
         if (!codeBuildExists) {
             try {
                 progressCallback(PROGRESS_STEPS.CREATING_CODE_BUILD);
-                console.log('Creating Code Build...');
+                // console.log('Creating Code Build...');
                 await createCodeBuild(formData.region, formData.profile);
-                console.log('Code Build created');
+                // console.log('Code Build created');
             } catch (error) {
                 console.error('Error creating Code Build:', error);
                 throw new Error(`${(error as Error).message}`);
             }
         } else {
             progressCallback(PROGRESS_STEPS.CREATING_CODE_BUILD);
-            console.log('Code Build already exists');
+            // console.log('Code Build already exists');
         }
 
         // 4. Start the Code Build project
 
-        console.log('Starting Code Build...');
+        // console.log('Starting Code Build...');
         progressCallback(PROGRESS_STEPS.STARTING_CODE_BUILD);
         const startBuildTask = await startBuild(formData.region, formData.profile, formData.stackName, formData.isPrivate, blenderVersionsString, formData.maxvCpus, formData.spotBidPercentage);
         // console.log('Code Build started:', startBuildTask);

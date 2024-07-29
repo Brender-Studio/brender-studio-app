@@ -7,9 +7,9 @@ import { Command } from "@tauri-apps/api/shell";
 
 // args fn: templateName, templatePath, region, profile
 
-export async function updateTemplate(templateName: string, templatePath: string, region: string, profile: string) {
+export async function updateTemplate( templatePath: string, region: string, profile: string) {
 
-    console.log('Updating template...', templateName)
+    // console.log('Updating template...', templateName)
     
     try {
         const updateTemplateCommand = new Command('aws-cli', [

@@ -42,7 +42,7 @@ const ButtonTerminateJobs = ({ jobId3 }: ButtonTerminateJobsProps) => {
                 variant='destructive'
                 size={'sm'}
                 onClick={() => {
-                    console.log('Terminating job', jobId3)
+                    // console.log('Terminating job', jobId3)
                     handleTerminate()
                 }}
                 disabled={isLoading}

@@ -38,18 +38,18 @@ const DropdownCardObject = ({ isFolderItem, objectKey, bucketName, currentPathna
     const objectPath = isFolderItem ? `${objectKey}/` : objectKey;
 
     const buildAWSConsoleLink = useCallback(() => {
-        console.log('objectPath:', objectPath);
-        console.log('splitPathname:', splitPathname);
+        // console.log('objectPath:', objectPath);
+        // console.log('splitPathname:', splitPathname);
         let pathPrefix = isFolderItem ? 'buckets' : 'object';
         let pathSuffix = currentPathname === '/renders' ? '' : '/' + splitPathname.slice(2).join('/');
         pathSuffix = pathSuffix.startsWith('/') ? pathSuffix.substring(1) : pathSuffix;
 
         // Verify if the pathSuffix is empty or just "/" to avoid adding an extra "/" in the URL
         if (pathSuffix === '' || pathSuffix === '/') {
-            console.log('pathSuffix is empty or just "/"');
+            // console.log('pathSuffix is empty or just "/"');
             return `https://${currentAwsRegion}.console.aws.amazon.com/s3/${pathPrefix}/${bucketName}?region=${currentAwsRegion}&bucketType=general&prefix=${objectPath}`;
         } else {
-            console.log('pathSuffix:', pathSuffix);
+            // console.log('pathSuffix:', pathSuffix);
             return `https://${currentAwsRegion}.console.aws.amazon.com/s3/${pathPrefix}/${bucketName}?region=${currentAwsRegion}&bucketType=general&prefix=${pathSuffix}/${objectPath}`;
         }
     }, [currentPathname, splitPathname, bucketName, objectPath, isFolderItem, currentAwsRegion]);
@@ -58,7 +58,7 @@ const DropdownCardObject = ({ isFolderItem, objectKey, bucketName, currentPathna
     const openAWSConsole = useCallback((e: { stopPropagation: () => void; }) => {
         e.stopPropagation();
         const link = buildAWSConsoleLink();
-        console.log('awsLinkConsole:', link);
+        // console.log('awsLinkConsole:', link);
         open(link);
     }, [buildAWSConsoleLink]);
 

@@ -11,7 +11,7 @@ export async function createCodeBuild(region: string, profile: string) {
 
         awsAccountId = await getUserAwsId(profile);
 
-        console.log('AWS Account ID:', awsAccountId)
+        // console.log('AWS Account ID:', awsAccountId)
 
         if (!awsAccountId) {
             throw new Error(`No AWS Account ID found.`);
