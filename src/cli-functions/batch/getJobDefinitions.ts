@@ -39,7 +39,7 @@ export async function getJobDefinitions(stackName: string, region: string, profi
 
     } catch (error) {
         if (error instanceof Error) {
-            console.log('error', error.message)
+            // console.log('error', error.message)
             throw error;
         }
     }

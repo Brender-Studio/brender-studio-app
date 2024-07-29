@@ -88,7 +88,7 @@ export async function getJobExecutions(region: string, profile: string, stackNam
 
     } catch (error) {
         if (error instanceof Error) {
-            console.log('error', error.message)
+            // console.log('error', error.message)
             throw error;
         }
     }

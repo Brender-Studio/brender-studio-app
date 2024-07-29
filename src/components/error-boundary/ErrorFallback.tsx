@@ -11,7 +11,6 @@ interface ErrorFallbackProps {
 const ErrorFallback = ({ error, resetErrorBoundary }: ErrorFallbackProps) => {
     const navigate = useNavigate()
 
-    console.log(error.message)
 
     const handleRealoadAnRestoreLocalStorage = () => {
         localStorage.clear()

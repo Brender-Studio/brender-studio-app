@@ -22,7 +22,7 @@ interface DataTableEcrProps<TData, TValue> {
 
 interface EcrImageRow {
   imageDigest: string;
-  imageTags: string; 
+  imageTags: string;
 }
 
 export function DataTableEcr<TData, TValue>({
@@ -59,11 +59,10 @@ export function DataTableEcr<TData, TValue>({
   const itemsToShow = selectedRows.map((row: EcrImageRow) => row.imageTags || row.imageDigest)
 
   const handleDelete = async () => {
-    console.log("Deleting", itemsToDelete)
     try {
       setIsLoadingButton(true)
-      const res = await deleteEcrImages(awsRegion, awsProfile, itemsToDelete)
-      console.log(res)
+      await deleteEcrImages(awsRegion, awsProfile, itemsToDelete)
+      // console.log(res)
       await queryClient.refetchQueries({
         queryKey: ['ecr-images', awsRegion],
       })

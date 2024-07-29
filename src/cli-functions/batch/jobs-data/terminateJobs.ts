@@ -40,14 +40,14 @@ export async function terminateJobs(jobIds: string[], region: string, profile: s
                 const job = JSON.parse(stdout);
                 console.log('job', job);
             } else {
-                console.log('No se recibió ningún dato JSON en la salida stdout');
+                console.log('No output from terminate-job command');
             }
         }
         return jobIds;
 
     } catch (error) {
         if (error instanceof Error) {
-            console.log('error', error.message)
+            // console.log('error', error.message)
             throw error;
         }
     }

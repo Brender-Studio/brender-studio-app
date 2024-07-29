@@ -42,7 +42,6 @@ const AppMenuDropdown = () => {
     const navigate = useNavigate()
 
     const handleItemClick = (url: string) => {
-        console.log(url)
         if (url.startsWith('http')) {
             open(url)
         } else {

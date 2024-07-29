@@ -154,7 +154,7 @@ function getJobSettings(values: z.infer<typeof formRenderSchema>) {
 }
 
 function validateJobSettings(jobSettings: JobSettings) {
-    console.log('jobSettings:', jobSettings)
+    // console.log('jobSettings:', jobSettings)
     const { jobQueue, jobDefinition, jobAttempts, jobTimeout, memory, vCpus } = jobSettings;
     if (!jobQueue || !jobDefinition || !jobAttempts || !jobTimeout || !memory || !vCpus) {
         throw new Error('Job settings not provided');

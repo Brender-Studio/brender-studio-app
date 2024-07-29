@@ -69,8 +69,7 @@ const CodePreview = ({ form }: CodePreviewProps) => {
 
     const handleCopyScript = async (scriptText: string) => {
         await writeText(scriptText)
-        const clipboard = await readText()
-        console.log('Clipboard:', clipboard)
+        await readText()
         toast({
             title: 'Copied to clipboard',
             description: 'The Python script has been copied to your clipboard',

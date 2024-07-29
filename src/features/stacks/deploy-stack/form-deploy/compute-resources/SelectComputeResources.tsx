@@ -15,7 +15,7 @@ const SelectComputeResources = ({ form }: SelectComputeResourcesProps) => {
   const [selectedOption, setSelectedOption] = useState(computeOptions[1].type);
 
   const onClickSetValues = (option: Option) => {
-    console.log("Setting values for option:", option.type);
+    // console.log("Setting values for option:", option.type);
     if (option.type !== 'custom') {
       form.setValue('maxvCpus', {
         onDemandCPU: option.maxvCpus.onDemandCPUs,

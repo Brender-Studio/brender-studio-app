@@ -27,18 +27,13 @@ const PresignedUrlDialog = ({ objectKey, currentPathname, bucketName, currentAws
     const [expirationTime, setExpirationTime] = useState('')
     const [url, setUrl] = useState('')
 
-    console.log('currentPathname:', currentPathname)
     const cleanPathname = currentPathname.replace('/renders', '');
-
-    console.log('objectKey:', objectKey)
 
     // clean path + objectKey
     let objectPath = cleanPathname;
     if (objectKey !== '') {
         objectPath += `/${objectKey}`;
     }
-
-    console.log('objectPath:', objectPath)
 
     const generateUrlMutation = useMutation({
         mutationFn: async () => {

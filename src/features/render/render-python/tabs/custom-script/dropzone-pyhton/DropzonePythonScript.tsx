@@ -73,8 +73,6 @@ const DropzonePythonScript = ({ form }: DropzonePythonScriptProps) => {
       }
     } catch (error) {
       console.error(error);
-    } finally {
-      console.log("Dialog closed")
     }
   };
 

@@ -34,7 +34,6 @@ const Ec2Notifications = () => {
             <DropdownMenu
                 onOpenChange={(open) => {
                     if (open) {
-                        console.log('Opening dropdown')
                         refetchRunningEc2();
                     }
                 }}

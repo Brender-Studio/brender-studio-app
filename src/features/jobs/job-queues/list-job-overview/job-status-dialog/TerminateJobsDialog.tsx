@@ -45,12 +45,12 @@ const TerminateJobsDialog = ({ openDialog, setOpenDialog, title, description, jo
             })
 
             if (response) {
-                console.log('jobs terminated')
+                // console.log('jobs terminated')
                 setOpenDialog(false)
                 setIsTerminating(false)
             }
         } catch (error) {
-            console.log('error', error)
+            console.error('error', error)
         } finally {
             setOpenDialog(false)
             setIsTerminating(false)

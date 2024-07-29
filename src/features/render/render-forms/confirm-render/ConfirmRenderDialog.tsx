@@ -81,8 +81,8 @@ const ConfirmRenderDialog = ({ openDialog, setOpenDialog, form, title, descripti
         return new Promise<void>((resolve) => {
             setTimeout(async () => {
                 setSubmitting(true);
-                const res = await submitJobSequence({ values, bucketName, currentProfile: currentProfile || '', currentAwsRegion, progressCallback });
-                console.log('res 2', res);
+                await submitJobSequence({ values, bucketName, currentProfile: currentProfile || '', currentAwsRegion, progressCallback });
+                // console.log('res 2', res);
                 resolve();
             }, 1000);
         });
@@ -92,9 +92,6 @@ const ConfirmRenderDialog = ({ openDialog, setOpenDialog, form, title, descripti
     async function onSubmit(values: z.infer<typeof formRenderSchema>) {
         setSubmitting(true);
         try {
-            console.log('values', values);
-
-
             await callJobSubmitFn(values);
             toast({
                 title: 'Success',
@@ -133,12 +130,6 @@ const ConfirmRenderDialog = ({ openDialog, setOpenDialog, form, title, descripti
             <Dialog open={openDialog}
                 // onOpenChange={setOpenDialog}
                 onOpenChange={(open) => {
-                    // form isvalid
-                    console.log('form.isValid', form.formState.isValid);
-                    // form values
-                    console.log('form.getValues()', form.getValues());
-                    // form errors
-                    console.log('form.errors', form.formState.errors);
                     if (open || (!open && !isSubmitting)) {
                         setOpenDialog(open);
                     }

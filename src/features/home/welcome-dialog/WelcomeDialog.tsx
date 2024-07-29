@@ -29,7 +29,6 @@ const WelcomeDialog = () => {
     }
 
     const handleCheckboxChange = () => {
-        console.log("Checkbox changed")
         setIsChecked(!isChecked)
         localStorage.setItem("hideWelcomeDialog", JSON.stringify(!isChecked))
     }

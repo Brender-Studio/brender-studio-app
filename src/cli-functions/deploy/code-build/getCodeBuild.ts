@@ -13,7 +13,7 @@ export async function getCodeBuild(region: string, profile: string) {
 
     const projectOutput = await getProjectCommand.execute();
 
-    console.log('Project Output:', projectOutput);
+    // console.log('Project Output:', projectOutput);
     const projectStderr = projectOutput.stderr?.toString() || '';
 
     if (projectOutput.code !== 0) {
@@ -26,7 +26,7 @@ export async function getCodeBuild(region: string, profile: string) {
     const projectsNotFound = parsedOutput.projectsNotFound || [];
 
     if (projectsNotFound.length > 0) {
-      console.log(`Project '${deployConfig.codeBuild.projectName}' not found in CodeBuild.`);
+      // console.log(`Project '${deployConfig.codeBuild.projectName}' not found in CodeBuild.`);
       return false;
     }
 

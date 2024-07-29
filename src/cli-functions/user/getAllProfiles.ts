@@ -22,7 +22,7 @@ export async function getAllAWSProfiles(): Promise<string[] | string | undefined
         const cleanedOutput = cleanOutputProfiles(childOutput);
 
         if (cleanedOutput === undefined) {
-            console.log('No output from command');
+            // console.log('No output from command');
             return []; 
         }
         // console.log('Cleaned output:', cleanedOutput);

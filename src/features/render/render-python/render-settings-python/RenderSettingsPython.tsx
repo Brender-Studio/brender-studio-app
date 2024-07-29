@@ -18,7 +18,6 @@ const RenderSettingsPython = ({ form, sectionType }: RenderSettingsPythonProps) 
 
 
     useEffect(() => {
-        console.log('changing type to', sectionType)
         form.setValue('type', sectionType)
     }, [sectionType])
 

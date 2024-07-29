@@ -7,10 +7,10 @@ export async function deleteObject({ bucketName, objectPath, isFolderItem, curre
     let command: Command | null = null;
 
     if (isFolderItem) {
-        console.log('Deleting folder:', objectPath)
+        // console.log('Deleting folder:', objectPath)
         command = new Command('aws-cli', ['s3', 'rm', `s3://${bucketName}/${objectPath}/`, '--recursive', '--profile', currentProfile]);
     } else {
-        console.log('Deleting object:', objectPath)
+        // console.log('Deleting object:', objectPath)
         command = new Command('aws-cli', ['s3', 'rm', `s3://${bucketName}/${objectPath}`, '--profile', currentProfile]);
     }
 

@@ -10,7 +10,7 @@ const useGetComputeEnvQuery = () => {
 
     const computeEnvQueryKey = jobQueries.computeEnvQueryKey(currentAwsRegion!, currentProfile!, currentStack!);
 
-    console.log('computeEnvQueryKey', computeEnvQueryKey)
+    // console.log('computeEnvQueryKey', computeEnvQueryKey)
 
     const computeEnvQuery = useQuery({
         queryKey: computeEnvQueryKey,

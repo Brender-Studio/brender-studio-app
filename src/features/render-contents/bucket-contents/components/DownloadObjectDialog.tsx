@@ -55,7 +55,7 @@ const DownloadObjectDialog = ({ objectKey, isFolderItem, setState, currentPathna
             // in /renders : "s3://brender-bucket-s3-xxx//bucket-box-imgs", duplicated slashes (issue with the bucket path)
             const bucketPath = currentPathname.split('/').slice(2).join('/');
             const fullPath = currentPathname === '/renders' ? bucketName + bucketPath + '/' + objectKey : bucketName + '/' + bucketPath + '/' + objectKey;
-            console.log('fullPath:', fullPath);
+            // console.log('fullPath:', fullPath);
             
             // This is the path where the file will be downloaded (selectedPath + objectKey): /home/username/Downloads/folder-name or /home/username/Downloads/file-name
             const folderLocalPath = selectedPath + '/' + objectKey;
