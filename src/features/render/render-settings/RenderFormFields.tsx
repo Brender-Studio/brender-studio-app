@@ -107,7 +107,7 @@ const RenderFormFields = ({ form, sectionType }: RenderFormFieldsProps) => {
                                 {renderSelectField("output.output_format", "Output Format", ['BMP', 'IRIS', 'PNG', 'JPEG', 'JPEG2000', 'TARGA', 'TARGA_RAW', 'CINEON', 'DPX', 'OPEN_EXR_MULTILAYER', 'OPEN_EXR', 'HDR', 'TIFF', 'WEBP'], scene.output.output_format)}
                                 {renderInputField("output.compression", "Compression (%)", "number", "Compression", scene.output.compression, 0, 100)}
                                 {renderSelectField("output.color.color_mode", "Color Mode", ['BW', 'RGB', 'RGBA'], scene.output.color.color_mode)}
-                                {renderSelectField("output.color.color_depth", "Color Depth", ["8", "16"], scene.output.color.color_depth)}
+                                {renderSelectField("output.color.color_depth", "Color Depth", ["8", "16", "32"], scene.output.color.color_depth)}
                                 {renderCheckboxField("use_compositor", "Use Compositor", scene.use_compositor)}
                                 {renderCheckboxField("use_sequencer", "Use Sequencer", scene.use_sequencer)}
                                 {renderCheckboxField("use_stamp", "Stamp Metadata", scene.use_stamp)}

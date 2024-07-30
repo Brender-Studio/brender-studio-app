@@ -11,6 +11,7 @@ import { Scene } from "../../project-settings/ProjectSettings.types"
 type FormRenderSchema = z.infer<typeof formRenderSchema>;
 type FieldName = keyof FormRenderSchema;
 
+
 interface RenderSelectProps {
     form: UseFormReturn<z.infer<typeof formRenderSchema>>
     fieldName: FieldName
@@ -36,7 +37,7 @@ const RenderSelect = ({ defaultValue, fieldName, form, label, options, isCustom,
 
         // detect if fieldName is camera_name and if "" then setformstateerror
 
-        if(fieldName === "camera_name") {
+        if (fieldName === "camera_name") {
             // console.log('camera name', value)
             if (value === "") {
                 form.setError('camera_name', {
@@ -97,6 +98,36 @@ const RenderSelect = ({ defaultValue, fieldName, form, label, options, isCustom,
         form.setValue(fieldName, value)
     }
 
+    const formatColorDepth: { [key: string]: number | number[] } = {
+        BMP: 8,
+        IRIS: [8, 16],
+        PNG: [8, 16],
+        JPEG: 8,
+        JPEG2000: [8, 12, 16],
+        TARGA: [8, 16],
+        TARGA_RAW: [8, 16],
+        CINEON: [8, 10, 12, 16],
+        DPX: [8, 10, 12, 16],
+        OPEN_EXR: [16, 32],
+        OPEN_EXR_MULTILAYER: [16, 32],
+        // HDR: [32],
+        TIFF: [8, 16, 32],
+        WEBP: [8],
+    };
+
+
+    const isOptionDisabled = (option: string) => {
+        const currentValue = form.watch(fieldName);
+        console.log('current value', currentValue)
+        // Example logic to disable options based on the current form value and file format
+        if ((fieldName === "output.color.color_depth" as any) && formatColorDepth[form.watch("output.output_format")]) {
+            const allowedDepths = formatColorDepth[form.watch("output.output_format")];
+            const depthsArray = Array.isArray(allowedDepths) ? allowedDepths : [allowedDepths];
+            return !depthsArray.includes(Number(option));
+        }
+        return false;
+    }
+
     return (
         <FormField
             control={form.control}
@@ -118,7 +149,7 @@ const RenderSelect = ({ defaultValue, fieldName, form, label, options, isCustom,
                         <SelectContent>
                             {options.map((option, index: number) => (
                                 <SelectItem key={index} value={option}
-                                    disabled={currentPathname === '/render-cpu' && option === 'OPTIX' ? true : false}
+                                    disabled={currentPathname === '/render-cpu' && option === 'OPTIX' ? true : false || isOptionDisabled(option)}
                                 >
                                     {option}
                                 </SelectItem>
