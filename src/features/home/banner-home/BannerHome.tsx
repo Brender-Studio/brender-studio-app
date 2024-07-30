@@ -11,9 +11,9 @@ const BannerHome = () => {
                 <img src={banner} alt="banner" className="w-full h-full object-cover" />
                 <div 
                     onClick={() => open('https://www.artstation.com/darovi3d')}
-                    className="cursor-pointer font-semibold absolute bottom-4 right-4 text-white/80 text-sm"
+                    className="cursor-pointer font-semibold absolute bottom-4 right-4 text-white/80 text-xs"
                 >
-                    Art By Dani Rovira
+                    Art By Dani Rovira Vilà
                 </div>
             </div>
         
