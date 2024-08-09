@@ -1,5 +1,5 @@
 import { destroyCodeBuild } from "@/cli-functions/destroy-stack/destroyCodeBuildProject";
-import { destroyCodeCommit } from "@/cli-functions/destroy-stack/destroyCodeCommit";
+import { destroyS3Codebuild } from "@/cli-functions/destroy-stack/destroyS3Codebuild";
 import { destroyStackFn } from "@/cli-functions/destroy-stack/destroyStackFn";
 
 export async function destroyStackSequence({ stackName, region, profile }: { stackName: string; region: string; profile: string }): Promise<boolean> {
@@ -10,10 +10,12 @@ export async function destroyStackSequence({ stackName, region, profile }: { sta
             throw new Error('Failed to destroy stack');
         }
 
-        // 2. Destroy codecommit repository
-        const destroyCodeCommitRepo = await destroyCodeCommit(region, profile);
-        if (!destroyCodeCommitRepo) {
-            throw new Error('Failed to destroy codecommit repository');
+        // 2. Destroy all s3 buckets starting with brender-codebuild-
+
+        const destroyS3Builds = await destroyS3Codebuild(region, profile);
+        console.log('destroyS3Builds:', destroyS3Builds);
+        if (!destroyS3Builds) {
+            throw new Error('Failed to destroy s3 buckets');
         }
 
         // 3. Destroy codebuild project

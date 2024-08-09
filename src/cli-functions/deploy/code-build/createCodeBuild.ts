@@ -3,9 +3,11 @@ import { deployConfig } from "../deploy-config/deployConfig";
 import { getUserAwsId } from "../../user/getUserAwsId";
 
 
-export async function createCodeBuild(region: string, profile: string) {
+export async function createCodeBuild(region: string, profile: string, bucketName: string) {
 
     try {
+
+        console.log('Bucket Name:', bucketName);
 
         let awsAccountId = '';
 
@@ -23,7 +25,9 @@ export async function createCodeBuild(region: string, profile: string) {
             "codebuild",
             "create-project",
             "--name", deployConfig.codeBuild.projectName,
-            "--source", `type=CODECOMMIT,location=https://git-codecommit.${region}.amazonaws.com/v1/repos/${deployConfig.codecommit.repositoryName}`,
+            // "--source", `type=CODECOMMIT,location=https://git-codecommit.${region}.amazonaws.com/v1/repos/${deployConfig.codecommit.repositoryName}`,
+            "--source", `type=s3,location=${bucketName}/buildspec/`,
+            // "--buildspec", deployConfig.codeBuild.buildspec,
             "--artifacts", `type=NO_ARTIFACTS`,
             "--environment", deployConfig.codeBuild.environment,
             "--service-role", `arn:aws:iam::${awsAccountId}:role/AWSCodeBuildServiceRole-${region}`,

@@ -42,8 +42,8 @@ export const computeOptions = [
     maxvCpus: {
       onDemandCPUs: 256,
       spotCPUs: 256,
-      onDemandGPUs: 96,
-      spotGPUs: 192,
+      onDemandGPUs: 256,
+      spotGPUs: 256,
     },
   },
   {
