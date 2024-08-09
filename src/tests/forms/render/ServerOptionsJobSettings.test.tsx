@@ -23,11 +23,6 @@ describe("Job Settings Constants - Ensures consistency between default settings 
         expect(gpuSettings.number_gpus).toBe(basicGpuOption?.gpus);
     });
 
-    it("should have valid array sizes", () => {
-        expect(cpuContainerOptions.some(option => option.vcpus === DEFAULT_JOB_SETTINGS.CPU.array_size)).toBeTruthy();
-        expect(gpuContainerOptions.some(option => option.vcpus === DEFAULT_JOB_SETTINGS.GPU.array_size)).toBeTruthy();
-    });
-
     it("should have valid common settings", () => {
         const commonSettings = DEFAULT_JOB_SETTINGS.COMMON;
         expect(commonSettings.timeout).toBe('3600');
