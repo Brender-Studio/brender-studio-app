@@ -151,7 +151,7 @@ const ConfirmDeployDialog = ({ openDialog, setOpenDialog, form, title, descripti
                                             <KeyValueConfirm keyName="Blender Versions" value={form.getValues().blenderVersions.join(', ')} />
                                         </Card>
                                     </div>
-                                    <div className="space-y-1">
+                                    {/* <div className="space-y-1">
                                         <p className="font-semibold">
                                             Compute resources
                                         </p>
@@ -161,7 +161,7 @@ const ConfirmDeployDialog = ({ openDialog, setOpenDialog, form, title, descripti
                                             <KeyValueConfirm keyName="On-Demand GPUs" value={`${form.getValues().maxvCpus.onDemandGPU} vCPUs`} />
                                             <KeyValueConfirm keyName="Spot GPUs" value={`${form.getValues().maxvCpus.spotGPU} vCPUs`} />
                                         </Card>
-                                    </div>
+                                    </div> */}
                                     <div className="space-y-1">
                                         <p className="font-semibold">
                                             Spot instance bid percentage
