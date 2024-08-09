@@ -117,8 +117,8 @@ const RenderSelect = ({ defaultValue, fieldName, form, label, options, isCustom,
 
 
     const isOptionDisabled = (option: string) => {
-        const currentValue = form.watch(fieldName);
-        console.log('current value', currentValue)
+        // const currentValue = form.watch(fieldName);
+        // console.log('current value', currentValue)
         // Example logic to disable options based on the current form value and file format
         if ((fieldName === "output.color.color_depth" as any) && formatColorDepth[form.watch("output.output_format")]) {
             const allowedDepths = formatColorDepth[form.watch("output.output_format")];

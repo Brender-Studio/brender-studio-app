@@ -1,8 +1,8 @@
 export const DEFAULT_JOB_SETTINGS = {
     GPU: {
       number_gpus: '1',
-      vcpus: '2',
-      memory: '12000',
+      vcpus: '4',
+      memory: '15000',
       array_size: '2'
     },
     CPU: {
