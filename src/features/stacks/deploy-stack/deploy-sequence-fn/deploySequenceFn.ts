@@ -1,10 +1,7 @@
 import { createCodeBuild } from "@/cli-functions/deploy/code-build/createCodeBuild";
 import { createCodeBuildServiceRole } from "@/cli-functions/deploy/code-build/createCodeBuildRole";
-import { createCodeCommit } from "@/cli-functions/deploy/code-commit/createCodeCommit";
 import { getCodeBuild } from "@/cli-functions/deploy/code-build/getCodeBuild";
 import { getCodeBuildRole } from "@/cli-functions/deploy/code-build/getCodeBuildRole";
-import { getCodeCommit } from "@/cli-functions/deploy/code-commit/getCodeCommit";
-import { uploadBuildspec } from "@/cli-functions/deploy/code-build/uploadBuildspec";
 import { startBuild } from "@/cli-functions/deploy/start-build/startBuild";
 import { PROGRESS_STEPS } from "@/constants/progress/progressConstants";
 import { checkSesTemplate } from "@/cli-functions/ses-data/ses-deploy/checkSesTemplate";
@@ -12,6 +9,9 @@ import { deployConfig } from "@/cli-functions/deploy/deploy-config/deployConfig"
 import { resolveResource } from "@tauri-apps/api/path";
 import { uploadTemplate } from "@/cli-functions/ses-data/ses-deploy/uploadTemplate";
 import { updateTemplate } from "@/cli-functions/ses-data/ses-deploy/updateTemplate";
+import { getS3Codebuild } from "@/cli-functions/deploy/s3-codebuild/getS3Codebuild";
+import { createBuildBucket } from "@/cli-functions/deploy/s3-codebuild/createBuildBucket";
+import { uploadBuildspecS3 } from "@/cli-functions/deploy/code-build/uploadBuildspecS3";
 
 
 interface DeploySequenceFnProps {
@@ -127,30 +127,64 @@ export async function deploySequenceFn({ formData, progressCallback }: DeploySeq
 
         // 2. Check if Code Commit exists, if not, execute createCodeCommit(region) to create the Code Commit repository in the region
 
-        progressCallback(PROGRESS_STEPS.CHECKING_CODE_COMMIT);
-        let codeCommitExists = false;
+        // progressCallback(PROGRESS_STEPS.CHECKING_CODE_COMMIT);
+        // let codeCommitExists = false;
+        // try {
+        //     codeCommitExists = await getCodeCommit(formData.region, formData.profile);
+        //     // console.log('Code Commit exists:', codeCommitExists);
+        // } catch (error) {
+        //     console.error('Error checking Code Commit:', error);
+        // }
+
+        // if (!codeCommitExists) {
+        //     try {
+        //         progressCallback(PROGRESS_STEPS.CREATING_CODE_COMMIT);
+        //         // console.log('Creating Code Commit...');
+        //         await createCodeCommit(formData.region, formData.profile);
+        //         // console.log('Code Commit created');
+        //         progressCallback(PROGRESS_STEPS.UPLOADING_BUILDSPEC_YML);
+        //         await uploadBuildspec(formData.region, formData.profile);
+        //         // console.log('Buildspec.yml uploaded');
+        //     } catch (error) {
+        //         console.error('Error creating Code Commit:', error);
+        //         throw new Error(`${(error as Error).message}`);
+        //     }
+        // } else {
+        //     progressCallback(PROGRESS_STEPS.CREATING_CODE_COMMIT);
+        //     progressCallback(PROGRESS_STEPS.UPLOADING_BUILDSPEC_YML);
+        //     // console.log('Code Commit already exists');
+        // }
+
+        // 2.1 Check if S3 codebuild exists, if not, execute createBuildBucket(region, profile) to create the s3 source bucket for codebuild task in the region
+        progressCallback(PROGRESS_STEPS.CHECKING_S3_CODEBUILD);
+        let s3CodeBuildBucket: { exists: boolean; bucketName: string | null } = { exists: false, bucketName: null };
+        let codeBuildBucketName = '';
         try {
-            codeCommitExists = await getCodeCommit(formData.region, formData.profile);
-            // console.log('Code Commit exists:', codeCommitExists);
+            s3CodeBuildBucket = await getS3Codebuild(formData.region, formData.profile);
+            // console.log('S3 Code Build exists:', s3CodeBuildBucket);
+            // console.log('S3 Code Build exists:', s3CodeBuildBucket.exists);
+            // console.log('S3 Code Build exists:', s3CodeBuildBucket.bucketName);
+
         } catch (error) {
             console.error('Error checking Code Commit:', error);
         }
 
-        if (!codeCommitExists) {
+        if (!s3CodeBuildBucket.exists) {
             try {
-                progressCallback(PROGRESS_STEPS.CREATING_CODE_COMMIT);
+                progressCallback(PROGRESS_STEPS.CREATING_S3_CODEBUILD);
                 // console.log('Creating Code Commit...');
-                await createCodeCommit(formData.region, formData.profile);
+                const bucketName = await createBuildBucket(formData.region, formData.profile);
+                codeBuildBucketName = bucketName;
                 // console.log('Code Commit created');
                 progressCallback(PROGRESS_STEPS.UPLOADING_BUILDSPEC_YML);
-                await uploadBuildspec(formData.region, formData.profile);
-                // console.log('Buildspec.yml uploaded');
+                await uploadBuildspecS3(formData.region, formData.profile, bucketName);
+                console.log('Buildspec.yml uploaded');
             } catch (error) {
                 console.error('Error creating Code Commit:', error);
                 throw new Error(`${(error as Error).message}`);
             }
         } else {
-            progressCallback(PROGRESS_STEPS.CREATING_CODE_COMMIT);
+            progressCallback(PROGRESS_STEPS.CREATING_S3_CODEBUILD);
             progressCallback(PROGRESS_STEPS.UPLOADING_BUILDSPEC_YML);
             // console.log('Code Commit already exists');
         }
@@ -171,7 +205,7 @@ export async function deploySequenceFn({ formData, progressCallback }: DeploySeq
             try {
                 progressCallback(PROGRESS_STEPS.CREATING_CODE_BUILD);
                 // console.log('Creating Code Build...');
-                await createCodeBuild(formData.region, formData.profile);
+                await createCodeBuild(formData.region, formData.profile, s3CodeBuildBucket.bucketName || codeBuildBucketName);
                 // console.log('Code Build created');
             } catch (error) {
                 console.error('Error creating Code Build:', error);
