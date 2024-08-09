@@ -15,7 +15,7 @@ import NoProfile from "@/components/custom/alerts/NoProfile"
 import { deployStackSchema } from "@/schemas/deployStackSchema"
 import { useUserSessionStore } from "@/store/useSessionStore"
 import ConfirmDeployDialog from "./confirm-deploy-dialog/ConfirmDeployDialog"
-import SelectComputeResources from "./compute-resources/SelectComputeResources"
+// import SelectComputeResources from "./compute-resources/SelectComputeResources"
 import { computeOptions } from "./compute-resources/computeData"
 import SpotBid from "./spot-bid/SpotBid"
 
@@ -24,7 +24,8 @@ const FormDeployStack = () => {
     const { currentAwsRegion, currentProfile } = getSessionData();
     const [isDialogOpen, setIsDialogOpen] = useState(false)
 
-    const middleCompute = computeOptions.find(option => option.value === 'middle');
+    // const middleCompute = computeOptions.find(option => option.value === 'middle');
+    const highCompute = computeOptions.find(option => option.value === 'high');
 
 
     const initialData = {
@@ -35,10 +36,10 @@ const FormDeployStack = () => {
         profile: currentProfile!,
         terms: false,
         maxvCpus: {
-            onDemandGPU: middleCompute?.maxvCpus.onDemandGPUs,
-            onDemandCPU: middleCompute?.maxvCpus.onDemandCPUs,
-            spotCPU: middleCompute?.maxvCpus.spotCPUs,
-            spotGPU: middleCompute?.maxvCpus.spotGPUs,
+            onDemandGPU: highCompute?.maxvCpus.onDemandGPUs,
+            onDemandCPU: highCompute?.maxvCpus.onDemandCPUs,
+            spotCPU: highCompute?.maxvCpus.spotCPUs,
+            spotGPU: highCompute?.maxvCpus.spotGPUs,
         },
         spotBidPercentage: {
             spotCPU: 80,
@@ -141,7 +142,7 @@ const FormDeployStack = () => {
 
                             <SelectNetworking form={form} />
 
-                            <SelectComputeResources form={form} />
+                            {/* <SelectComputeResources form={form} /> */}
 
                             <SpotBid form={form} />
 
