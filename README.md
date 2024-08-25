@@ -1,13 +1,16 @@
 
 # Brender Studio App
 <p align="center">
-    <img src="./docs/images/logo-brender-studio.svg" alt="Brender Studio Logo" width="100" />
+    <img src="./docs/images/logo-brender-studio.svg" alt="Brender Studio Logo" width="50" />
+</p>
+<p align="center">
+    <img src="./docs/images/banner.png" alt="Brender Studio Logo"  />
 </p>
 
 Brender Studio is a desktop application that allows you to render your Blender projects in the AWS cloud easily.
 
-> [!WARNING]  
-> This project is under development. We are working hard to release the first version of Brender Studio. Stay tuned for updates!
+<!-- > [!WARNING]  
+> This project is under development. We are working hard to release the first version of Brender Studio. Stay tuned for updates! -->
 
 ## What is Brender Studio?
 
@@ -66,14 +69,5 @@ If you have any questions or need help, don't hesitate to:
 - [Discord - Brender Studio](https://discord.gg/z7sBb4J5r5)
 - [Youtube - Brender Studio Channel ](https://www.youtube.com/channel/UCLDB1QSY2579ynddOXv1G7g)
 
-<!-- ## Contributing
-
-Brender Studio is an open-source project. If you want to contribute, please read our contribution guide (link to CONTRIBUTING.md).
-
-## License
-
-Brender Studio is distributed under the [license name] license. See the LICENSE file for more details. -->
-
----
 
 Thank you for using Brender Studio! We hope this tool helps you take your Blender projects to the next level.
