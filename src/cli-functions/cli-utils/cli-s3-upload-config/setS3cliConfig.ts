@@ -31,13 +31,22 @@ export async function setS3cliConfig(region: string, profile: string, size: numb
     // console.log(`Setting S3 CLI config to: ${JSON.stringify(config)}`);
 
     // Array of settings to apply
+    // const configSettings = [
+    //     { key: "default.s3.max_concurrent_requests", value: config.maxConcurrentRequests.toString() },
+    //     { key: "default.s3.multipart_chunksize", value: config.multipartChunksize },
+    //     { key: "default.s3.max_bandwidth", value: config.maxBandwidth },
+    //     { key: "default.s3.multipart_threshold", value: config.multipartThreshold },
+    //     { key: "default.s3.max_queue_size", value: config.maxQueueSize.toString() }
+    // ];
+
     const configSettings = [
-        { key: "default.s3.max_concurrent_requests", value: config.maxConcurrentRequests.toString() },
-        { key: "default.s3.multipart_chunksize", value: config.multipartChunksize },
-        { key: "default.s3.max_bandwidth", value: config.maxBandwidth },
-        { key: "default.s3.multipart_threshold", value: config.multipartThreshold },
-        { key: "default.s3.max_queue_size", value: config.maxQueueSize.toString() }
+        { key: `profile.${profile}.s3.max_concurrent_requests`, value: config.maxConcurrentRequests.toString() },
+        { key: `profile.${profile}.s3.multipart_chunksize`, value: config.multipartChunksize },
+        { key: `profile.${profile}.s3.max_bandwidth`, value: config.maxBandwidth },
+        { key: `profile.${profile}.s3.multipart_threshold`, value: config.multipartThreshold },
+        { key: `profile.${profile}.s3.max_queue_size`, value: config.maxQueueSize.toString() }
     ];
+
 
     // Apply the settings
     for (const setting of configSettings) {

@@ -161,15 +161,16 @@ export async function deploySequenceFn({ formData, progressCallback }: DeploySeq
         let codeBuildBucketName = '';
         try {
             s3CodeBuildBucket = await getS3Codebuild(formData.region, formData.profile);
-            // console.log('S3 Code Build exists:', s3CodeBuildBucket);
+            console.log('S3 Code Build exists:', s3CodeBuildBucket);
             // console.log('S3 Code Build exists:', s3CodeBuildBucket.exists);
             // console.log('S3 Code Build exists:', s3CodeBuildBucket.bucketName);
 
         } catch (error) {
-            console.error('Error checking Code Commit:', error);
+            console.error('Error checking Bucket:', error);
         }
 
         if (!s3CodeBuildBucket.exists) {
+            console.log('S3 Code Build does not exist, creating it...');
             try {
                 progressCallback(PROGRESS_STEPS.CREATING_S3_CODEBUILD);
                 // console.log('Creating Code Commit...');

@@ -9,15 +9,25 @@ export async function createBuildBucket(region: string, profile: string) {
     const timestamp = Date.now();
     const bucketName = `${bucketNamePrefix}-${timestamp}`;
 
+    console.log('Creating bucket:', bucketName);
+
     try {
-        // 1. Create the s3 bucket
-        const createBucketCommand = new Command('aws-cli', [
+        // Define the base command
+        const commandArgs = [
             "s3api",
             "create-bucket",
             "--bucket", bucketName,
-            "--region", region,
             "--profile", profile
-        ]);
+        ];
+
+        // Add region-specific configuration if the region is not us-east-1
+        if (region !== 'us-east-1') {
+            commandArgs.push("--create-bucket-configuration", `LocationConstraint=${region}`);
+        } else {
+            commandArgs.push("--region", region);
+        }
+
+        const createBucketCommand = new Command('aws-cli', commandArgs);
 
         const bucketOutput = await createBucketCommand.execute();
         const bucketStderr = bucketOutput.stderr?.toString() || '';
