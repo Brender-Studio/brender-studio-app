@@ -11,6 +11,8 @@ Brender Studio is a desktop application that allows you to render your Blender p
 
 <!-- > [!WARNING]  
 > This project is under development. We are working hard to release the first version of Brender Studio. Stay tuned for updates! -->
+> [!IMPORTANT]  
+> We have detected issues accessing Blender's `bpy` module when using custom render settings in versions 4.2.0 and later. These issues occur if values are overridden during rendering. The development team is aware of this problem and will address it as soon as possible. For now, we recommend using the default render form configuration without overriding any settings.
 
 ## What is Brender Studio?
 
